@@ -47,8 +47,8 @@ interface PortfolioContextType {
 const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
 
 const STORAGE_LANG_KEY = 'koen_portfolio_language_v2';
-const STORAGE_DATA_KO_KEY = 'koen_portfolio_cms_data_ko_v7';
-const STORAGE_DATA_EN_KEY = 'koen_portfolio_cms_data_en_v7';
+const STORAGE_DATA_KO_KEY = 'koen_portfolio_cms_data_ko_v8';
+const STORAGE_DATA_EN_KEY = 'koen_portfolio_cms_data_en_v8';
 const PASSWORD_KEY = 'koen_portfolio_admin_password_v2';
 // Fallback encoded check so no plaintext password exists in source code
 const INITIAL_HASH = 'MTExMQ==';
@@ -95,10 +95,21 @@ const cleanPortfolioLanguages = (languages: { lang: string; level: string }[] | 
 const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData => {
   const fallback = isKo ? portfolioDataKo : portfolioDataEn;
   if (!data || !data.profile) return fallback;
+
+  // Automatically migrate legacy backgroundOrigin if it's the old default
+  const legacyOrigins = [
+    '일본 출생 · 다문화 성장 (서울 거주 / 도쿄 소통)',
+    'Born in Japan · Global Growth (Seoul / Tokyo)'
+  ];
+  const origin = (!data.profile.backgroundOrigin || legacyOrigins.includes(data.profile.backgroundOrigin))
+    ? fallback.profile.backgroundOrigin
+    : data.profile.backgroundOrigin;
+
   return {
     ...data,
     profile: {
       ...data.profile,
+      backgroundOrigin: origin,
       photoUrl: data.profile.photoUrl || '/profile.png',
       languages: cleanPortfolioLanguages(data.profile.languages, isKo)
     },
@@ -127,7 +138,9 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         'koen_portfolio_cms_data_ko_v5',
         'koen_portfolio_cms_data_en_v5',
         'koen_portfolio_cms_data_ko_v6',
-        'koen_portfolio_cms_data_en_v6'
+        'koen_portfolio_cms_data_en_v6',
+        'koen_portfolio_cms_data_ko_v7',
+        'koen_portfolio_cms_data_en_v7'
       ];
       legacyKeys.forEach(k => localStorage.removeItem(k));
     } catch {

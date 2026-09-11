@@ -23,7 +23,7 @@ export const portfolioDataKo: PortfolioData = {
     aboutIntro: "일본 출생 및 다문화권에서 성장하며 유연한 적응력을 길렀습니다. Google YouTube, iHerb, 글로벌 블록체인 및 e스포츠 구단 등에서 고객 지원과 마케팅·운영을 경험한 뒤, 이를 바탕으로 실행력 있는 서비스 기획 및 UI/UX 설계에 전문성을 집중해 왔습니다.",
     aboutPhilosophy: "기획은 단순한 화면 그리기가 아닙니다. 비즈니스 수익 모델, 백오피스 운영 동선, 개발팀의 구현 제약(HTML/CSS 마크업 및 데이터 통신)까지 사전에 명세화할 때 서비스가 안정적으로 작동합니다. 기술과 현장을 모두 이해하는 실무형 소통을 지향합니다.",
     aboutCollaboration: "ENTJ-A 성향으로 사안을 명확하고 투명하게 전달하며 신뢰를 쌓습니다. 기획, 디자인, 개발, 마케팅, 운영 간의 입장 차이를 조율하여 프로젝트를 정해진 일정 내에 완수합니다.",
-    backgroundOrigin: "일본 출생 · 다문화 성장 (서울 거주 / 도쿄 소통)",
+    backgroundOrigin: "3년 이상 거주 국가 : 일본, 한국, 미국, 필리핀, 캐나다",
     languages: [
       { lang: "한국어", level: "원어민 수준" },
       { lang: "일본어", level: "모국어 (Native)" },

@@ -23,7 +23,7 @@ export const portfolioDataEn: PortfolioData = {
     aboutIntro: "Born in Japan and raised in multicultural environments, I cultivate cross-border perspectives. Having led CX, marketing, and operations at Google YouTube, iHerb, and global blockchain ventures, I consolidated this cross-functional foundation into high-impact Service Planning & UI/UX design.",
     aboutPhilosophy: "Great planning goes beyond visual screens. When business models, operational backoffice workflows, and engineering constraints (HTML/CSS markup and API communications) are defined early, digital services run resiliently. I champion tech-savvy planning that bridges gaps directly.",
     aboutCollaboration: "As an ENTJ-A, I communicate goals with clarity, transparency, and warmth. I align design, engineering, marketing, and operations to deliver polished products on time.",
-    backgroundOrigin: "Born in Japan · Global Growth (Seoul / Tokyo)",
+    backgroundOrigin: "Lived 3+ Years in: Japan, Korea, USA, Philippines, Canada",
     languages: [
       { lang: "Korean", level: "Native Level" },
       { lang: "Japanese", level: "Native" },

@@ -43,9 +43,12 @@ export const AdminModal: React.FC = () => {
   const currentProject = data.projects.find(p => p.id === selectedProjectId) || data.projects[0];
   const [editingProjectData, setEditingProjectData] = useState<ProjectCaseStudy | null>(currentProject || null);
 
-  const [saveToast, setSaveToast] = useState(false);
-  const [publishToast, setPublishToast] = useState(false);
-  const [publishError, setPublishError] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  const showToast = (message: string, type: 'success' | 'error' = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3500);
+  };
 
   React.useEffect(() => {
     setEditableProfile(data.profile);
@@ -88,36 +91,23 @@ export const AdminModal: React.FC = () => {
 
   const handleSaveProfile = async () => {
     updateProfile(editableProfile);
-    triggerSaveToast();
-    // Auto-sync to Firebase Cloud
-    await publishToCloud();
+    const success = await publishToCloud();
+    if (success) {
+      showToast('저장 완료! Netlify 라이브 사이트 및 방문자 화면에 실시간 반영되었습니다.');
+    } else {
+      showToast('일시적인 네트워크 지연이 있습니다. 로컬 저장소에는 안전하게 보관되었습니다.', 'error');
+    }
   };
 
   const handleSaveProject = async () => {
     if (editingProjectData) {
       updateProject(editingProjectData);
-      triggerSaveToast();
-      // Auto-sync to Firebase Cloud
-      await publishToCloud();
-    }
-  };
-
-  const handlePublishCloud = async () => {
-    // Ensure any current pending edit state is committed to context first
-    if (activeTab === 'profile') {
-      updateProfile(editableProfile);
-    } else if (activeTab === 'projects' && editingProjectData) {
-      updateProject(editingProjectData);
-    }
-
-    const success = await publishToCloud();
-    if (success) {
-      setPublishToast(true);
-      setPublishError(false);
-      setTimeout(() => setPublishToast(false), 3500);
-    } else {
-      setPublishError(true);
-      setTimeout(() => setPublishError(false), 4000);
+      const success = await publishToCloud();
+      if (success) {
+        showToast(`'${editingProjectData.title}' 저장 완료! Netlify 라이브 사이트에 즉시 실시간 반영되었습니다.`);
+      } else {
+        showToast('일시적인 네트워크 지연이 있습니다. 로컬 저장소에는 안전하게 보관되었습니다.', 'error');
+      }
     }
   };
 
@@ -198,9 +188,8 @@ export const AdminModal: React.FC = () => {
     }
   };
 
-  const triggerSaveToast = () => {
-    setSaveToast(true);
-    setTimeout(() => setSaveToast(false), 2500);
+  const triggerSaveToast = (msg?: string) => {
+    showToast(msg || '저장 완료! Netlify 라이브 사이트에 즉시 실시간 반영되었습니다.');
   };
 
   return (
@@ -220,11 +209,11 @@ export const AdminModal: React.FC = () => {
             </div>
             <div>
               <h2 className="text-sm font-semibold text-zinc-950">
-                {isAdminAuthenticated ? 'Portfolio CMS / Admin' : '관리자 인증'}
+                {isAdminAuthenticated ? 'Portfolio CMS / 관리자 모드' : '관리자 인증'}
               </h2>
               {isAdminAuthenticated && (
                 <p className="text-[11px] text-zinc-500 font-mono">
-                  관리자 인증됨 · 실시간 수정 및 저장 가능
+                  관리자 인증됨 · 저장 시 Netlify 라이브에 실시간 반영
                 </p>
               )}
             </div>
@@ -232,44 +221,27 @@ export const AdminModal: React.FC = () => {
 
           <div className="flex items-center gap-2">
             {isAdminAuthenticated && (
-              <>
+              <div className="flex items-center gap-1 bg-zinc-100 p-0.5 rounded border border-zinc-200 text-xs font-mono mr-1">
+                <span className="text-[10px] text-zinc-400 px-1">언어:</span>
                 <button
                   type="button"
-                  onClick={handlePublishCloud}
-                  disabled={isSyncing}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs transition-all disabled:opacity-50"
-                  title="Netlify 라이브 사이트 및 모든 방문자에게 즉시 실시간 배포"
+                  onClick={() => setLanguage('ko')}
+                  className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all ${
+                    language === 'ko' ? 'bg-zinc-900 text-white shadow-xs' : 'text-zinc-600 hover:text-zinc-950'
+                  }`}
                 >
-                  {isSyncing ? (
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                  ) : (
-                    <UploadCloud className="w-3.5 h-3.5" />
-                  )}
-                  <span>{isSyncing ? '클라우드 배포 중...' : '라이브 배포 (Netlify 반영)'}</span>
+                  KR
                 </button>
-
-                <div className="flex items-center gap-1 bg-zinc-100 p-0.5 rounded border border-zinc-200 text-xs font-mono mr-1">
-                  <span className="text-[10px] text-zinc-400 px-1">편집:</span>
-                  <button
-                    type="button"
-                    onClick={() => setLanguage('ko')}
-                    className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all ${
-                      language === 'ko' ? 'bg-zinc-900 text-white shadow-xs' : 'text-zinc-600 hover:text-zinc-950'
-                    }`}
-                  >
-                    KR
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setLanguage('en')}
-                    className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all ${
-                      language === 'en' ? 'bg-zinc-900 text-white shadow-xs' : 'text-zinc-600 hover:text-zinc-950'
-                    }`}
-                  >
-                    EN
-                  </button>
-                </div>
-              </>
+                <button
+                  type="button"
+                  onClick={() => setLanguage('en')}
+                  className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all ${
+                    language === 'en' ? 'bg-zinc-900 text-white shadow-xs' : 'text-zinc-600 hover:text-zinc-950'
+                  }`}
+                >
+                  EN
+                </button>
+              </div>
             )}
             {isAdminAuthenticated && (
               <button
@@ -399,10 +371,11 @@ export const AdminModal: React.FC = () => {
                     </div>
                     <button
                       onClick={handleSaveProfile}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 px-3.5 py-1.5 rounded-md"
+                      disabled={isSyncing}
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 px-4 py-2 rounded-lg shadow-xs transition-colors disabled:opacity-50"
                     >
-                      <Save className="w-3.5 h-3.5" />
-                      저장하기
+                      {isSyncing ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                      <span>{isSyncing ? '저장 및 배포 중...' : '저장 및 라이브 배포'}</span>
                     </button>
                   </div>
 
@@ -607,10 +580,11 @@ export const AdminModal: React.FC = () => {
                       </button>
                       <button
                         onClick={handleSaveProject}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 px-3.5 py-1.5 rounded"
+                        disabled={isSyncing}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 px-4 py-1.5 rounded-lg shadow-xs transition-colors disabled:opacity-50"
                       >
-                        <Save className="w-3.5 h-3.5" />
-                        현재 프로젝트 저장
+                        {isSyncing ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                        <span>{isSyncing ? '저장 및 배포 중...' : '저장 및 라이브 배포'}</span>
                       </button>
                     </div>
                   </div>
@@ -1174,6 +1148,21 @@ export const AdminModal: React.FC = () => {
                         </div>
                       </div>
 
+                      {/* Bottom Save Action Bar */}
+                      <div className="pt-4 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-3 bg-zinc-50/70 p-4 rounded-xl border border-zinc-200">
+                        <span className="text-xs text-zinc-600 font-medium">
+                          💡 [저장 및 라이브 배포]를 누르면 Netlify 라이브 사이트에 즉시 실시간 배포됩니다.
+                        </span>
+                        <button
+                          onClick={handleSaveProject}
+                          disabled={isSyncing}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 px-5 py-2.5 rounded-lg shadow-xs transition-colors disabled:opacity-50"
+                        >
+                          {isSyncing ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                          <span>{isSyncing ? '저장 및 배포 중...' : '저장 및 라이브 배포'}</span>
+                        </button>
+                      </div>
+
                     </div>
                   )}
                 </div>
@@ -1273,58 +1262,36 @@ export const AdminModal: React.FC = () => {
 
             </div>
 
-            {/* Footer toast */}
-            {saveToast && (
-              <div className="bg-zinc-900 text-white text-xs px-4 py-2 flex items-center justify-between animate-in slide-in-from-bottom">
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-emerald-400" />
-                  <span>저장 완료! 로컬 브라우저 및 Firebase 클라우드 DB에 동기화되어 Netlify 라이브 사이트에도 즉시 실시간 반영됩니다.</span>
+            {/* Unified Toast notification */}
+            {toast && (
+              <div className={`text-white text-xs px-5 py-2.5 flex items-center justify-between transition-all animate-in slide-in-from-bottom ${
+                toast.type === 'error' ? 'bg-red-600' : 'bg-emerald-600'
+              }`}>
+                <div className="flex items-center gap-2 font-medium">
+                  {toast.type === 'error' ? (
+                    <AlertTriangle className="w-4 h-4 text-white shrink-0" />
+                  ) : (
+                    <Check className="w-4 h-4 text-white shrink-0" />
+                  )}
+                  <span>{toast.message}</span>
                 </div>
               </div>
             )}
 
-            {publishToast && (
-              <div className="bg-emerald-600 text-white text-xs px-4 py-2.5 flex items-center justify-between animate-in slide-in-from-bottom">
-                <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-white" />
-                  <span className="font-medium">Firebase 클라우드 배포 완료! Netlify 라이브 사이트(방문자 화면)에 0.1초 만에 실시간 반영되었습니다.</span>
-                </div>
-              </div>
-            )}
-
-            {publishError && (
-              <div className="bg-red-600 text-white text-xs px-4 py-2 flex items-center justify-between animate-in slide-in-from-bottom">
-                <div className="flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-white" />
-                  <span>배포 중 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</span>
-                </div>
-              </div>
-            )}
-
-            {/* Footer buttons */}
+            {/* Footer */}
             <div className="bg-white px-6 py-3.5 border-t border-zinc-200 flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span className="text-zinc-600 font-mono text-[11px]">
-                  {lastSyncedAt ? `클라우드 동기화됨: ${lastSyncedAt.toLocaleTimeString()}` : '클라우드 DB 대기 중'}
+                  {lastSyncedAt ? `Netlify 라이브 연동 중 (마지막 반영: ${lastSyncedAt.toLocaleTimeString()})` : 'Firebase Cloud 실시간 연동됨'}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handlePublishCloud}
-                  disabled={isSyncing}
-                  className="font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded transition-colors"
-                >
-                  {isSyncing ? '배포 중...' : '클라우드 즉시 배포'}
-                </button>
-                <button
-                  onClick={closeAdminModal}
-                  className="font-medium text-zinc-700 hover:text-zinc-950 px-3 py-1.5 rounded hover:bg-zinc-100"
-                >
-                  닫기
-                </button>
-              </div>
+              <button
+                onClick={closeAdminModal}
+                className="font-medium text-zinc-700 hover:text-zinc-950 px-4 py-1.5 rounded-lg hover:bg-zinc-100 border border-zinc-200 transition-colors"
+              >
+                닫기
+              </button>
             </div>
 
           </div>

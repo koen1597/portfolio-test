@@ -75,8 +75,8 @@ export const AboutSection: React.FC = () => {
                 </div>
                 <p className="text-xs text-zinc-500 mt-1 leading-normal">
                   {t(
-                    '한국과 일본 양국의 문화적 맥락과 사용자 경험의 미묘한 차이를 자연스럽게 이해합니다.',
-                    'Naturally navigates cultural contexts and user experience subtleties between Korean and Japanese audiences.'
+                    '일본, 한국, 미국, 필리핀, 캐나다 등 다양한 문화권의 사용자 경험과 맥락의 차이를 깊이 있게 이해합니다.',
+                    'Naturally navigates cultural contexts and user experience subtleties across Japan, Korea, the US, Philippines, and Canada.'
                   )}
                 </p>
               </div>

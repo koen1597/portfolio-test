@@ -182,12 +182,12 @@ export const Hero: React.FC = () => {
                 <div className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">
                   {t('글로벌 커뮤니케이션 & 배경', 'Global Perspective')}
                 </div>
-                <div className="bg-zinc-50/80 rounded-lg p-3 border border-zinc-200/60 space-y-1.5">
-                  <div className="flex items-center justify-between text-xs gap-2">
-                    <span className="font-medium text-zinc-700 whitespace-nowrap">{t('문화적 배경', 'Background')}</span>
-                    <span className="text-zinc-900 font-medium text-right text-[11px] truncate">{profile.backgroundOrigin}</span>
+                <div className="bg-zinc-50/80 rounded-lg p-3 border border-zinc-200/60 space-y-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1 sm:gap-2">
+                    <span className="font-medium text-zinc-700 whitespace-nowrap shrink-0">{t('문화적 배경', 'Background')}</span>
+                    <span className="text-zinc-900 font-medium sm:text-right text-[11px] leading-snug break-keep">{profile.backgroundOrigin}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center justify-between text-xs pt-1.5 border-t border-zinc-200/50">
                     <span className="font-medium text-zinc-700">{t('구사 언어', 'Languages')}</span>
                     <span className="text-zinc-600 font-mono text-[11px] bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200/80">KO / JA / EN</span>
                   </div>
