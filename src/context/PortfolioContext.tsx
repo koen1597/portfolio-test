@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { PortfolioData, ProjectCaseStudy, ProfileData, Language } from '../types';
 import { portfolioDataKo, portfolioDataEn } from '../data/initialData';
+import { db } from '../lib/firebase';
+import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 
 interface PortfolioContextType {
   language: Language;
@@ -17,6 +19,11 @@ interface PortfolioContextType {
   addProject: (project: ProjectCaseStudy) => void;
   deleteProject: (id: string) => void;
   
+  // Cloud Sync Status
+  isSyncing: boolean;
+  lastSyncedAt: Date | null;
+  publishToCloud: () => Promise<boolean>;
+
   // Admin Authentication & CMS
   isAdminAuthenticated: boolean;
   isAdminModalOpen: boolean;
@@ -52,7 +59,7 @@ const cleanPortfolioLanguages = (languages: { lang: string; level: string }[] | 
     return isKo ? portfolioDataKo.profile.languages : portfolioDataEn.profile.languages;
   }
 
-  // 1. Filter out Tagalog / Filipino completely as requested
+  // 1. Filter out Tagalog / Filipino completely
   const filtered = languages.filter(l => {
     const name = (l.lang || '').toLowerCase();
     return !name.includes('필리핀') && !name.includes('tagalog') && !name.includes('filipino');
@@ -86,13 +93,19 @@ const cleanPortfolioLanguages = (languages: { lang: string; level: string }[] | 
 };
 
 const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData => {
-  if (!data || !data.profile) return isKo ? portfolioDataKo : portfolioDataEn;
+  const fallback = isKo ? portfolioDataKo : portfolioDataEn;
+  if (!data || !data.profile) return fallback;
   return {
     ...data,
     profile: {
       ...data.profile,
+      photoUrl: data.profile.photoUrl || '/profile.png',
       languages: cleanPortfolioLanguages(data.profile.languages, isKo)
-    }
+    },
+    projects: (data.projects || []).map(p => ({
+      ...p,
+      thumbnailUrl: p.thumbnailUrl || ''
+    }))
   };
 };
 
@@ -145,7 +158,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     } catch {
       // ignore
     }
-    return portfolioDataKo;
+    return cleanPortfolioData(portfolioDataKo, true);
   });
 
   const [dataEn, setDataEn] = useState<PortfolioData>(() => {
@@ -157,13 +170,114 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     } catch {
       // ignore
     }
-    return portfolioDataEn;
+    return cleanPortfolioData(portfolioDataEn, false);
   });
+
+  const [isSyncing, setIsSyncing] = useState<boolean>(false);
+  const [lastSyncedAt, setLastSyncedAt] = useState<Date | null>(null);
 
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
   const [isAdminModalOpen, setIsAdminModalOpen] = useState<boolean>(false);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
+
+  // Real-time Firestore synchronization for Netlify visitors & multi-device
+  useEffect(() => {
+    // Listen to Korean document
+    const unsubKo = onSnapshot(doc(db, 'portfolio', 'ko'), (docSnap) => {
+      if (docSnap.exists()) {
+        const cloudData = docSnap.data();
+        if (cloudData && cloudData.profile) {
+          const cleaned = cleanPortfolioData(cloudData as PortfolioData, true);
+          setDataKo(cleaned);
+          try {
+            localStorage.setItem(STORAGE_DATA_KO_KEY, JSON.stringify(cleaned));
+          } catch {
+            // ignore
+          }
+          setLastSyncedAt(new Date());
+        }
+      }
+    }, (err) => {
+      console.warn('Firestore snapshot error (ko):', err);
+    });
+
+    // Listen to English document
+    const unsubEn = onSnapshot(doc(db, 'portfolio', 'en'), (docSnap) => {
+      if (docSnap.exists()) {
+        const cloudData = docSnap.data();
+        if (cloudData && cloudData.profile) {
+          const cleaned = cleanPortfolioData(cloudData as PortfolioData, false);
+          setDataEn(cleaned);
+          try {
+            localStorage.setItem(STORAGE_DATA_EN_KEY, JSON.stringify(cleaned));
+          } catch {
+            // ignore
+          }
+          setLastSyncedAt(new Date());
+        }
+      }
+    }, (err) => {
+      console.warn('Firestore snapshot error (en):', err);
+    });
+
+    return () => {
+      unsubKo();
+      unsubEn();
+    };
+  }, []);
+
+  // Publish active content directly to Firestore Cloud DB
+  const publishToCloud = useCallback(async (): Promise<boolean> => {
+    setIsSyncing(true);
+    try {
+      const koDocRef = doc(db, 'portfolio', 'ko');
+      const enDocRef = doc(db, 'portfolio', 'en');
+
+      await Promise.all([
+        setDoc(koDocRef, {
+          ...dataKo,
+          language: 'ko',
+          updatedAt: new Date().toISOString()
+        }),
+        setDoc(enDocRef, {
+          ...dataEn,
+          language: 'en',
+          updatedAt: new Date().toISOString()
+        })
+      ]);
+
+      setLastSyncedAt(new Date());
+      setIsSyncing(false);
+      return true;
+    } catch (err) {
+      console.error('Failed to publish to cloud:', err);
+      setIsSyncing(false);
+      return false;
+    }
+  }, [dataKo, dataEn]);
+
+  // Discreet keyboard shortcut (Ctrl+Shift+A / Cmd+Shift+A) & URL parameter (?admin=true) to open admin modal safely
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        setIsAdminModalOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('admin') === 'true') {
+        setIsAdminModalOpen(true);
+      }
+    } catch {
+      // ignore
+    }
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Set language with persistence
   const setLanguage = useCallback((lang: Language) => {
@@ -372,6 +486,9 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         updateProject,
         addProject,
         deleteProject,
+        isSyncing,
+        lastSyncedAt,
+        publishToCloud,
         isAdminAuthenticated,
         isAdminModalOpen,
         openAdminModal,

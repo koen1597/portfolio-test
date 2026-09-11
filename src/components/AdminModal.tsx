@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { ProjectCaseStudy, ProfileData } from '../types';
-import { Lock, KeyRound, Save, RotateCcw, X, Plus, Trash2, Check, Edit3, ShieldAlert, LogOut, FileText } from 'lucide-react';
+import { ProjectCaseStudy, ProfileData, WorkArtifact, ProjectRetrospective, ProjectExternalLink } from '../types';
+import { Lock, KeyRound, Save, RotateCcw, X, Plus, Trash2, Check, Edit3, ShieldAlert, LogOut, FileText, AlertTriangle, Layers, ExternalLink, Link2, Image as ImageIcon, Globe, UploadCloud, RefreshCw } from 'lucide-react';
 import { compressImageFile } from '../utils/imageCompressor';
 
 export const AdminModal: React.FC = () => {
@@ -15,6 +15,9 @@ export const AdminModal: React.FC = () => {
     updateProject,
     addProject,
     deleteProject,
+    isSyncing,
+    lastSyncedAt,
+    publishToCloud,
     isAdminAuthenticated,
     isAdminModalOpen,
     closeAdminModal,
@@ -41,6 +44,8 @@ export const AdminModal: React.FC = () => {
   const [editingProjectData, setEditingProjectData] = useState<ProjectCaseStudy | null>(currentProject || null);
 
   const [saveToast, setSaveToast] = useState(false);
+  const [publishToast, setPublishToast] = useState(false);
+  const [publishError, setPublishError] = useState(false);
 
   React.useEffect(() => {
     setEditableProfile(data.profile);
@@ -81,15 +86,38 @@ export const AdminModal: React.FC = () => {
     }
   };
 
-  const handleSaveProfile = () => {
+  const handleSaveProfile = async () => {
     updateProfile(editableProfile);
     triggerSaveToast();
+    // Auto-sync to Firebase Cloud
+    await publishToCloud();
   };
 
-  const handleSaveProject = () => {
+  const handleSaveProject = async () => {
     if (editingProjectData) {
       updateProject(editingProjectData);
       triggerSaveToast();
+      // Auto-sync to Firebase Cloud
+      await publishToCloud();
+    }
+  };
+
+  const handlePublishCloud = async () => {
+    // Ensure any current pending edit state is committed to context first
+    if (activeTab === 'profile') {
+      updateProfile(editableProfile);
+    } else if (activeTab === 'projects' && editingProjectData) {
+      updateProject(editingProjectData);
+    }
+
+    const success = await publishToCloud();
+    if (success) {
+      setPublishToast(true);
+      setPublishError(false);
+      setTimeout(() => setPublishToast(false), 3500);
+    } else {
+      setPublishError(true);
+      setTimeout(() => setPublishError(false), 4000);
     }
   };
 
@@ -204,27 +232,44 @@ export const AdminModal: React.FC = () => {
 
           <div className="flex items-center gap-2">
             {isAdminAuthenticated && (
-              <div className="flex items-center gap-1 bg-zinc-100 p-0.5 rounded border border-zinc-200 text-xs font-mono mr-2">
-                <span className="text-[10px] text-zinc-400 px-1">편집 대상:</span>
+              <>
                 <button
                   type="button"
-                  onClick={() => setLanguage('ko')}
-                  className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all ${
-                    language === 'ko' ? 'bg-zinc-900 text-white shadow-xs' : 'text-zinc-600 hover:text-zinc-950'
-                  }`}
+                  onClick={handlePublishCloud}
+                  disabled={isSyncing}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs transition-all disabled:opacity-50"
+                  title="Netlify 라이브 사이트 및 모든 방문자에게 즉시 실시간 배포"
                 >
-                  KR (한국어)
+                  {isSyncing ? (
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <UploadCloud className="w-3.5 h-3.5" />
+                  )}
+                  <span>{isSyncing ? '클라우드 배포 중...' : '라이브 배포 (Netlify 반영)'}</span>
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setLanguage('en')}
-                  className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all ${
-                    language === 'en' ? 'bg-zinc-900 text-white shadow-xs' : 'text-zinc-600 hover:text-zinc-950'
-                  }`}
-                >
-                  ENG (English)
-                </button>
-              </div>
+
+                <div className="flex items-center gap-1 bg-zinc-100 p-0.5 rounded border border-zinc-200 text-xs font-mono mr-1">
+                  <span className="text-[10px] text-zinc-400 px-1">편집:</span>
+                  <button
+                    type="button"
+                    onClick={() => setLanguage('ko')}
+                    className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all ${
+                      language === 'ko' ? 'bg-zinc-900 text-white shadow-xs' : 'text-zinc-600 hover:text-zinc-950'
+                    }`}
+                  >
+                    KR
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setLanguage('en')}
+                    className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-all ${
+                      language === 'en' ? 'bg-zinc-900 text-white shadow-xs' : 'text-zinc-600 hover:text-zinc-950'
+                    }`}
+                  >
+                    EN
+                  </button>
+                </div>
+              </>
             )}
             {isAdminAuthenticated && (
               <button
@@ -637,6 +682,429 @@ export const AdminModal: React.FC = () => {
                             className="w-full p-2.5 rounded border border-zinc-300"
                           />
                         </div>
+
+                        {/* Thumbnail Image Upload & URL */}
+                        <div className="pt-3 border-t border-zinc-100 space-y-2">
+                          <label className="font-mono text-zinc-700 font-semibold block">
+                            프로젝트 대표 썸네일 이미지
+                          </label>
+                          <div className="flex flex-col sm:flex-row items-center gap-4 p-3 rounded-lg bg-zinc-50 border border-zinc-200">
+                            <div className="w-28 h-16 rounded-md overflow-hidden bg-zinc-200 border border-zinc-300 shrink-0 flex items-center justify-center">
+                              {editingProjectData.thumbnailUrl ? (
+                                <img src={editingProjectData.thumbnailUrl} alt="Thumbnail Preview" className="w-full h-full object-cover" />
+                              ) : (
+                                <span className="font-mono text-[10px] text-zinc-400">No Image</span>
+                              )}
+                            </div>
+                            <div className="flex-1 space-y-1.5 w-full">
+                              <div className="flex items-center gap-2">
+                                <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-900 text-white hover:bg-zinc-800 text-[11px] font-medium transition-colors">
+                                  <ImageIcon className="w-3 h-3" />
+                                  <span>이미지 파일 업로드</span>
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={async (e) => {
+                                      const file = e.target.files?.[0];
+                                      if (file) {
+                                        try {
+                                          const compressed = await compressImageFile(file, 900, 0.85);
+                                          if (compressed) {
+                                            setEditingProjectData({ ...editingProjectData, thumbnailUrl: compressed });
+                                          }
+                                        } catch (err) {
+                                          console.error('Thumbnail upload error:', err);
+                                        }
+                                      }
+                                    }}
+                                  />
+                                </label>
+                                {editingProjectData.thumbnailUrl && (
+                                  <button
+                                    type="button"
+                                    onClick={() => setEditingProjectData({ ...editingProjectData, thumbnailUrl: '' })}
+                                    className="text-[11px] text-red-600 hover:underline"
+                                  >
+                                    이미지 삭제
+                                  </button>
+                                )}
+                              </div>
+                              <input
+                                type="text"
+                                value={editingProjectData.thumbnailUrl || ''}
+                                onChange={e => setEditingProjectData({ ...editingProjectData, thumbnailUrl: e.target.value })}
+                                placeholder="또는 이미지 URL 직접 입력 (https://...)"
+                                className="w-full px-2.5 py-1 text-xs rounded border border-zinc-300 bg-white"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* RETROSPECTIVE & TROUBLESHOOTING (시행착오 & 극복기) */}
+                      <div className="bg-white p-5 rounded-xl border border-zinc-200 space-y-4">
+                        <div className="flex items-center justify-between border-b border-zinc-100 pb-2">
+                          <span className="font-semibold text-zinc-900 uppercase font-mono flex items-center gap-1.5">
+                            <AlertTriangle className="w-4 h-4 text-amber-500" />
+                            기획자 시행착오 & 트러블슈팅 (MISTAKE & RETROSPECTIVE)
+                          </span>
+                          <span className="text-[11px] text-zinc-400 font-mono">
+                            채용 담당자가 가장 높게 평가하는 정직한 극복기
+                          </span>
+                        </div>
+
+                        <div className="space-y-3">
+                          <div>
+                            <label className="font-mono text-zinc-500 block mb-1">케이스 제목</label>
+                            <input
+                              type="text"
+                              value={editingProjectData.retrospective?.title || ''}
+                              onChange={e => setEditingProjectData({
+                                ...editingProjectData,
+                                retrospective: {
+                                  title: e.target.value,
+                                  mistakeOrChallenge: editingProjectData.retrospective?.mistakeOrChallenge || '',
+                                  rootCause: editingProjectData.retrospective?.rootCause || '',
+                                  howSolved: editingProjectData.retrospective?.howSolved || '',
+                                  lessonLearned: editingProjectData.retrospective?.lessonLearned || '',
+                                  beforeAfterComparison: editingProjectData.retrospective?.beforeAfterComparison
+                                }
+                              })}
+                              className="w-full px-2.5 py-1.5 rounded border border-zinc-300"
+                              placeholder="예: [런칭 D-14 결함 발견] 다중 배송지 결제 트랜잭션 롤백 누락"
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                              <label className="font-mono text-rose-700 font-semibold block mb-1">01. 초기 실수 및 간과했던 지점 (Pitfall)</label>
+                              <textarea
+                                rows={3}
+                                value={editingProjectData.retrospective?.mistakeOrChallenge || ''}
+                                onChange={e => setEditingProjectData({
+                                  ...editingProjectData,
+                                  retrospective: {
+                                    title: editingProjectData.retrospective?.title || '',
+                                    mistakeOrChallenge: e.target.value,
+                                    rootCause: editingProjectData.retrospective?.rootCause || '',
+                                    howSolved: editingProjectData.retrospective?.howSolved || '',
+                                    lessonLearned: editingProjectData.retrospective?.lessonLearned || '',
+                                    beforeAfterComparison: editingProjectData.retrospective?.beforeAfterComparison
+                                  }
+                                })}
+                                className="w-full p-2 rounded border border-zinc-300"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="font-mono text-amber-700 font-semibold block mb-1">02. 현장 데이터 & 원인 분석 (Root Cause)</label>
+                              <textarea
+                                rows={3}
+                                value={editingProjectData.retrospective?.rootCause || ''}
+                                onChange={e => setEditingProjectData({
+                                  ...editingProjectData,
+                                  retrospective: {
+                                    title: editingProjectData.retrospective?.title || '',
+                                    mistakeOrChallenge: editingProjectData.retrospective?.mistakeOrChallenge || '',
+                                    rootCause: e.target.value,
+                                    howSolved: editingProjectData.retrospective?.howSolved || '',
+                                    lessonLearned: editingProjectData.retrospective?.lessonLearned || '',
+                                    beforeAfterComparison: editingProjectData.retrospective?.beforeAfterComparison
+                                  }
+                                })}
+                                className="w-full p-2 rounded border border-zinc-300"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="font-mono text-blue-700 font-semibold block mb-1">03. 재기획 및 긴급 해결 조치 (Action Taken)</label>
+                            <textarea
+                              rows={3}
+                              value={editingProjectData.retrospective?.howSolved || ''}
+                              onChange={e => setEditingProjectData({
+                                ...editingProjectData,
+                                retrospective: {
+                                  title: editingProjectData.retrospective?.title || '',
+                                  mistakeOrChallenge: editingProjectData.retrospective?.mistakeOrChallenge || '',
+                                  rootCause: editingProjectData.retrospective?.rootCause || '',
+                                  howSolved: e.target.value,
+                                  lessonLearned: editingProjectData.retrospective?.lessonLearned || '',
+                                  beforeAfterComparison: editingProjectData.retrospective?.beforeAfterComparison
+                                }
+                              })}
+                              className="w-full p-2 rounded border border-zinc-300"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="font-mono text-emerald-700 font-semibold block mb-1">04. 영구적으로 체득한 기획 교훈 (Lesson Learned)</label>
+                            <textarea
+                              rows={2}
+                              value={editingProjectData.retrospective?.lessonLearned || ''}
+                              onChange={e => setEditingProjectData({
+                                ...editingProjectData,
+                                retrospective: {
+                                  title: editingProjectData.retrospective?.title || '',
+                                  mistakeOrChallenge: editingProjectData.retrospective?.mistakeOrChallenge || '',
+                                  rootCause: editingProjectData.retrospective?.rootCause || '',
+                                  howSolved: editingProjectData.retrospective?.howSolved || '',
+                                  lessonLearned: e.target.value,
+                                  beforeAfterComparison: editingProjectData.retrospective?.beforeAfterComparison
+                                }
+                              })}
+                              className="w-full p-2 rounded border border-zinc-300"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* WORK ARTIFACTS & WIREFRAMES (실무 산출물 갤러리) */}
+                      <div className="bg-white p-5 rounded-xl border border-zinc-200 space-y-4">
+                        <div className="flex items-center justify-between border-b border-zinc-100 pb-2">
+                          <div>
+                            <span className="font-semibold text-zinc-900 uppercase font-mono flex items-center gap-1.5">
+                              <Layers className="w-4 h-4 text-blue-600" />
+                              실무 산출물 및 화면설계서 ({editingProjectData.artifacts?.length || 0}건 등록됨)
+                            </span>
+                            <span className="text-[11px] text-zinc-400">
+                              실제 작성한 와이어프레임, IA 도표, Before/After 비교 이미지 관리
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newArtifact: WorkArtifact = {
+                                id: `art-${Date.now()}`,
+                                title: '새 기획 산출물 / 화면설계서',
+                                type: 'wireframe',
+                                tag: '와이어프레임',
+                                imageUrl: 'https://images.unsplash.com/photo-1581291518655-9523c932edcf?auto=format&fit=crop&w=1200&q=80',
+                                description: '기획 의도 및 화면 인터랙션 명세를 작성해주세요.',
+                                keyInsight: '이 설계를 통해 해결하고자 한 핵심 문제'
+                              };
+                              setEditingProjectData({
+                                ...editingProjectData,
+                                artifacts: [...(editingProjectData.artifacts || []), newArtifact]
+                              });
+                            }}
+                            className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded border border-blue-200"
+                          >
+                            <Plus className="w-3 h-3" />
+                            산출물 추가
+                          </button>
+                        </div>
+
+                        {/* Artifacts List */}
+                        <div className="space-y-4">
+                          {editingProjectData.artifacts?.map((artifact, aIdx) => (
+                            <div key={artifact.id} className="p-4 rounded-xl border border-zinc-200 bg-zinc-50/50 space-y-3">
+                              <div className="flex items-center justify-between gap-2">
+                                <div className="flex items-center gap-2">
+                                  <span className="font-mono text-xs font-bold text-zinc-400">#{aIdx + 1}</span>
+                                  <input
+                                    type="text"
+                                    value={artifact.title}
+                                    onChange={e => {
+                                      const updated = [...(editingProjectData.artifacts || [])];
+                                      updated[aIdx] = { ...updated[aIdx], title: e.target.value };
+                                      setEditingProjectData({ ...editingProjectData, artifacts: updated });
+                                    }}
+                                    className="px-2 py-1 text-xs font-semibold rounded border border-zinc-300 bg-white min-w-[200px]"
+                                  />
+                                  <select
+                                    value={artifact.type}
+                                    onChange={e => {
+                                      const updated = [...(editingProjectData.artifacts || [])];
+                                      updated[aIdx] = { ...updated[aIdx], type: e.target.value as any };
+                                      setEditingProjectData({ ...editingProjectData, artifacts: updated });
+                                    }}
+                                    className="px-2 py-1 text-xs rounded border border-zinc-300 bg-white"
+                                  >
+                                    <option value="wireframe">와이어프레임/IA</option>
+                                    <option value="before-after">Before & After 비교</option>
+                                    <option value="release-ui">배포 UI</option>
+                                    <option value="user-flow">사용자 플로우</option>
+                                  </select>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const updated = (editingProjectData.artifacts || []).filter((_, i) => i !== aIdx);
+                                    setEditingProjectData({ ...editingProjectData, artifacts: updated });
+                                  }}
+                                  className="text-red-500 hover:text-red-700 p-1"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+
+                              {/* Image upload & URL for artifact */}
+                              <div className="flex flex-col sm:flex-row items-center gap-3 p-2.5 rounded bg-white border border-zinc-200">
+                                <div className="w-20 h-14 rounded overflow-hidden bg-zinc-100 border border-zinc-200 shrink-0 flex items-center justify-center">
+                                  {artifact.imageUrl ? (
+                                    <img src={artifact.imageUrl} alt="Artifact Preview" className="w-full h-full object-cover" />
+                                  ) : (
+                                    <span className="text-[10px] text-zinc-400">No Image</span>
+                                  )}
+                                </div>
+                                <div className="flex-1 space-y-1 w-full">
+                                  <label className="cursor-pointer inline-flex items-center gap-1 px-2 py-0.5 rounded bg-zinc-900 text-white hover:bg-zinc-800 text-[10px]">
+                                    <ImageIcon className="w-3 h-3" />
+                                    <span>실무 이미지 파일 첨부</span>
+                                    <input
+                                      type="file"
+                                      accept="image/*"
+                                      className="hidden"
+                                      onChange={async (e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                          try {
+                                            const compressed = await compressImageFile(file, 1000, 0.85);
+                                            if (compressed) {
+                                              const updated = [...(editingProjectData.artifacts || [])];
+                                              updated[aIdx] = { ...updated[aIdx], imageUrl: compressed };
+                                              setEditingProjectData({ ...editingProjectData, artifacts: updated });
+                                            }
+                                          } catch (err) {
+                                            console.error('Artifact file upload error:', err);
+                                          }
+                                        }
+                                      }}
+                                    />
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={artifact.imageUrl}
+                                    onChange={e => {
+                                      const updated = [...(editingProjectData.artifacts || [])];
+                                      updated[aIdx] = { ...updated[aIdx], imageUrl: e.target.value };
+                                      setEditingProjectData({ ...editingProjectData, artifacts: updated });
+                                    }}
+                                    placeholder="또는 이미지 URL 직접 입력"
+                                    className="w-full px-2 py-1 text-xs rounded border border-zinc-300"
+                                  />
+                                </div>
+                              </div>
+
+                              <div>
+                                <label className="font-mono text-zinc-400 block mb-1">설명 및 기획 포인트</label>
+                                <textarea
+                                  rows={2}
+                                  value={artifact.description}
+                                  onChange={e => {
+                                    const updated = [...(editingProjectData.artifacts || [])];
+                                    updated[aIdx] = { ...updated[aIdx], description: e.target.value };
+                                    setEditingProjectData({ ...editingProjectData, artifacts: updated });
+                                  }}
+                                  className="w-full p-2 rounded border border-zinc-300 bg-white"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="font-mono text-blue-700 block mb-1">핵심 기획 인사이트 (Key Insight)</label>
+                                <input
+                                  type="text"
+                                  value={artifact.keyInsight || ''}
+                                  onChange={e => {
+                                    const updated = [...(editingProjectData.artifacts || [])];
+                                    updated[aIdx] = { ...updated[aIdx], keyInsight: e.target.value };
+                                    setEditingProjectData({ ...editingProjectData, artifacts: updated });
+                                  }}
+                                  className="w-full px-2 py-1 rounded border border-zinc-300 bg-white"
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* EXTERNAL LINKS (피그마, 노션, PDF 링크 관리) */}
+                      <div className="bg-white p-5 rounded-xl border border-zinc-200 space-y-4">
+                        <div className="flex items-center justify-between border-b border-zinc-100 pb-2">
+                          <div>
+                            <span className="font-semibold text-zinc-900 uppercase font-mono flex items-center gap-1.5">
+                              <Link2 className="w-4 h-4 text-purple-600" />
+                              외부 산출물 링크 (피그마 / 노션 / PDF)
+                            </span>
+                            <span className="text-[11px] text-zinc-400">
+                              상세 기획서 전문 또는 프로토타입 바로가기 링크 관리
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newLink: ProjectExternalLink = {
+                                label: 'Figma 프로토타입 / 화면설계서',
+                                url: 'https://www.figma.com',
+                                type: 'figma',
+                                note: '대외비 마스킹 완료'
+                              };
+                              setEditingProjectData({
+                                ...editingProjectData,
+                                externalLinks: [...(editingProjectData.externalLinks || []), newLink]
+                              });
+                            }}
+                            className="inline-flex items-center gap-1 text-[11px] font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 px-2.5 py-1 rounded border border-purple-200"
+                          >
+                            <Plus className="w-3 h-3" />
+                            링크 추가
+                          </button>
+                        </div>
+
+                        <div className="space-y-3">
+                          {editingProjectData.externalLinks?.map((link, lIdx) => (
+                            <div key={lIdx} className="p-3 rounded-lg border border-zinc-200 bg-zinc-50/50 flex flex-col sm:flex-row items-center gap-2">
+                              <select
+                                value={link.type}
+                                onChange={e => {
+                                  const updated = [...(editingProjectData.externalLinks || [])];
+                                  updated[lIdx] = { ...updated[lIdx], type: e.target.value as any };
+                                  setEditingProjectData({ ...editingProjectData, externalLinks: updated });
+                                }}
+                                className="px-2 py-1 text-xs rounded border border-zinc-300 bg-white"
+                              >
+                                <option value="figma">Figma</option>
+                                <option value="notion">Notion</option>
+                                <option value="pdf">PDF</option>
+                                <option value="live">Live Service</option>
+                              </select>
+                              <input
+                                type="text"
+                                value={link.label}
+                                onChange={e => {
+                                  const updated = [...(editingProjectData.externalLinks || [])];
+                                  updated[lIdx] = { ...updated[lIdx], label: e.target.value };
+                                  setEditingProjectData({ ...editingProjectData, externalLinks: updated });
+                                }}
+                                placeholder="링크 제목"
+                                className="w-full sm:w-1/3 px-2 py-1 text-xs rounded border border-zinc-300 bg-white"
+                              />
+                              <input
+                                type="text"
+                                value={link.url}
+                                onChange={e => {
+                                  const updated = [...(editingProjectData.externalLinks || [])];
+                                  updated[lIdx] = { ...updated[lIdx], url: e.target.value };
+                                  setEditingProjectData({ ...editingProjectData, externalLinks: updated });
+                                }}
+                                placeholder="URL (https://...)"
+                                className="w-full sm:w-1/2 px-2 py-1 text-xs rounded border border-zinc-300 bg-white"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const updated = (editingProjectData.externalLinks || []).filter((_, i) => i !== lIdx);
+                                  setEditingProjectData({ ...editingProjectData, externalLinks: updated });
+                                }}
+                                className="text-red-500 hover:text-red-700 p-1"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
                       {/* 9-Step Sections Preview & Edit */}
@@ -807,25 +1275,56 @@ export const AdminModal: React.FC = () => {
 
             {/* Footer toast */}
             {saveToast && (
-              <div className="bg-emerald-600 text-white text-xs px-4 py-2 flex items-center justify-between animate-in slide-in-from-bottom">
+              <div className="bg-zinc-900 text-white text-xs px-4 py-2 flex items-center justify-between animate-in slide-in-from-bottom">
                 <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4" />
-                  <span>변경사항이 안전하게 저장되었습니다 (브라우저 로컬 저장소 동기화 완료).</span>
+                  <Check className="w-4 h-4 text-emerald-400" />
+                  <span>저장 완료! 로컬 브라우저 및 Firebase 클라우드 DB에 동기화되어 Netlify 라이브 사이트에도 즉시 실시간 반영됩니다.</span>
+                </div>
+              </div>
+            )}
+
+            {publishToast && (
+              <div className="bg-emerald-600 text-white text-xs px-4 py-2.5 flex items-center justify-between animate-in slide-in-from-bottom">
+                <div className="flex items-center gap-2">
+                  <Globe className="w-4 h-4 text-white" />
+                  <span className="font-medium">Firebase 클라우드 배포 완료! Netlify 라이브 사이트(방문자 화면)에 0.1초 만에 실시간 반영되었습니다.</span>
+                </div>
+              </div>
+            )}
+
+            {publishError && (
+              <div className="bg-red-600 text-white text-xs px-4 py-2 flex items-center justify-between animate-in slide-in-from-bottom">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-white" />
+                  <span>배포 중 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</span>
                 </div>
               </div>
             )}
 
             {/* Footer buttons */}
             <div className="bg-white px-6 py-3.5 border-t border-zinc-200 flex items-center justify-between text-xs">
-              <span className="text-zinc-400 font-mono">
-                Koen CMS Engine v1.0
-              </span>
-              <button
-                onClick={closeAdminModal}
-                className="font-medium text-zinc-700 hover:text-zinc-950 px-3 py-1.5 rounded hover:bg-zinc-100"
-              >
-                닫기
-              </button>
+              <div className="flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-zinc-600 font-mono text-[11px]">
+                  {lastSyncedAt ? `클라우드 동기화됨: ${lastSyncedAt.toLocaleTimeString()}` : '클라우드 DB 대기 중'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handlePublishCloud}
+                  disabled={isSyncing}
+                  className="font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded transition-colors"
+                >
+                  {isSyncing ? '배포 중...' : '클라우드 즉시 배포'}
+                </button>
+                <button
+                  onClick={closeAdminModal}
+                  className="font-medium text-zinc-700 hover:text-zinc-950 px-3 py-1.5 rounded hover:bg-zinc-100"
+                >
+                  닫기
+                </button>
+              </div>
             </div>
 
           </div>

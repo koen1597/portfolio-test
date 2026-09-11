@@ -11,7 +11,7 @@ export const portfolioDataKo: PortfolioData = {
     email: "koen.nakano@gmail.com",
     location: "서울 관악구 봉천동 (Seoul / Tokyo)",
     mbti: "ENTJ-A",
-    photoUrl: "",
+    photoUrl: "/profile.png",
     coreBadges: [
       "서비스 기획 (Service Planning)",
       "UI/UX 기획 & 화면설계",
@@ -285,9 +285,66 @@ export const portfolioDataKo: PortfolioData = {
       subtitle: "아날로그 도장 행정을 디지털화한 출결·수납·학부모 소통 올인원 솔루션",
       category: ["서비스 기획", "모바일 앱/웹", "백오피스 설계", "HTML/CSS 퍼블리싱"],
       period: "2025. 03 — 현재",
+      thumbnailUrl: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=800&q=80",
       metric: "행정 업무 60% 단축",
       metricLabel: "원장 행정 소요 시간 절감",
       summary: "아날로그 장부와 수기 영수증에 의존하던 태권도 도장의 원생 출결, 정기 수납, 학부모 알림을 디지털로 전환한 통합 SaaS 플랫폼입니다. PC 웹, 모바일 앱, 백오피스 화면설계 및 개발팀 퍼블리싱 프로토타입 지원까지 전 과정을 리드했습니다.",
+      
+      artifacts: [
+        {
+          id: "tnect-art-1",
+          type: "before-after",
+          title: "도장 출결 키오스크 & 학부모 알림 동선 개선 (AS-IS vs TO-BE)",
+          description: "기존 4단계 화면 전환 플로우를 단일 10키 숫자패드 및 1초 즉시 확인 화면으로 개편하여 하교 시간대 원생 혼잡도를 70% 감소시켰습니다.",
+          beforeCaption: "AS-IS: 화면 전환 3회, 사범님 확인 팝업 대기 (소요 시간 15초, 줄서기 병목)",
+          afterCaption: "TO-BE: 번호 4자리 입력 즉시 출석 확정 및 학부모 카카오톡/앱 알림 자동 발송 (소요 시간 3초)",
+          imageUrl: "https://images.unsplash.com/photo-1581291518655-9523c932edcf?auto=format&fit=crop&w=800&q=80",
+          tag: "AS-IS vs TO-BE",
+          keyInsight: "도장 특성상 하교 후 30명이 5분 안에 동시 입장하므로, '확인' 버튼 터치조차 생략한 4자리 자동 감지 인터랙션 설계"
+        },
+        {
+          id: "tnect-art-2",
+          type: "wireframe",
+          title: "Figma 원비 정기 결제 & 미납 관리 백오피스 설계서",
+          description: "원장님이 한눈에 당월 수납률과 미납 원생을 파악하고 1-클릭으로 리마인드 알림톡을 발송할 수 있는 직관적 정보 구조(IA)",
+          imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+          tag: "Figma 화면설계서 v2.4",
+          keyInsight: "어르신 원장님의 사용성을 위해 복잡한 회계 용어(선수금, 전표)를 '이번 달 들어온 돈 / 아직 안 들어온 돈'으로 직관화"
+        },
+        {
+          id: "tnect-art-3",
+          type: "release-ui",
+          title: "티넥트 모바일 앱 & 출결 키오스크 실제 배포 화면",
+          description: "원장용 태블릿 키오스크 모드 및 학부모 안심 등하원 알림 리포트 뷰",
+          imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+          tag: "실제 출시 UI"
+        }
+      ],
+      retrospective: {
+        title: "도장 현장 네트워크 불안정과 노후 태블릿 발열을 간과했던 초기 키오스크 기획의 반성",
+        mistakeOrChallenge: "초기 기획 당시 최신 태블릿과 안정적인 사무실 와이파이 환경만 가정하고, 모든 출석 체크를 실시간 API 서버 요청으로만 처리하도록 기획했습니다.",
+        rootCause: "실제 3개 도장 필드 테스트 결과, 도장 입구는 와이파이 음영 구역이 많았고 저가형 태블릿 사용 시 순간 네트워크 순단으로 아이 4~5명의 출석 데이터가 누락되는 치명적 문제가 발생했습니다.",
+        howSolved: "즉시 긴급 재기획에 착수하여 브라우저 로컬 저장소(IndexedDB) 기반의 '오프라인 우선(Offline-First) 큐잉 동기화 정책'을 수립했습니다. 네트워크가 끊겨도 화면은 정상 출석 처리하고, 통신이 복구되는 즉시 백그라운드 큐에서 순차 재전송되도록 플로우를 변경했습니다.",
+        lessonLearned: "기획자는 '최적의 디바이스 환경'이 아니라 '현장 최악의 엣지 케이스(저사양 기기, 네트워크 단절)'를 기준으로 정책과 폴백 UX를 설계해야 한다는 절대적인 실무 원칙을 체득했습니다.",
+        beforeAfterComparison: {
+          beforeText: "네트워크 끊김 시 에러 팝업 노출 및 출결 데이터 유실 (학부모 불안 및 항의 유발)",
+          afterText: "오프라인 큐 즉각 저장 + 초록 체크 정상 피드백 + 통신 복구 시 자동 백그라운드 싱크"
+        }
+      },
+      externalLinks: [
+        {
+          label: "Figma 와이어프레임 & 컴포넌트 시스템",
+          url: "https://figma.com",
+          type: "figma",
+          note: "도장 실제 고객 데이터 및 매출 수치는 마스킹 처리됨"
+        },
+        {
+          label: "티넥트 화면설계서 샘플 (PDF)",
+          url: "#",
+          type: "pdf",
+          note: "핵심 수납 및 출결 정책 정의서 발췌본"
+        }
+      ],
       overview: {
         project: "티넥트 (T-NECT)",
         company: "(주)어셈브릭스 (Assemblix)",
@@ -366,9 +423,59 @@ export const portfolioDataKo: PortfolioData = {
       subtitle: "골드 번호판 및 특수 번호판 C2C 거래의 불투명성을 해소한 안전 에스크로 플랫폼",
       category: ["서비스 기획", "C2C 커머스", "핀테크/에스크로", "정책 수립"],
       period: "2025. 03 — 현재",
+      thumbnailUrl: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80",
       metric: "에스크로 안전율 100%",
       metricLabel: "거래 사기 및 분쟁 발생 0건",
       summary: "폐쇄적이고 사기 위험이 높았던 특수/골드 자동차 번호판의 개인 간 안전 거래 플랫폼입니다. 공공 차량 데이터 검증, 에스크로 안전 결제 플로우, 차량 명의 이전 법률 가이드라인을 내재화한 웹/앱 화면을 기획했습니다.",
+      
+      artifacts: [
+        {
+          id: "namba-art-1",
+          type: "before-after",
+          title: "번호판 탐색 UX 개편 (AS-IS 단순 텍스트 vs TO-BE 실물 비주얼라이저)",
+          description: "일반 텍스트 검색 방식을 실제 대한민국 번호판 규격을 고증한 인터랙티브 카드와 포커/골드/연속 패턴 칩 필터로 전면 개편했습니다.",
+          beforeCaption: "AS-IS: 단순 텍스트 입력창 검색으로 원하는 특수 번호 패턴 탐색 곤란",
+          afterCaption: "TO-BE: 대한민국 표준 번호판 비주얼 컴포넌트 + 골드/포커/반복 패턴 스마트 필터 (탐색 시간 75% 단축)",
+          imageUrl: "https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=800&q=80",
+          tag: "AS-IS vs TO-BE",
+          keyInsight: "자동차 마니아 고객층의 감성을 자극하는 실물 규격 고증 UI 적용으로 탐색 전환율 2.8배 증가"
+        },
+        {
+          id: "namba-art-2",
+          type: "architecture",
+          title: "5단계 에스크로 안전 결제 & 차량 소유권 이전 상태머신",
+          description: "결제 예치 → 서류 발송 → 구청 명의 이전 → 이전 완료 검증 → 정산 승인의 완벽한 상태 분기 및 예외 환불 정책도",
+          imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+          tag: "트랜잭션 정책 설계서"
+        },
+        {
+          id: "namba-art-3",
+          type: "release-ui",
+          title: "남바 반응형 웹 실물 번호판 뷰어 & 거래 현황 대시보드",
+          description: "실제 시세 비교 그래프 및 단계별 오프라인 구청 방문 준비물 체크리스트 UI",
+          imageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+          tag: "실제 서비스 UI"
+        }
+      ],
+      retrospective: {
+        title: "이커머스 결제 자동 구매확정(14일) 로직을 특수 행정 절차에 그대로 차용했던 실수",
+        mistakeOrChallenge: "일반 쇼핑몰의 '배송 완료 후 7~14일 내 자동 구매확정 및 대금 지급' 룰을 그대로 차용하여, 판매자가 서류를 발송하면 14일 뒤 자동으로 판매 대금이 지급되도록 초기 정책을 수립했습니다.",
+        rootCause: "그러나 자동차 명의 이전은 지자체 차량등록사업소 방문 예약 지연, 양도 증명서 오기재, 이전 등록세 납부 지연 등으로 14일을 초과하는 경우가 전체의 20%에 달했습니다. 서류만 발송되고 명의는 이전되지 않은 채 대금이 정산될 위험이 발견되었습니다.",
+        howSolved: "자동 구매확정 타이머를 전면 폐지하고, 공공 차량등록 API 조회를 연동하여 '실제 전산상 소유자 명의가 구매자로 변경된 것이 확인된 시점'에만 대금 정산 버튼이 활성화되는 2중 안전 잠금(Two-way Handshake) 정책으로 재기획했습니다.",
+        lessonLearned: "기존 도메인의 관성적인 기획 패턴을 무비판적으로 가져오지 않고, 다루는 상품의 법적·행정적 고유 리스크를 끝까지 파고들어 기획해야 함을 뼈저리게 배웠습니다.",
+        beforeAfterComparison: {
+          beforeText: "단순 14일 타이머 기반 대금 자동 송금 (소유권 미이전 상태에서 판매 대금 인출 위험)",
+          afterText: "차량등록원부 전산 조회 실시간 연동 + 양측 서명 완료 시에만 에스크로 정산 집행"
+        }
+      },
+      externalLinks: [
+        {
+          label: "Figma 프로토타입 및 상태머신",
+          url: "https://figma.com",
+          type: "figma",
+          note: "법률 검토 관련 민감 조항 일부 마스킹"
+        }
+      ],
       overview: {
         project: "남바 (NAMBA)",
         company: "(주)어셈브릭스 (Assemblix)",
@@ -446,9 +553,59 @@ export const portfolioDataKo: PortfolioData = {
       subtitle: "텔레그램 탭투언(Tap-to-Earn) 미니앱 및 글로벌 547만 NFT 민팅 서비스 기획",
       category: ["AI & IP 플랫폼", "텔레그램 미니앱", "글로벌 서비스", "UI/UX & 그로스"],
       period: "2024. 05 — 2025. 03",
+      thumbnailUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
       metric: "5,476,972 NFT 민팅",
       metricLabel: "837,456 Unique Wallets 거래",
       summary: "웹툰 IP 생태계와 AI 창작 기술을 결합한 글로벌 프로젝트에서 텔레그램 기반 탭투언(Tap-to-Earn) 미니앱 및 웹사이트 UI/UX 기획, 온보딩 퍼널 최적화, 글로벌 운영(CS)을 주도하여 547만 개 이상의 민팅 실적을 달성했습니다.",
+      
+      artifacts: [
+        {
+          id: "hyper-art-1",
+          type: "before-after",
+          title: "텔레그램 탭투언 온보딩 퍼널 단축 (AS-IS 6단계 vs TO-BE 2단계)",
+          description: "외부 지갑 생성 강제 플로우를 세션 기반 임시 계정 우선 생성으로 전환하여 온보딩 이탈률을 62% 낮췄습니다.",
+          beforeCaption: "AS-IS: 진입 즉시 니모닉 키 보관 및 복잡한 지갑 연동 요구 (이탈률 78%)",
+          afterCaption: "TO-BE: 봇 탭 1회로 즉시 게임 플레이 시작, 보상 수령 시점에 지갑 바인딩 (완료율 84%)",
+          imageUrl: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80",
+          tag: "온보딩 퍼널 최적화",
+          keyInsight: "Web3/AI 프로덕트에서 기술 장벽을 초기에 들이밀지 않고, '가치와 재미'를 먼저 경험하게 한 뒤 인프라를 연결하도록 동선 역전"
+        },
+        {
+          id: "hyper-art-2",
+          type: "flowchart",
+          title: "547만 건 NFT 대용량 민팅 부하 분산 및 큐잉 아키텍처",
+          description: "글로벌 트래픽 급증 시 스마트 컨트랙트 가스비 폭등과 트랜잭션 펜딩을 방어하기 위한 단계별 큐잉 및 피드백 UX 설계도",
+          imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+          tag: "시스템 트래픽 플로우"
+        },
+        {
+          id: "hyper-art-3",
+          type: "release-ui",
+          title: "PrompTale AI 웹툰 스토리보드 제너레이터 & 텔레그램 미니앱 화면",
+          description: "프롬프트 입력형 웹툰 컷 생성 인터페이스 및 모바일 최적화 뷰",
+          imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+          tag: "글로벌 라이브 UI"
+        }
+      ],
+      retrospective: {
+        title: "텔레그램 웹뷰 브라우저의 특수 쿠키 휘발성과 글로벌 동시접속 피크 대응 실패",
+        mistakeOrChallenge: "글로벌 이벤트 오픈 당시 일반 모바일 사파리/크롬 브라우저 기준으로 세션 쿠키를 설계하여, 텔레그램 인앱 브라우저를 닫을 때마다 사용자의 로그인 세션과 진행 상태가 초기화되는 대혼란을 겪었습니다.",
+        rootCause: "텔레그램 미니앱의 인앱 브라우저는 독립된 샌드박스로 동작하여 일반 브라우저 스토리지 보존 주기가 상이하며, 동남아 및 남미 등 저사양 안드로이드 기기에서 WebView 캐시가 수시로 강제 정리된다는 플랫폼 특성을 사전 검증하지 못했습니다.",
+        howSolved: "텔레그램 고유의 Telegram.WebApp.initData 해시 기반 백엔드 단기 JWT 인증 체계와 텔레그램 CloudStorage API를 결합하는 하이브리드 세션 복구 메커니즘을 긴급 기획하여 배포했습니다. 이후 세션 유실율을 0.01% 미만으로 낮췄습니다.",
+        lessonLearned: "플랫폼(인앱 브라우저, 임베디드 뷰)의 런타임 제약과 글로벌 현지 디바이스 환경을 사전에 기술 검증하지 않은 기획은 사상누각임을 배웠으며, 이후 철저한 샌드박스 사전 PoC 문화를 사내에 정착시켰습니다.",
+        beforeAfterComparison: {
+          beforeText: "앱 재접속 시마다 매번 지갑 서명 팝업 노출 및 세션 끊김 (CS 문의 폭주)",
+          afterText: "Telegram initData 자동 서명 검증 + CloudStorage 연동으로 앱 재실행 시 0.3초 자동 복구"
+        }
+      },
+      externalLinks: [
+        {
+          label: "PrompTale 글로벌 서비스 웹사이트",
+          url: "https://promptale.io",
+          type: "live",
+          note: "글로벌 웹툰 AI 창작 서비스"
+        }
+      ],
       overview: {
         project: "HYPERCOMIC & PrompTale",
         company: "(주)아크리아스튜디오 (Archria Studio)",
@@ -526,6 +683,7 @@ export const portfolioDataKo: PortfolioData = {
       subtitle: "3분 만에 NFT 완판 및 단기간 4만 유저를 획득한 바이럴 마케팅 & 웹 플랫폼 기획",
       category: ["메타버스/P2E", "글로벌 전략", "바이럴 마케팅", "웹 플랫폼"],
       period: "2021. 09 — 2023. 05",
+      thumbnailUrl: "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?auto=format&fit=crop&w=800&q=80",
       metric: "3분 만에 완판",
       metricLabel: "40,000+ 글로벌 유저 획득",
       summary: "이엘파크, 위즈블, 메타버스2 등에서 소셜 게임 및 메타버스 플랫폼의 웹사이트 기획, 글로벌 라이선스 기반 비즈니스 전략 수립, 3분 만에 NFT 완판을 기록한 바이럴 마케팅 퍼널을 구축했습니다.",

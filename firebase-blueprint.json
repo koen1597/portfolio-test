@@ -1,0 +1,26 @@
+{
+  "entities": {
+    "PortfolioSettings": {
+      "title": "PortfolioSettings",
+      "description": "Global portfolio configuration and content documents for Korean and English versions",
+      "type": "object",
+      "properties": {
+        "language": { "type": "string", "description": "Language code (ko or en)" },
+        "profile": { "type": "object", "description": "Profile data" },
+        "services": { "type": "array", "description": "List of core services" },
+        "projects": { "type": "array", "description": "List of case study projects" },
+        "career": { "type": "array", "description": "List of career experience" },
+        "workflow": { "type": "array", "description": "Design & planning workflow steps" },
+        "faq": { "type": "array", "description": "FAQ questions and answers" },
+        "updatedAt": { "type": "string", "description": "Last updated ISO timestamp" }
+      },
+      "required": ["language", "profile", "projects", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/portfolio/{lang}": {
+      "schema": "PortfolioSettings",
+      "description": "Stores live portfolio data for ko and en languages"
+    }
+  }
+}

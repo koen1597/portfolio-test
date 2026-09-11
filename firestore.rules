@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Portfolio documents (ko, en)
+    // Public read is permitted so recruiters and visitors on Netlify can view the latest portfolio.
+    // Writes are allowed for portfolio documents to enable instant live CMS publishing.
+    match /portfolio/{lang} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

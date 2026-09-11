@@ -3,7 +3,7 @@ import { usePortfolio } from '../context/PortfolioContext';
 import { Lock, FileText, Menu, X } from 'lucide-react';
 
 export const Header: React.FC = () => {
-  const { data, language, setLanguage, openAdminModal, openResume, t } = usePortfolio();
+  const { data, language, setLanguage, openAdminModal, openResume, t, isAdminAuthenticated, adminLogout } = usePortfolio();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -132,15 +132,27 @@ export const Header: React.FC = () => {
             <span>{t('이력서', 'Resume')}</span>
           </button>
 
-          <button
-            id="header-admin-btn"
-            onClick={openAdminModal}
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-500 hover:text-zinc-900 bg-zinc-100/80 hover:bg-zinc-200/70 px-2.5 py-1.5 rounded-md border border-zinc-200/80 transition-all"
-            title={t('CMS 관리자', 'CMS Admin')}
-          >
-            <Lock className="w-3 h-3 text-zinc-500" />
-            <span className="font-mono text-[11px]">{t('CMS / 편집', 'CMS / Edit')}</span>
-          </button>
+          {isAdminAuthenticated && (
+            <div className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200/90 px-2 py-1 rounded-md text-xs">
+              <button
+                id="header-admin-btn"
+                onClick={openAdminModal}
+                className="inline-flex items-center gap-1 font-medium text-amber-900 hover:text-amber-950 font-mono text-[11px]"
+                title={t('CMS 관리자 열기', 'Open CMS Admin')}
+              >
+                <Lock className="w-3 h-3 text-amber-700" />
+                <span>{t('CMS 관리', 'CMS Admin')}</span>
+              </button>
+              <span className="text-amber-300">|</span>
+              <button
+                onClick={adminLogout}
+                className="text-[10px] font-mono text-zinc-500 hover:text-zinc-800"
+                title={t('관리자 로그아웃', 'Admin Logout')}
+              >
+                {t('로그아웃', 'Logout')}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Mobile controls */}
@@ -165,14 +177,16 @@ export const Header: React.FC = () => {
             </button>
           </div>
 
-          <button
-            id="mobile-admin-btn"
-            onClick={openAdminModal}
-            className="p-1.5 rounded-md text-zinc-600 hover:bg-zinc-100 border border-zinc-200"
-            title="CMS Admin"
-          >
-            <Lock className="w-4 h-4" />
-          </button>
+          {isAdminAuthenticated && (
+            <button
+              id="mobile-admin-btn"
+              onClick={openAdminModal}
+              className="p-1.5 rounded-md text-amber-800 bg-amber-50 border border-amber-200"
+              title="CMS Admin"
+            >
+              <Lock className="w-4 h-4" />
+            </button>
+          )}
           <button
             id="mobile-menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -230,16 +244,18 @@ export const Header: React.FC = () => {
               <FileText className="w-3.5 h-3.5" />
               {t('이력서 보기', 'View Resume')}
             </button>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                openAdminModal();
-              }}
-              className="flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-medium py-2 rounded-md bg-zinc-900 text-white"
-            >
-              <Lock className="w-3.5 h-3.5" />
-              {t('포트폴리오 편집', 'Edit Portfolio')}
-            </button>
+            {isAdminAuthenticated && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openAdminModal();
+                }}
+                className="flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-medium py-2 rounded-md bg-amber-600 text-white"
+              >
+                <Lock className="w-3.5 h-3.5" />
+                {t('CMS 관리', 'CMS Admin')}
+              </button>
+            )}
           </div>
         </div>
       )}

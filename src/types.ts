@@ -7,6 +7,45 @@ export interface ProjectOverview {
   team: string;
 }
 
+export interface ProjectArtifact {
+  id: string;
+  type: 'wireframe' | 'flowchart' | 'before-after' | 'architecture' | 'release-ui' | 'document';
+  title: string;
+  description: string;
+  imageUrl?: string;
+  beforeImageUrl?: string;
+  afterImageUrl?: string;
+  beforeCaption?: string;
+  afterCaption?: string;
+  tag?: string;
+  keyInsight?: string;
+}
+
+export type WorkArtifact = ProjectArtifact;
+
+export interface ProjectRetrospective {
+  title?: string;
+  mistakeOrChallenge: string;
+  rootCause: string;
+  howSolved: string;
+  lessonLearned: string;
+  beforeAfterComparison?: {
+    beforeText: string;
+    afterText: string;
+    beforeImage?: string;
+    afterImage?: string;
+  };
+}
+
+export interface ExternalLink {
+  label: string;
+  url: string;
+  type: 'figma' | 'notion' | 'pdf' | 'github' | 'live' | 'other';
+  note?: string;
+}
+
+export type ProjectExternalLink = ExternalLink;
+
 export interface ProjectCaseStudy {
   id: string;
   number: string;
@@ -18,6 +57,11 @@ export interface ProjectCaseStudy {
   metric?: string;
   metricLabel?: string;
   summary: string;
+  
+  // Visual Artifacts & Troubleshooting Retrospective
+  artifacts?: ProjectArtifact[];
+  retrospective?: ProjectRetrospective;
+  externalLinks?: ExternalLink[];
   
   // 9-step standardized template
   overview: ProjectOverview;

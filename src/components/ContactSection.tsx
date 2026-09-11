@@ -250,9 +250,10 @@ export const ContactSection: React.FC = () => {
             <span>·</span>
             <button
               onClick={openAdminModal}
-              className="text-zinc-500 hover:text-zinc-900 font-mono underline"
+              className="text-zinc-400 hover:text-zinc-600 font-mono text-[11px] inline-flex items-center gap-1 transition-colors"
+              title="CMS Admin (Ctrl+Shift+A)"
             >
-              {t('CMS 관리자', 'CMS Admin')}
+              <span>🔒 Admin</span>
             </button>
           </div>
         </div>

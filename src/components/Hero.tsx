@@ -4,7 +4,7 @@ import { ArrowDown, ArrowUpRight, Camera } from 'lucide-react';
 import { compressImageFile } from '../utils/imageCompressor';
 
 export const Hero: React.FC = () => {
-  const { data, t, updateProfilePhoto } = usePortfolio();
+  const { data, t, updateProfilePhoto, isAdminAuthenticated, openAdminModal } = usePortfolio();
   const { profile } = data;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageError, setImageError] = useState(false);
@@ -15,6 +15,7 @@ export const Hero: React.FC = () => {
   }, [profile.photoUrl]);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isAdminAuthenticated) return;
     const file = e.target.files?.[0];
     if (!file) return;
     try {
@@ -29,6 +30,7 @@ export const Hero: React.FC = () => {
   };
 
   const triggerUpload = () => {
+    if (!isAdminAuthenticated) return;
     fileInputRef.current?.click();
   };
 
@@ -126,13 +128,15 @@ export const Hero: React.FC = () => {
                   className="hidden"
                 />
                 <div 
-                  onClick={triggerUpload}
-                  className="relative group cursor-pointer w-16 h-16 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200/90 shadow-xs flex-shrink-0 ring-2 ring-blue-500/10"
-                  title={t('클릭하여 사진 변경 / 업로드', 'Click to upload / change photo')}
+                  onClick={isAdminAuthenticated ? triggerUpload : undefined}
+                  className={`relative w-16 h-16 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200/90 shadow-xs flex-shrink-0 ring-2 ring-blue-500/10 ${
+                    isAdminAuthenticated ? 'group cursor-pointer' : ''
+                  }`}
+                  title={isAdminAuthenticated ? t('클릭하여 사진 변경', 'Click to change photo') : profile.name}
                 >
-                  {profile.photoUrl && !imageError ? (
+                  {(profile.photoUrl || '/profile.png') && !imageError ? (
                     <img
-                      src={profile.photoUrl}
+                      src={profile.photoUrl || '/profile.png'}
                       alt={profile.name}
                       onError={() => setImageError(true)}
                       className="w-full h-full object-cover object-center"
@@ -142,10 +146,12 @@ export const Hero: React.FC = () => {
                       {profile.name.slice(0, 2).toUpperCase()}
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-zinc-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white">
-                    <Camera className="w-5 h-5" />
-                    <span className="text-[9px] font-mono mt-0.5">{t('사진 변경', 'Upload')}</span>
-                  </div>
+                  {isAdminAuthenticated && (
+                    <div className="absolute inset-0 bg-zinc-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white">
+                      <Camera className="w-5 h-5" />
+                      <span className="text-[9px] font-mono mt-0.5">{t('사진 변경', 'Upload')}</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="min-w-0 flex-1">
@@ -153,12 +159,14 @@ export const Hero: React.FC = () => {
                     <h3 className="text-base font-semibold text-zinc-950 tracking-tight truncate">
                       {profile.name}
                     </h3>
-                    <button
-                      onClick={triggerUpload}
-                      className="text-[10px] font-mono text-blue-600 hover:text-blue-800 underline"
-                    >
-                      {t('사진등록', 'Photo')}
-                    </button>
+                    {isAdminAuthenticated && (
+                      <button
+                        onClick={triggerUpload}
+                        className="text-[10px] font-mono text-blue-600 hover:text-blue-800 underline bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200/60"
+                      >
+                        {t('사진변경 (Admin)', 'Change Photo')}
+                      </button>
+                    )}
                   </div>
                   <p className="text-xs text-zinc-600 font-medium truncate">
                     {profile.roleTitle}

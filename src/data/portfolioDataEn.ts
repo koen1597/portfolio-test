@@ -11,7 +11,7 @@ export const portfolioDataEn: PortfolioData = {
     email: "koen.nakano@gmail.com",
     location: "Seoul (Seoul · Tokyo Bilingual)",
     mbti: "ENTJ-A",
-    photoUrl: "",
+    photoUrl: "/profile.png",
     coreBadges: [
       "Service Planning (PRD & IA)",
       "UI/UX Planning & Wireframes",
@@ -285,9 +285,66 @@ export const portfolioDataEn: PortfolioData = {
       subtitle: "Digitizing traditional academy operations with automated attendance, billing, and parent notifications",
       category: ["Service Planning", "Mobile App/Web", "Backoffice Architecture", "HTML/CSS Prototyping"],
       period: "2025. 03 — Present",
+      thumbnailUrl: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=800&q=80",
       metric: "-60% Admin Time",
       metricLabel: "Reduction in Administrative Overhead",
       summary: "An integrated SaaS platform converting paper attendance books and manual invoices into a streamlined digital workflow for martial arts academies. Led complete product planning across PC Web, Mobile Apps, and admin backoffices, while crafting direct HTML/CSS prototypes for engineering collaboration.",
+      
+      artifacts: [
+        {
+          id: "tnect-art-1-en",
+          type: "before-after",
+          title: "Attendance Kiosk & Parent Notification Funnel (AS-IS vs TO-BE)",
+          description: "Re-engineered a 4-step screen transition flow into a single 10-key PIN pad with instant confirmation, reducing check-in congestion by 70%.",
+          beforeCaption: "AS-IS: 3 screen navigations, required instructor approval popup (15s duration, queue bottleneck)",
+          afterCaption: "TO-BE: Instant check-in upon 4-digit PIN entry + automated KakaoTalk/app push to parents (3s duration)",
+          imageUrl: "https://images.unsplash.com/photo-1581291518655-9523c932edcf?auto=format&fit=crop&w=800&q=80",
+          tag: "AS-IS vs TO-BE",
+          keyInsight: "Given 30 kids rush in within 5 minutes after school, eliminated even the 'Confirm' button tap with auto-detect 4-digit input."
+        },
+        {
+          id: "tnect-art-2-en",
+          type: "wireframe",
+          title: "Figma Billing & Unpaid Balance Backoffice Specification",
+          description: "Intuitive IA allowing academy owners to view real-time monthly collection rates and dispatch 1-click payment reminders.",
+          imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+          tag: "Figma Specification v2.4",
+          keyInsight: "Replaced obscure accounting terms with plain language: 'Collected This Month / Pending Collections'."
+        },
+        {
+          id: "tnect-art-3-en",
+          type: "release-ui",
+          title: "T-NECT Live App & Tablet Kiosk Production Screen",
+          description: "Tablet kiosk mode for academy entrances and real-time safe commute tracking reports for parents.",
+          imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+          tag: "Production UI"
+        }
+      ],
+      retrospective: {
+        title: "Overcoming Field Network Outages & Tablet Thermal Throttling in Initial Kiosk Planning",
+        mistakeOrChallenge: "Initially designed the kiosk assuming modern tablets and enterprise office Wi-Fi, routing all check-in events through synchronous cloud API calls.",
+        rootCause: "Field tests across 3 actual academies revealed entrance door Wi-Fi deadzones. When low-cost Android tablets experienced network blips, 4-5 check-in records were dropped silently.",
+        howSolved: "Immediately initiated emergency redesign implementing an 'Offline-First Queue Synchronization' policy using browser IndexedDB. Attendance confirms locally in milliseconds, then syncs automatically via background worker once Wi-Fi is restored.",
+        lessonLearned: "Learned that service planners must design policies and fallback UX around real-world worst-case edge scenarios (poor network, budget devices), not ideal lab conditions.",
+        beforeAfterComparison: {
+          beforeText: "Network disconnection showed error modal and dropped student attendance data (parent complaints)",
+          afterText: "Local queue caching with instant green checkmark + automatic background batch sync upon reconnection"
+        }
+      },
+      externalLinks: [
+        {
+          label: "Figma Wireframes & Design System",
+          url: "https://figma.com",
+          type: "figma",
+          note: "Client sensitive data and revenue masked"
+        },
+        {
+          label: "T-NECT Screen Specs Excerpt (PDF)",
+          url: "#",
+          type: "pdf",
+          note: "Core billing & attendance policy sample"
+        }
+      ],
       overview: {
         project: "T-NECT",
         company: "Assemblix Co., Ltd. ((주)어셈브릭스)",
@@ -366,9 +423,59 @@ export const portfolioDataEn: PortfolioData = {
       subtitle: "Eliminating transaction fraud in gold/custom vehicle plate trading with escrow and legal guidelines",
       category: ["Product Planning", "C2C Commerce", "Fintech / Escrow", "Policy Formulation"],
       period: "2025. 03 — Present",
+      thumbnailUrl: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80",
       metric: "100% Safe Escrow",
       metricLabel: "Zero Fraud or Dispute Cases",
       summary: "A secure C2C marketplace platform for specialty and gold vehicle license plates. Engineered vehicle ownership validation, an escrow-based secure settlement pipeline, and built-in registration transfer guidelines across responsive web and mobile interfaces.",
+      
+      artifacts: [
+        {
+          id: "namba-art-1-en",
+          type: "before-after",
+          title: "Plate Discovery UX Overhaul (AS-IS Plain Text vs TO-BE Visualizer)",
+          description: "Replaced plain text query inputs with authentic Korean license plate UI components and 1-tap pattern filter chips (Gold, Poker, Repeating).",
+          beforeCaption: "AS-IS: Basic text input with inability to filter by digit rhythm or aesthetic patterns",
+          afterCaption: "TO-BE: Realistic physical plate visualizer + instant pattern match filters (search speed up 75%)",
+          imageUrl: "https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=800&q=80",
+          tag: "AS-IS vs TO-BE",
+          keyInsight: "Directly addressing car enthusiast aesthetics boosted exploration-to-deal conversion by 2.8x."
+        },
+        {
+          id: "namba-art-2-en",
+          type: "architecture",
+          title: "5-Stage Escrow & Legal Title Transfer State Machine",
+          description: "Full state diagram and exception policies across Escrow Lock, Document Shipping, DMV Transfer, and Final Settlement.",
+          imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+          tag: "Transaction Policy Architecture"
+        },
+        {
+          id: "namba-art-3-en",
+          type: "release-ui",
+          title: "NAMBA Production Web Visualizer & Transaction Dashboard",
+          description: "Market pricing history charts and step-by-step offline DMV paperwork preparation checklist UI.",
+          imageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+          tag: "Production UI"
+        }
+      ],
+      retrospective: {
+        title: "The Danger of Copying Standard E-Commerce 14-Day Auto-Payout Timers into Regulated Legal Procedures",
+        mistakeOrChallenge: "Initially adopted standard e-commerce logic ('Auto-confirm transaction 14 days after tracking number marked delivered'), releasing funds automatically once documents were mailed.",
+        rootCause: "Unlike general retail goods, vehicle title transfers in municipal offices frequently exceeded 14 days due to appointment delays or paperwork clerical errors in 20% of cases. Sellers stood to receive payouts before buyers legally owned the plates.",
+        howSolved: "Abolished the fixed 14-day timer completely. Integrated direct public vehicle registry API checks: escrow payout triggers strictly when official government records confirm the title has formally transitioned to the buyer.",
+        lessonLearned: "Learned never to blindly copy convention from adjacent domains without rigorously probing the unique legal and systemic risks of the current product.",
+        beforeAfterComparison: {
+          beforeText: "Timer-based automated payout risked releasing escrowed funds before official DMV title change",
+          afterText: "Direct DMV database registry confirmation required before release of seller payout"
+        }
+      },
+      externalLinks: [
+        {
+          label: "Figma Prototype & Transaction Flow",
+          url: "https://figma.com",
+          type: "figma",
+          note: "Sensitive legal clauses masked"
+        }
+      ],
       overview: {
         project: "NAMBA",
         company: "Assemblix Co., Ltd. ((주)어셈브릭스)",
@@ -446,9 +553,59 @@ export const portfolioDataEn: PortfolioData = {
       subtitle: "Telegram Tap-to-Earn mini-app planning and 5.47M NFT minting global operations",
       category: ["AI & IP Platform", "Telegram Mini-App", "Global Product", "UI/UX & Growth"],
       period: "2024. 05 — 2025. 03",
+      thumbnailUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
       metric: "5,476,972 Mints",
       metricLabel: "837,456 Unique Transacting Wallets",
       summary: "Planned Telegram-based Tap-to-Earn mini-apps and web applications, optimized viral onboarding funnels, and supervised global customer operations for a flagship webtoon IP and AI creation platform, delivering over 5.47 million NFT mints.",
+      
+      artifacts: [
+        {
+          id: "hyper-art-1-en",
+          type: "before-after",
+          title: "Telegram Onboarding Funnel Compression (AS-IS 6 Steps vs TO-BE 2 Steps)",
+          description: "Replaced mandatory external wallet creation with session-based temporary keys, cutting onboarding drop-off by 62%.",
+          beforeCaption: "AS-IS: Immediate mnemonic key storage and wallet connection modal required (78% bounce rate)",
+          afterCaption: "TO-BE: 1-tap game engagement, deferring wallet binding until reward claim (84% completion rate)",
+          imageUrl: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80",
+          tag: "Funnel Optimization",
+          keyInsight: "In Web3/AI products, reverse the journey: deliver immediate delight and perceived value before asking users to manage infrastructure."
+        },
+        {
+          id: "hyper-art-2-en",
+          type: "flowchart",
+          title: "5.47M NFT Minting Load Throttling & Queue Architecture",
+          description: "Step-by-step queueing and user state feedback UI mitigating gas spikes and stuck transactions during global viral bursts.",
+          imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+          tag: "System Flowchart"
+        },
+        {
+          id: "hyper-art-3-en",
+          type: "release-ui",
+          title: "PrompTale AI Webtoon Storyboard Generator & Mini-App Interface",
+          description: "Prompt-driven webtoon panel generation interface and responsive mobile dashboard.",
+          imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+          tag: "Live Production UI"
+        }
+      ],
+      retrospective: {
+        title: "Telegram In-App WebView Cookie Volatility & Global Traffic Peak Hardening",
+        mistakeOrChallenge: "Initially designed session cookies adhering to standard Safari/Chrome browser rules, resulting in users losing session states every time they closed the Telegram mini-app.",
+        rootCause: "Telegram WebView operates within an isolated sandbox with unpredictable storage lifecycles. On low-memory Android devices in emerging markets, web caches were cleared aggressively by the OS.",
+        howSolved: "Rushed out an emergency redesign marrying Telegram's `Telegram.WebApp.initData` cryptographic hash with short-lived JWT backend tokens and Telegram CloudStorage API, driving session loss below 0.01%.",
+        lessonLearned: "Planning without empirical technical validation of host sandbox environments (in-app WebViews) is built on sand. Institutionalized mandatory sandbox proof-of-concept testing across all client platforms.",
+        beforeAfterComparison: {
+          beforeText: "Frequent wallet re-signature popups and session drops upon mini-app reopen (CS complaint surge)",
+          afterText: "Automated Telegram initData signature verification + CloudStorage sync enabling 0.3s seamless resume"
+        }
+      },
+      externalLinks: [
+        {
+          label: "PrompTale Global Web Platform",
+          url: "https://promptale.io",
+          type: "live",
+          note: "Global AI Webtoon Creation Service"
+        }
+      ],
       overview: {
         project: "HYPERCOMIC & PrompTale",
         company: "Archria Studio Co., Ltd. ((주)아크리아스튜디오)",
@@ -526,6 +683,7 @@ export const portfolioDataEn: PortfolioData = {
       subtitle: "Selling out NFTs in 3 minutes and onboarding 40,000+ users via viral marketing and web portal planning",
       category: ["Metaverse/P2E", "Global Strategy", "Viral Marketing", "Web Platforms"],
       period: "2021. 09 — 2023. 05",
+      thumbnailUrl: "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?auto=format&fit=crop&w=800&q=80",
       metric: "Sold Out in 3 Mins",
       metricLabel: "40,000+ Global Users Acquired",
       summary: "Planned web portals, international licensing strategies, and viral marketing funnels across EL Park, Wizbl, and Metaverse2, achieving an instant 3-minute NFT sellout and onboarding tens of thousands of international users.",
