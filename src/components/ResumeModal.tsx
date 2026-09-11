@@ -116,8 +116,8 @@ export const ResumeModal: React.FC = () => {
               </div>
 
               <div className="text-xs sm:text-right space-y-1 text-zinc-600 font-mono">
-                <div>Email: {profile.email}</div>
-                <div>Phone: {profile.phone || '010-7930-1597'}</div>
+                <div>Email: <a href={`mailto:${profile.email}`} className="text-zinc-900 hover:text-blue-600 underline underline-offset-2">{profile.email}</a></div>
+                <div>Phone: <a href={`tel:${profile.phone || '010-7930-1597'}`} className="text-zinc-900 hover:text-blue-600">{profile.phone || '010-7930-1597'}</a></div>
                 <div>{t('문화적 배경: ', 'Background: ')}{profile.backgroundOrigin}</div>
                 <div>{t('구사 언어: 일본어 (모국어) / 한국어 (원어민 수준) / 영어 (일상 회화)', 'Languages: JA (Native) / KO (Native Level) / EN (Conversational)')}</div>
               </div>
