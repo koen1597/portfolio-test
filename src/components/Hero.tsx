@@ -1,38 +1,16 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { ArrowDown, ArrowUpRight, Camera } from 'lucide-react';
-import { compressImageFile } from '../utils/imageCompressor';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
 
 export const Hero: React.FC = () => {
-  const { data, t, updateProfilePhoto, isAdminAuthenticated, openAdminModal } = usePortfolio();
+  const { data, t } = usePortfolio();
   const { profile } = data;
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageError, setImageError] = useState(false);
 
   // Reset error whenever photoUrl updates
   useEffect(() => {
     setImageError(false);
   }, [profile.photoUrl]);
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isAdminAuthenticated) return;
-    const file = e.target.files?.[0];
-    if (!file) return;
-    try {
-      const compressed = await compressImageFile(file, 600, 0.88);
-      if (compressed) {
-        setImageError(false);
-        updateProfilePhoto(compressed);
-      }
-    } catch (err) {
-      console.error('Image processing error:', err);
-    }
-  };
-
-  const triggerUpload = () => {
-    if (!isAdminAuthenticated) return;
-    fileInputRef.current?.click();
-  };
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -120,20 +98,7 @@ export const Hero: React.FC = () => {
             <div className="bg-white rounded-xl border border-zinc-200/90 p-6 shadow-[0_2px_16px_rgba(0,0,0,0.03)] space-y-6">
               {/* Profile Header */}
               <div className="flex items-center gap-4 pb-4 border-b border-zinc-100">
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                  accept="image/*"
-                  className="hidden"
-                />
-                <div 
-                  onClick={isAdminAuthenticated ? triggerUpload : undefined}
-                  className={`relative w-16 h-16 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200/90 shadow-xs flex-shrink-0 ring-2 ring-blue-500/10 ${
-                    isAdminAuthenticated ? 'group cursor-pointer' : ''
-                  }`}
-                  title={isAdminAuthenticated ? t('클릭하여 사진 변경', 'Click to change photo') : profile.name}
-                >
+                <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200/90 shadow-xs flex-shrink-0 ring-2 ring-blue-500/10">
                   {(profile.photoUrl || '/profile.png') && !imageError ? (
                     <img
                       src={profile.photoUrl || '/profile.png'}
@@ -146,28 +111,12 @@ export const Hero: React.FC = () => {
                       {profile.name.slice(0, 2).toUpperCase()}
                     </div>
                   )}
-                  {isAdminAuthenticated && (
-                    <div className="absolute inset-0 bg-zinc-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white">
-                      <Camera className="w-5 h-5" />
-                      <span className="text-[9px] font-mono mt-0.5">{t('사진 변경', 'Upload')}</span>
-                    </div>
-                  )}
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-base font-semibold text-zinc-950 tracking-tight truncate">
-                      {profile.name}
-                    </h3>
-                    {isAdminAuthenticated && (
-                      <button
-                        onClick={triggerUpload}
-                        className="text-[10px] font-mono text-blue-600 hover:text-blue-800 underline bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200/60"
-                      >
-                        {t('사진변경 (Admin)', 'Change Photo')}
-                      </button>
-                    )}
-                  </div>
+                  <h3 className="text-base font-semibold text-zinc-950 tracking-tight truncate">
+                    {profile.name}
+                  </h3>
                   <p className="text-xs text-zinc-600 font-medium truncate">
                     {profile.roleTitle}
                   </p>
