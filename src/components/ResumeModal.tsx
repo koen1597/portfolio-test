@@ -25,6 +25,82 @@ export const ResumeModal: React.FC = () => {
   if (!isResumeOpen) return null;
 
   const handlePrint = () => {
+    const resumeEl = document.getElementById('printable-resume');
+    if (!resumeEl) {
+      window.print();
+      return;
+    }
+
+    // Try isolated hidden iframe print to bypass iframe/modal scroll clipping & sandbox restrictions
+    try {
+      let printFrame = document.getElementById('resume-print-iframe') as HTMLIFrameElement;
+      if (printFrame) {
+        printFrame.remove();
+      }
+      printFrame = document.createElement('iframe');
+      printFrame.id = 'resume-print-iframe';
+      printFrame.style.position = 'fixed';
+      printFrame.style.right = '0';
+      printFrame.style.bottom = '0';
+      printFrame.style.width = '0';
+      printFrame.style.height = '0';
+      printFrame.style.border = '0';
+      printFrame.style.visibility = 'hidden';
+      document.body.appendChild(printFrame);
+
+      const frameDoc = printFrame.contentWindow?.document;
+      if (frameDoc) {
+        frameDoc.open();
+        
+        // Collect stylesheet tags from document
+        const styleSheets = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
+          .map(el => el.outerHTML)
+          .join('\n');
+
+        frameDoc.write(`
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8" />
+              <title>${profile.name} - ${t('이력서', 'Resume')}</title>
+              ${styleSheets}
+              <style>
+                @page { size: A4 portrait; margin: 12mm 15mm; }
+                * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+                html, body {
+                  background: #ffffff !important;
+                  color: #18181b !important;
+                  font-family: -apple-system, BlinkMacSystemFont, "Pretendard Variable", Pretendard, system-ui, sans-serif;
+                  margin: 0;
+                  padding: 8px;
+                }
+                .print-hidden { display: none !important; }
+              </style>
+            </head>
+            <body>
+              <div class="print-container">
+                ${resumeEl.innerHTML}
+              </div>
+            </body>
+          </html>
+        `);
+        frameDoc.close();
+
+        setTimeout(() => {
+          try {
+            printFrame.contentWindow?.focus();
+            printFrame.contentWindow?.print();
+          } catch {
+            window.print();
+          }
+        }, 300);
+        return;
+      }
+    } catch (e) {
+      console.warn('Iframe print error, falling back to window.print', e);
+    }
+
+    // Direct browser print fallback
     window.print();
   };
 
@@ -33,12 +109,12 @@ export const ResumeModal: React.FC = () => {
       onClick={(e) => {
         if (e.target === e.currentTarget) closeResume();
       }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-zinc-950/70 backdrop-blur-xs animate-in fade-in duration-200"
+      className="resume-modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-zinc-950/70 backdrop-blur-xs animate-in fade-in duration-200"
     >
-      <div className="bg-white w-full max-w-4xl max-h-[94vh] rounded-2xl border border-zinc-200 shadow-2xl flex flex-col overflow-hidden text-zinc-900 print:max-w-none print:max-h-none print:shadow-none print:border-none print:rounded-none">
+      <div className="resume-modal-card bg-white w-full max-w-4xl max-h-[94vh] rounded-2xl border border-zinc-200 shadow-2xl flex flex-col overflow-hidden text-zinc-900 print:max-w-none print:max-h-none print:shadow-none print:border-none print:rounded-none">
         
         {/* Header toolbar (hidden when printed) */}
-        <div className="print:hidden bg-zinc-50 px-6 py-3 border-b border-zinc-200 flex items-center justify-between">
+        <div className="print-hidden print:hidden bg-zinc-50 px-6 py-3 border-b border-zinc-200 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="text-xs font-mono uppercase tracking-widest text-zinc-500">
               {t('상세 이력서 문서', 'Interactive Resume Document')}
@@ -67,10 +143,11 @@ export const ResumeModal: React.FC = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 px-3.5 py-1.5 rounded-md shadow-xs transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 px-3.5 py-1.5 rounded-md shadow-xs transition-colors cursor-pointer"
+              title={t('PDF 저장 및 인쇄', 'Save as PDF & Print')}
             >
               <Printer className="w-3.5 h-3.5" />
-              {t('인쇄 / PDF 저장', 'Print / Save PDF')}
+              <span>{t('인쇄 / PDF 저장', 'Print / Save PDF')}</span>
             </button>
             <button
               onClick={closeResume}
@@ -83,14 +160,14 @@ export const ResumeModal: React.FC = () => {
         </div>
 
         {/* Resume Content Body */}
-        <div className="overflow-y-auto p-8 sm:p-12 space-y-10 font-sans print:p-0">
+        <div id="printable-resume" className="resume-content-body overflow-y-auto p-8 sm:p-12 space-y-10 font-sans print:p-0">
           
           {/* Header */}
           <div className="border-b border-zinc-200 pb-8 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div className="flex items-center gap-4">
                 {profile.photoUrl ? (
-                  <div className="w-20 h-20 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 flex-shrink-0">
+                  <div className="w-20 h-20 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shrink-0">
                     <img
                       src={profile.photoUrl}
                       alt={profile.name}
@@ -98,8 +175,8 @@ export const ResumeModal: React.FC = () => {
                     />
                   </div>
                 ) : (
-                  <div className="w-20 h-20 rounded-xl bg-zinc-900 text-white flex items-center justify-center font-bold text-xl tracking-wider flex-shrink-0">
-                    {profile.name.slice(0, 2).toUpperCase()}
+                  <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-slate-800 to-slate-950 text-white flex items-center justify-center font-bold font-mono text-2xl tracking-wider shrink-0 border border-zinc-300 shadow-xs">
+                    KN
                   </div>
                 )}
                 <div>

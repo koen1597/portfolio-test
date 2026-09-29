@@ -19,15 +19,15 @@ import { ResumeModal } from './components/ResumeModal';
 export default function App() {
   return (
     <PortfolioProvider>
-      <div className="min-h-screen bg-[#FAF9F6] text-zinc-900 selection:bg-zinc-900 selection:text-white font-sans antialiased">
+      <div className="min-h-screen bg-[#080C15] text-slate-100 selection:bg-blue-600 selection:text-white font-sans antialiased">
         {/* Navigation Bar */}
         <Header />
 
         {/* Main Content Sections */}
         <main>
           <Hero />
-          <AboutSection />
           <ProjectsSection />
+          <AboutSection />
           <ExperienceSection />
           <HowIWorkSection />
           <ContactSection />

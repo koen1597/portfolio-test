@@ -9,8 +9,20 @@ service cloud.firestore {
       allow write: if true;
     }
 
+    // Dedicated image storage collection: Each image has its own independent 1MB Firestore document
+    match /portfolio_media/{mediaId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Health check / connection test doc
+    match /test/connection {
+      allow read: if true;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
   }
 }
+

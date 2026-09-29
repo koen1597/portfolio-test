@@ -2,16 +2,16 @@ import { PortfolioData } from '../types';
 
 export const portfolioDataEn: PortfolioData = {
   profile: {
-    name: "Koen Nakano (나카노 코엔)",
+    name: "Koen Nakano",
     roleTitle: "Product & Service Planner · UI/UX Specialist",
-    heroQuote: "Bridging business vision, technical feasibility, and seamless operations.",
-    heroSubquote: "11+ years of end-to-end expertise spanning web/mobile service planning, backoffice architecture, HTML/CSS prototyping, and global operations.",
-    experienceYears: "11+ Years Experience",
+    heroQuote: "Bridging business models, operational workflows, and intuitive UX.",
+    heroSubquote: "Connecting business goals and user experience through web & mobile service planning, backoffice architecture, HTML/CSS prototyping, and global operations.",
+    experienceYears: "Senior Service & UI/UX Planner",
     phone: "010-7930-1597",
     email: "koen.nakano@gmail.com",
     location: "Seoul (Seoul · Tokyo Bilingual)",
     mbti: "ENTJ-A",
-    photoUrl: "/profile.png",
+    photoUrl: "",
     coreBadges: [
       "Service Planning (PRD & IA)",
       "UI/UX Planning & Wireframes",
@@ -20,7 +20,7 @@ export const portfolioDataEn: PortfolioData = {
       "VOC & Service Operations",
       "Trilingual (KR / JA / EN)"
     ],
-    aboutIntro: "Born in Japan and raised in multicultural environments, I cultivate cross-border perspectives. Having led CX, marketing, and operations at Google YouTube, iHerb, and global blockchain ventures, I consolidated this cross-functional foundation into high-impact Service Planning & UI/UX design.",
+    aboutIntro: "Born in Japan and raised in multicultural environments, I cultivate cross-border perspectives. Having led CX, marketing, and operations at global firms like Google YouTube and iHerb, I channel this cross-functional foundation into executable Service Planning & UI/UX design.",
     aboutPhilosophy: "Great planning goes beyond visual screens. When business models, operational backoffice workflows, and engineering constraints (HTML/CSS markup and API communications) are defined early, digital services run resiliently. I champion tech-savvy planning that bridges gaps directly.",
     aboutCollaboration: "As an ENTJ-A, I communicate goals with clarity, transparency, and warmth. I align design, engineering, marketing, and operations to deliver polished products on time.",
     backgroundOrigin: "Lived 3+ Years in: Japan, Korea, USA, Philippines, Canada",
@@ -36,9 +36,9 @@ export const portfolioDataEn: PortfolioData = {
     {
       id: "comp-1",
       number: "01",
-      title: "Service & Backoffice Planning",
+      title: "Service Planning & Backoffice",
       badge: "My Core",
-      description: "Defining service objectives, business rules, and translating complex business requirements into tangible data flows and operational backoffice structures.",
+      description: "Analyzing business models and operational requirements to draft explicit PRDs, Information Architecture (IA), business rules, and scalable backoffice structures.",
       tags: [
         "Product Strategy",
         "PRD & Requirements",
@@ -53,7 +53,7 @@ export const portfolioDataEn: PortfolioData = {
       number: "02",
       title: "UI/UX Planning & Prototyping",
       badge: "My Core",
-      description: "Designing meticulous Figma wireframes and storyboards covering all edge cases. Capable of publishing direct HTML/CSS prototypes during engineering crunches.",
+      description: "Designing meticulous Figma wireframes and storyboards covering all edge cases. Capable of drafting direct HTML/CSS prototypes during engineering crunches.",
       tags: [
         "Wireframing",
         "Screen Storyboards",
@@ -66,7 +66,7 @@ export const portfolioDataEn: PortfolioData = {
     {
       id: "comp-3",
       number: "03",
-      title: "Service Operations & VOC Feedback",
+      title: "Service Operations & VOC Analysis",
       badge: "My Strength",
       description: "Leveraging team lead experience at iHerb, Google YouTube, and global CS centers to analyze user inquiries (VOC), resolve operational bottlenecks, and refine backoffice workflows.",
       tags: [
@@ -80,15 +80,15 @@ export const portfolioDataEn: PortfolioData = {
     {
       id: "comp-4",
       number: "04",
-      title: "Growth & Global Expansion",
-      badge: "Previous Experience",
-      description: "Proven track record driving 5.47M NFT mints, designing Telegram Tap-to-Earn mini-apps, executing media-mix campaigns, and navigating trilingual communication across Asian and Western markets.",
+      title: "Onboarding Funnels & Global Growth",
+      badge: "My Strength",
+      description: "Designing low-friction onboarding funnels that turn visitors into engaged users, while navigating trilingual communication (KR/JA/EN) across international markets.",
       tags: [
-        "Global Marketing",
-        "Telegram Mini-Apps",
-        "Funnel Optimization",
-        "Media-Mix Campaigns",
-        "Community Building"
+        "Onboarding Funnels",
+        "User Retention",
+        "Multilingual UX",
+        "Product Growth Metrics",
+        "Cross-Border Alignment"
       ]
     }
   ],
@@ -98,35 +98,35 @@ export const portfolioDataEn: PortfolioData = {
       title: "Planning & Architecture",
       subtitle: "Objective Definition & Backoffice Scoping",
       description: "Analyzing business models and operational requirements to draft clear PRDs, Information Architecture (IA), and core business policies.",
-      skills: ["PRD Documents", "Information Architecture", "Feature Specs", "Business Policies"]
+      skills: ["PRD Specification", "Information Architecture", "Feature Requirements", "Business Rules"]
     },
     {
       stage: "DESIGN",
       title: "UI/UX & Prototyping",
-      subtitle: "Screen Detailing & Markup Prototypes",
-      description: "Crafting comprehensive Figma storyboards and interactive wireframes, alongside direct HTML/CSS publishing prototypes to eliminate friction with engineers.",
-      skills: ["Wireframes", "Detailed Storyboards", "HTML/CSS Publishing", "Figma Design Tokens"]
+      subtitle: "Screen Storyboards & Markup Prototypes",
+      description: "Creating precise Figma wireframes and storyboards, supporting direct HTML/CSS prototypes to communicate intent clearly with developers.",
+      skills: ["Wireframing", "Storyboard (SB)", "HTML/CSS Prototyping", "Figma Collaboration"]
     },
     {
       stage: "BUILD",
       title: "Development Collaboration",
-      subtitle: "Tech-Literate Communication & Code Support",
-      description: "Understanding DB structures and API protocols, offering emergency frontend markup assistance and rigorous QA test cases.",
-      skills: ["HTML/CSS Code Support", "API Protocol Literacy", "Sprint Management", "Exception Handling"]
+      subtitle: "Engineer-Friendly Alignment & Fast QA",
+      description: "Understanding DB structures and API communication patterns to align engineering constraints early and thoroughly test edge cases.",
+      skills: ["HTML/CSS Support", "API Communication", "Jira/VSCode", "Edge Case Policies"]
     },
     {
       stage: "OPERATE",
       title: "Operations & VOC Loop",
-      subtitle: "Field Management & Feedback Loops",
-      description: "Drawing on extensive operations leadership at iHerb and Google YouTube to analyze VOC, resolve system issues, and continuously automate administrative workflows.",
-      skills: ["VOC Quantitative Analysis", "Backoffice Planning", "Global CS Leadership", "Dispute Resolution"]
+      subtitle: "Live Issue Resolution & Process Playbooks",
+      description: "Applying global operational leadership to analyze user feedback, eliminate backoffice bottlenecks, and standardize service procedures.",
+      skills: ["VOC Feedback Loop", "Backoffice Planning", "Global Operations", "Troubleshooting"]
     },
     {
       stage: "GROW",
       title: "Growth & Global Expansion",
-      subtitle: "Multilingual Scaling & Funnel Optimization",
-      description: "Utilizing fluent trilingual capabilities (Korean, Japanese, English) to optimize international onboarding funnels and foster global partnerships.",
-      skills: ["Multilingual Localization", "Telegram/Social Growth", "Onboarding Funnels", "Global Partnerships"]
+      subtitle: "Multilingual Localization & Funnels",
+      description: "Leveraging trilingual capabilities in Korean, English, and Japanese to optimize global onboarding funnels and international partnerships.",
+      skills: ["Localization", "Onboarding Optimization", "User Retention", "Cross-Border Partnerships"]
     }
   ],
   experiences: [
@@ -134,215 +134,199 @@ export const portfolioDataEn: PortfolioData = {
       id: "exp-1",
       period: "2025. 03 — Present",
       company: "Assemblix Co., Ltd. ((주)어셈브릭스)",
-      role: "Manager / Lead Service & UI/UX Planner (사업전략기획팀 과장)",
-      summary: "Leading PC Web & Mobile App service planning, admin/backoffice architecture, UI/UX design, and HTML/CSS publishing prototypes.",
+      role: "Lead Service & UI/UX Planner",
+      summary: "Directing service planning, admin backoffice architecture, UI/UX design, and HTML/CSS prototyping for 'T-NECT' (martial arts SaaS & tournament system) and 'TOPTOP' (freight license exchange).",
       responsibilities: [
-        "Spearheaded end-to-end service and UI/UX planning for 'T-NECT', a specialized all-in-one martial arts academy management SaaS",
-        "Designed screen specs and escrow safe transaction workflows for 'NAMBA', a license plate trading platform",
-        "Provided direct HTML/CSS publishing code during urgent development deadlines to ensure seamless design-to-code alignment",
-        "Analyzed customer feedback to iterate admin backoffice dashboards and aligned cross-functional teams"
+        "Formulated multi-product ecosystem for 'T-NECT' (https://www.t-nect.com/): T-NECT Master (directors), T-NECT Mate (parents & students), dedicated attendance kiosk app, tournament manager, and blockchain-based 'T-BADGE' e-Certificates",
+        "Architected 'TOPTOP', a blockchain-backed P2P exchange for commercial freight licenses: live tonnage pricing dashboards and corporate escrow checkout workflows",
+        "Authored direct HTML/CSS prototypes during engineering crunches to keep design and development perfectly synchronized",
+        "Iterated administrative backoffice workflows using on-site feedback and user VOC analysis"
       ],
-      tags: ["Service Planning", "UI/UX Storyboards", "Backoffice Architecture", "HTML/CSS Publishing", "Figma", "VSCode"]
+      tags: ["Service Planning", "UI/UX Design", "Backoffice Architecture", "HTML/CSS Prototyping", "Figma", "T-NECT", "TOPTOP"]
     },
     {
       id: "exp-2",
       period: "2024. 05 — 2025. 03 (11 Mos)",
       company: "Archria Studio Co., Ltd. ((주)아크리아스튜디오)",
-      role: "Assistant Manager / Service & Growth Planner (서비스 기획실 대리 매니저)",
-      summary: "Managed marketing service planning and operations for 'HYPERCOMIC' webtoon IP and 'PrompTale' AI industry initiatives.",
+      role: "Service & Growth Planner",
+      summary: "Directed service planning for webtoon app 'HYPERCOMIC' and creator AI platform 'PrompTale', architecting distributed NODE infrastructures and utility NFT marketing.",
       responsibilities: [
-        "Achieved 5,476,972 NFT mints and sales across 837,456 unique transacting wallets",
-        "Successfully drove sales of over 2,000 nodes priced at $180, establishing a durable user base",
-        "Planned UI/UX wireframes for Telegram-based Tap-to-Earn mini-apps and responsive web platforms",
-        "Formulated community growth strategies across Discord/Telegram and remotely managed India CS operations"
+        "Structured AI training pipelines and distributed computing NODE services for 'PrompTale' (https://www.promptale.io/), an AI platform training comic artists' unique styles",
+        "Designed reward flows for 'HYPERCOMIC' (https://play.hypercomic.io/Webtoon), distributing HYCO tokens to readers as engagement incentives",
+        "Architected utility NFT campaigns granting exclusive service perks (free webtoon chapters, AI compute discounts), driving 5,476,972 mints",
+        "Formulated global community growth playbooks (Discord/Telegram) and supervised overseas customer support workflows"
       ],
-      tags: ["AI & Webtoon IP", "Telegram Mini-Apps", "5.47M NFT Mints", "Remote CS Leadership", "UI/UX Planning"]
+      tags: ["PrompTale AI", "HYPERCOMIC", "Node Service Design", "Utility NFTs", "UI/UX Planning"]
     },
     {
       id: "exp-3",
       period: "2023. 10 — 2024. 05 (8 Mos)",
       company: "Sun & Rich (Global Business Division)",
-      role: "Assistant Manager / Business Development & Operations",
-      summary: "Executed product planning, service operations, marketing, and business development for global blockchain and social networking apps.",
+      role: "Global Business Assistant Manager",
+      summary: "Coordinated global mobile application planning, service operations, marketing, and cross-border partnerships.",
       responsibilities: [
-        "Architected service blueprints and operational frameworks for global mobile applications",
-        "Formulated media-mix marketing strategies and managed global digital ad spend",
-        "Facilitated block deals and business solutions with cryptocurrency institutions",
-        "Remotely supervised customer support centers in India, establishing standard SOPs"
+        "Planned global mobile service architectures and operational launch blueprints",
+        "Devised media-mix marketing campaigns and coordinated international promotions",
+        "Facilitated global partnerships and tailored service solutions",
+        "Supervised remote support operations and standardized international customer service playbooks"
       ],
-      tags: ["Global Product Planning", "Media-Mix Marketing", "Business Development", "Remote CS Management"]
+      tags: ["Global Service Planning", "Media Mix", "Cross-Border Partnerships", "Remote Support"]
     },
     {
       id: "exp-4",
       period: "2023. 05 — 2023. 10 (6 Mos)",
       company: "Wizbl Co., Ltd. (㈜위즈블)",
-      role: "Assistant Manager / Strategic Planning Office",
-      summary: "Formulated global market expansion strategies for P2E platforms and blockchain games; led online entertainment marketing & UI/UX design.",
+      role: "Strategic Planning Assistant Manager",
+      summary: "Planned global expansion strategies and UI/UX roadmaps for entertainment platforms.",
       responsibilities: [
-        "Prepared online casino platform launch, including international licensing acquisitions",
-        "Drafted service website specs, backoffice operations policies, and comprehensive user journeys",
-        "Mapped user paths from entry and onboarding to wagering and reward realization",
-        "Executed overarching marketing and live-ops strategies"
+        "Prepared global launch roadmaps and companion web service specifications",
+        "Authored backoffice operational playbooks and detailed business rule matrices",
+        "Mapped user journeys spanning initial acquisition, interactive engagement, and milestone completion"
       ],
-      tags: ["Strategic Planning", "UI/UX Design", "User Journey Mapping", "Global Platform Launch"]
+      tags: ["Strategic Planning", "UI/UX Design", "User Journey Mapping", "Global Launch"]
     },
     {
       id: "exp-5",
       period: "2022. 11 — 2023. 05 (7 Mos)",
-      company: "EL Park (이엘파크)",
-      role: "Assistant Manager / Platform Strategy Division",
-      summary: "Planned business strategy, marketing campaigns, and community operations for entertainment social network games.",
+      company: "EL Park / EL Group (이엘파크)",
+      role: "Platform Strategy Associate",
+      summary: "Led strategy and website planning for the 'nfTTcity' metaverse project, achieving a 3-minute sellout of utility NFTs and 40,000+ pre-registrations.",
       responsibilities: [
-        "Contributed to sell-out record of NFTs in just 3 minutes upon launch",
-        "Acquired over 40,000 global users in a short window through targeted viral social marketing",
-        "Planned main landing pages, user portal sites, and community moderation playbooks"
+        "Designed utility NFTs usable directly as in-game player avatars in an upcoming metaverse platform",
+        "Structured pre-launch countdown funnels, leading to a 3-minute complete sellout on launch day",
+        "Onboarded over 40,000 pre-registered global users through viral social media marketing"
       ],
-      tags: ["NFT Sellout in 3 Mins", "40K User Acquisition", "Social Marketing", "Web Portal Planning"]
+      tags: ["nfTTcity", "Metaverse Planning", "3-Min Sellout", "40K User Funnel"]
     },
     {
       id: "exp-6",
       period: "2022. 08 — 2022. 11 (4 Mos)",
       company: "NEXTOR",
-      role: "Assistant Manager / Platform & Marketing Division",
-      summary: "Devised metaverse social game strategies, planned web platforms, and coordinated cryptocurrency exchange listing and audit workflows.",
+      role: "Platform Business & Marketing Assistant Manager",
+      summary: "Devised metaverse platform strategies, planned companion web platforms, and coordinated global launch workflows.",
       responsibilities: [
-        "Planned and launched official metaverse web portals",
-        "Produced investor pitch decks and strategy documentation with English/Japanese translations",
-        "Managed token issuance, exchange communications, and security audit readiness"
+        "Structured companion web portal architecture and managed launch milestones",
+        "Authored global marketing collateral and English/Japanese investor presentation materials",
+        "Aligned product planning with international partner specifications"
       ],
-      tags: ["Metaverse Planning", "Exchange Listing", "Investor Decks", "Global Marketing"]
+      tags: ["Metaverse Planning", "Web Platform Planning", "IR Collateral", "Global Marketing"]
     },
     {
       id: "exp-7",
       period: "2021. 09 — 2022. 02 (6 Mos)",
       company: "The Future Company (Metaverse2)",
-      role: "Associate / Marketing & Planning",
-      summary: "Planned and localized virtual real estate metaverse web platforms; coordinated global community expansion.",
+      role: "Marketing & Planning Associate",
+      summary: "Planned web portal features for 'Metaverse2', a virtual real estate platform modeled after earth2.io, with multilingual localization.",
       responsibilities: [
-        "Contributed to website screen planning for Metaverse2 launch",
-        "Led English and Japanese localization and content proofing",
-        "Formulated marketing initiatives and established early Discord/Twitter communities"
+        "Participated in core website planning and launch verification for virtual real estate tile transactions",
+        "Audited English and Japanese localization and proofed international content",
+        "Executed early adoption strategies across target user communities"
       ],
-      tags: ["Virtual Real Estate", "Localization", "Planning & Marketing", "Community Growth"]
+      tags: ["Virtual Real Estate", "Metaverse2", "Localization", "Planning/Marketing"]
     },
     {
       id: "exp-8",
       period: "2021. 01 — 2021. 09 (9 Mos)",
       company: "Google YouTube (YouTube POS JP)",
-      role: "Team Lead / YouTube POS JP Operations",
-      summary: "Led Japanese customer operations for YouTube POS, oversaw team performance KPIs and service quality standards.",
+      role: "YouTube POS JP Team Lead",
+      summary: "Led customer support operations for YouTube POS in Japan, driving QA compliance and team performance metrics.",
       responsibilities: [
-        "Delivered native Japanese support for specialized YouTube POS merchant inquiries",
-        "Managed team performance KPIs and conducted customer service coaching",
-        "Analyzed operational logs to present actionable suggestions for UI/UX improvements"
+        "Supervised dedicated customer resolution streams leveraging native Japanese fluency",
+        "Coached team members against strict CS quality assurance and KPI benchmarks",
+        "Synthesized repetitive customer feedback into actionable product defect reports"
       ],
-      tags: ["Google YouTube", "Operations Lead", "Native Japanese", "KPI Management"]
+      tags: ["Google YouTube", "Operations Team Lead", "Native Japanese", "KPI Management"]
     },
     {
       id: "exp-9",
       period: "2017. 10 — 2020. 11 (3 Yrs 2 Mos)",
       company: "iHerb®",
-      role: "Team Lead / Global Operations Division",
-      summary: "Supervised global e-commerce customer operations, conducted VOC quantitative analysis, and oversaw QA and team recruitment.",
+      role: "International Operations Team Lead",
+      summary: "Directed overseas customer operations, analyzed VOC inquiry trends, and supervised staff training.",
       responsibilities: [
-        "Handled cross-border user queries and categorized VOC data into quantitative bug/feature reports",
-        "Conducted training for new hires, maintained quality assurance, and led recruitment interviews",
-        "Established standardized protocols for global billing and international shipping disputes"
+        "Conducted quantitative VOC analysis across international customer inquiry categories",
+        "Formulated onboarding curricula for incoming support agents and conducted talent interviews",
+        "Standardized customer resolution playbooks for global billing and cross-border shipping anomalies"
       ],
-      tags: ["iHerb", "Global Operations Lead", "VOC Analysis", "Quality Assurance", "Standardized SOPs"]
+      tags: ["iHerb", "International Ops Lead", "VOC Analysis", "Quality Management", "Playbook Standardization"]
     },
     {
       id: "exp-10",
       period: "2015. 01 — 2018. 01 (3 Yrs 1 Mo)",
-      company: "DetonatioN FocusMe (Japanese Pro Esports Team)",
-      role: "League of Legends (LoL) Reserve Player & Freelancer",
-      summary: "Competed under Japan's premier esports club, achieved regional and national tournament podiums, and appeared on national broadcasts.",
+      company: "DetonatioN FocusMe (Japanese Esports Organization)",
+      role: "League of Legends Semi-Pro Player & Freelancer",
+      summary: "Competed as an active esports athlete representing premier Japanese organizations, securing tournament podiums.",
       responsibilities: [
-        "Competed in official League of Legends tournaments in Japan (secured 2nd and 4th place finishes)",
-        "Participated in regional tournaments (won 1st place 3 times, 2nd place once, 3rd place twice)",
-        "Appeared on Japan's major streaming platform Abema TV twice, engaging with the gaming public"
+        "Competed in official League of Legends Japan tournaments (1x Runner-up, 1x 4th Place)",
+        "Participated in regional tournaments (3x 1st Place, 1x 2nd Place, 2x 3rd Place)",
+        "Guested on official Abema TV broadcasts twice, communicating with broad gaming audiences"
       ],
-      tags: ["Pro Gamer", "Esports", "Podium Finishes", "Abema TV Broadcasts"]
+      tags: ["Esports Athlete", "Tournament Podium", "Abema TV Broadcast"]
     },
     {
       id: "exp-11",
       period: "2015. 01 — 2017. 01 (2 Yrs 1 Mo)",
       company: "Upwork (Global Freelance)",
       role: "Multilingual Localization Specialist",
-      summary: "Provided professional English, Japanese, and Korean translation and localization for software, games, and web media.",
+      summary: "Delivered trilingual translations and cultural localization across web platforms and digital media.",
       responsibilities: [
-        "Translated subtitles, websites, novels, comics, and game scripts across EN, JA, and KR",
-        "Preserved cultural nuances while adhering to strict client quality guidelines"
+        "Translated websites, digital publications, subtitles, and interactive media across KR, EN, and JA",
+        "Conducted cultural quality assurance to preserve contextual intent and brand tone"
       ],
-      tags: ["Upwork", "Trilingual Translation", "Cultural Localization", "Global Freelance"]
+      tags: ["Upwork", "Trilingual Localization", "Global Freelancer"]
     }
   ],
   projects: [
     {
       id: "proj-1",
       number: "01",
-      title: "T-NECT - Taekwondo Academy ERP & Management Platform",
-      subtitle: "Digitizing traditional academy operations with automated attendance, billing, and parent notifications",
-      category: ["Service Planning", "Mobile App/Web", "Backoffice Architecture", "HTML/CSS Prototyping"],
+      title: "T-NECT - Martial Arts Academy Management & Tournament Platform",
+      subtitle: "All-in-one ecosystem encompassing academy SaaS, live tournament operations, and blockchain e-Certificates (T-BADGE)",
+      category: ["SaaS Platform", "UI/UX Planning", "Tournament Management", "T-BADGE e-Certificate", "HTML/CSS Prototyping"],
       period: "2025. 03 — Present",
-      thumbnailUrl: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=800&q=80",
-      metric: "-60% Admin Time",
-      metricLabel: "Reduction in Administrative Overhead",
-      summary: "An integrated SaaS platform converting paper attendance books and manual invoices into a streamlined digital workflow for martial arts academies. Led complete product planning across PC Web, Mobile Apps, and admin backoffices, while crafting direct HTML/CSS prototypes for engineering collaboration.",
-      
+      thumbnailUrl: "",
+      metric: "60% Admin Time Saved",
+      metricLabel: "Time Saved on Administration",
+      summary: "An integrated platform modernizing martial arts academies from paper ledgers to digital operations, while digitizing taekwondo tournament operations from competitor enrollment to live judge scoring and blockchain 'T-BADGE' e-Certificate issuance. (https://www.t-nect.com/)",
       artifacts: [
         {
-          id: "tnect-art-1-en",
-          type: "before-after",
-          title: "Attendance Kiosk & Parent Notification Funnel (AS-IS vs TO-BE)",
-          description: "Re-engineered a 4-step screen transition flow into a single 10-key PIN pad with instant confirmation, reducing check-in congestion by 70%.",
-          beforeCaption: "AS-IS: 3 screen navigations, required instructor approval popup (15s duration, queue bottleneck)",
-          afterCaption: "TO-BE: Instant check-in upon 4-digit PIN entry + automated KakaoTalk/app push to parents (3s duration)",
-          imageUrl: "https://images.unsplash.com/photo-1581291518655-9523c932edcf?auto=format&fit=crop&w=800&q=80",
-          tag: "AS-IS vs TO-BE",
-          keyInsight: "Given 30 kids rush in within 5 minutes after school, eliminated even the 'Confirm' button tap with auto-detect 4-digit input."
-        },
-        {
-          id: "tnect-art-2-en",
+          id: "tnect-art-1",
           type: "wireframe",
-          title: "Figma Billing & Unpaid Balance Backoffice Specification",
-          description: "Intuitive IA allowing academy owners to view real-time monthly collection rates and dispatch 1-click payment reminders.",
-          imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-          tag: "Figma Specification v2.4",
-          keyInsight: "Replaced obscure accounting terms with plain language: 'Collected This Month / Pending Collections'."
+          title: "T-BADGE: Blockchain Digital Award (e-Certificate) Figma Component Architecture",
+          description: "Responsive Figma component system for officially issued digital certificates: Front (Tournament No, Rank, Athlete Name, Dojang, Division), Back (Official Score, Award Citation), and Social Media View (Attached Photos/Videos, 1-Click Social Sharing, PDF Download)",
+          imageUrl: "",
+          tag: "T-BADGE Component System",
+          keyInsight: "Engineered permanent blockchain validity alongside viral parent sharing loops (KakaoTalk, Facebook, X) and official PDF certificate rendering."
         },
         {
-          id: "tnect-art-3-en",
-          type: "release-ui",
-          title: "T-NECT Live App & Tablet Kiosk Production Screen",
-          description: "Tablet kiosk mode for academy entrances and real-time safe commute tracking reports for parents.",
-          imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-          tag: "Production UI"
+          id: "tnect-art-2",
+          type: "before-after",
+          title: "Attendance Kiosk & Parent Messaging Streamlining",
+          description: "Replaced a clumsy 4-step screen sequence with a single 10-key numeric keypad and instant 1-second confirmation, reducing entry congestion significantly.",
+          beforeCaption: "AS-IS: 3 screen transitions with confirmation dialogs (15s per student, entry queues)",
+          afterCaption: "TO-BE: 4-digit PIN auto-detects attendance with instant parent app alerts (3s per student)",
+          imageUrl: "",
+          tag: "AS-IS vs TO-BE",
+          keyInsight: "Omitted explicit 'Submit' buttons in favor of 4-digit auto-detection to handle 30+ students arriving simultaneously."
         }
       ],
       retrospective: {
-        title: "Overcoming Field Network Outages & Tablet Thermal Throttling in Initial Kiosk Planning",
-        mistakeOrChallenge: "Initially designed the kiosk assuming modern tablets and enterprise office Wi-Fi, routing all check-in events through synchronous cloud API calls.",
-        rootCause: "Field tests across 3 actual academies revealed entrance door Wi-Fi deadzones. When low-cost Android tablets experienced network blips, 4-5 check-in records were dropped silently.",
-        howSolved: "Immediately initiated emergency redesign implementing an 'Offline-First Queue Synchronization' policy using browser IndexedDB. Attendance confirms locally in milliseconds, then syncs automatically via background worker once Wi-Fi is restored.",
-        lessonLearned: "Learned that service planners must design policies and fallback UX around real-world worst-case edge scenarios (poor network, budget devices), not ideal lab conditions.",
+        title: "Establishing an Offline-First Sync Architecture for Unstable Academy Wi-Fi",
+        mistakeOrChallenge: "Initial blueprints assumed optimal device connectivity, routing every student check-in strictly through live server APIs.",
+        rootCause: "Field tests revealed that academy entrances frequently suffered Wi-Fi dead spots, causing lost check-in records during momentary network drops.",
+        howSolved: "Instituted an 'Offline-First' queueing architecture using client-side local storage. Check-ins succeed visually without pause, syncing automatically in the background once connectivity restores.",
+        lessonLearned: "Planners must design fallback policies around the worst field conditions rather than ideal laboratory scenarios.",
         beforeAfterComparison: {
-          beforeText: "Network disconnection showed error modal and dropped student attendance data (parent complaints)",
-          afterText: "Local queue caching with instant green checkmark + automatic background batch sync upon reconnection"
+          beforeText: "Network disconnection showed error popups and dropped attendance records",
+          afterText: "Local queue captures immediately + green checkmark feedback + automatic background sync upon reconnection"
         }
       },
       externalLinks: [
         {
-          label: "Figma Wireframes & Design System",
-          url: "https://figma.com",
-          type: "figma",
-          note: "Client sensitive data and revenue masked"
-        },
-        {
-          label: "T-NECT Screen Specs Excerpt (PDF)",
-          url: "#",
-          type: "pdf",
-          note: "Core billing & attendance policy sample"
+          label: "T-NECT Master (Director SaaS Web)",
+          url: "https://www.t-nect.com/master",
+          type: "live",
+          note: "All-in-one academy administrative SaaS for attendance, tuition billing, and student records"
         }
       ],
       overview: {
@@ -350,442 +334,438 @@ export const portfolioDataEn: PortfolioData = {
         company: "Assemblix Co., Ltd. ((주)어셈브릭스)",
         duration: "2025. 03 — Present",
         role: "Lead Service Planner & UI/UX Designer",
-        platform: "PC Web / iOS & Android / Admin Backoffice",
-        team: "1 PM/Planner, 1 UI Designer, 2 FE Devs, 2 BE Devs"
+        platform: "Web & Mobile / T-NECT Master · Mate · Attendance App · Tournament Manager",
+        team: "1 Planner, 1 Designer, 4 Developers"
       },
-      background: "Across thousands of martial arts dojos in Korea, master instructors were heavily burdened by paper registries, manual receipts, and individual text messages, diverting focus away from teaching. Parents also experienced anxiety regarding their children's real-time whereabouts and payment transparently.",
+      background: "Hundreds of martial arts academies were weighed down by manual ledger keeping, and martial arts tournaments suffered from paper brackets, manual score tallying, and delayed certificate distribution. A unified digital bridge was needed.",
       problem: [
-        "Lost revenue and late fee collections due to manual paper billing each month",
-        "Constant phone inquiries from anxious parents regarding shuttle bus and check-in statuses",
-        "Administrative friction taking instructors away from actual student training",
-        "Risk of adoption failure if the UI was too complex for non-tech-savvy academy owners"
+        "Uncollected tuition and repetitive manual invoice distribution",
+        "Parent anxiety regarding student arrival and shuttle transport safety",
+        "Massive administrative overhead in taekwondo tournament athlete registration, live scoring, and certificate printing"
       ],
       approach: [
-        "Designed a dual-role UX architecture separating Master (Owners/Instructors) from Mate (Parents/Students)",
-        "Engineered an instant 1-second check-in kiosk flow that triggers real-time push alerts to parents",
-        "Integrated recurring billing links and simplified in-app mobile payments in the backoffice",
-        "Created an ultra-clean mobile-first UI allowing owners to access core tasks within 2 clicks"
+        "Architected role-specific platforms: 'T-NECT Master' (directors), 'T-NECT Mate' (parents/students), 'Attendance Kiosk App', and 'Tournament Manager'",
+        "Engineered real-time mobile scoring inputs for judges and live digital leaderboards",
+        "Built the 'T-BADGE' blockchain e-Certificate system in Figma with seamless SNS sharing interactions"
       ],
       planning: {
-        serviceStructure: "Structured into Master Web/App, Mate Parent App, and Super Admin. Engineered the core data model connecting student profiles, grading belt records, billing histories, and shuttle routes.",
-        userFlow: "Student arrives → enters PIN on kiosk → instant parent push alert → class begins → automated month-end billing alert → 1-click in-app payment completion.",
-        informationArchitecture: "Organized into 5 main categories: Home (Real-time Attendance), Billing, Student Directory, Shuttle Tracking, and Communication.",
+        serviceStructure: "Integrated T-NECT Master, T-NECT Mate, Attendance Kiosk, and Tournament Operations into an interconnected data pipeline.",
+        userFlow: "Daily: PIN entry → instant parent alert → month-end 1-click tuition payment / Tournament: Online entry → live referee scoring → T-BADGE e-Certificate issued and shared to SNS",
+        informationArchitecture: "Dojang Admin / Attendance / Billing / Tournament Registration / Live Leaderboard / T-BADGE Wallet",
         details: [
-          "Role-based access control matrix (Owner, Head Master, Instructor, Driver)",
-          "Automated overdue payment reminders and partial payment exception flows",
-          "Batch student import engine with Excel validation logic"
+          "Automated sibling discount calculation logic for multi-child families",
+          "Real-time scoring tabulation matrix tailored to sparring and poomsae categories",
+          "Blockchain certificate hash verification and instant PDF rendering policies"
         ]
       },
       uiux: {
-        wireframeNotes: "Specified 24 mobile screens and 12 PC web admin views in Figma covering all 4 UI states (Normal, Loading, Empty, Error).",
-        screenPlanning: "Positioned top metric widgets displaying Monthly Billing Rate, Unpaid Balance, and Today's Attendance, with generous 48px+ touch targets.",
-        interaction: "Instant green checkmark and audio feedback upon PIN entry so young students can independently check in with confidence.",
+        wireframeNotes: "Designed for immediate usability without training, even for non-tech-savvy academy owners and young children.",
+        screenPlanning: "Crafted interactive 3D card-flip animations for T-BADGE certificates (medal front, citation back, attached tournament videos).",
+        interaction: "4-digit PIN entry auto-validates without confirmation buttons, resetting within 1 second for the next student.",
         highlights: [
-          "Comprehensive Figma design tokens and component library",
-          "Direct HTML/CSS publishing prototypes built in VSCode and shared with engineers",
-          "High-contrast visual design optimized for busy studio environments"
+          "T-BADGE responsive Figma component library",
+          "Real-time tournament mobile referee console",
+          "1-click batch messaging modals"
         ]
       },
       collaboration: {
-        designer: "Maintained daily design system alignment in Figma, delivering 100% of edge-case states before sprints commenced.",
-        developer: "Crafted HTML/CSS markup prototypes directly in VSCode to illustrate responsive behaviors, cutting engineering clarification time by 80%.",
-        marketing: "Packaged quick demo sandbox versions for presentations at martial arts association conventions.",
-        operations: "Conducted field interviews with dojo owners to prioritize backlog items for sprint iterations."
+        designer: "Standardized T-BADGE certificate visual components and Master/Mate UI design systems in Figma.",
+        developer: "Documented comprehensive edge-case states and provided direct responsive markup prototypes.",
+        marketing: "Created targeted onboarding landing pages for academy director communities and tournament organizers.",
+        operations: "Embedded directly at pilot academies and trial tournaments to capture real-time feedback."
       },
       result: {
-        summary: "Reduced dojo administrative time by 60% within 1 month of beta deployment, while attaining a 94% satisfaction score for parent attendance notifications.",
+        summary: "Reduced daily administrative time by over 60% and successfully processed tournament registration through T-BADGE digital certificate issuance with zero downtime.",
         metrics: [
-          { label: "Admin Workload", value: "-60%", desc: "Drastic reduction in manual billing and paperwork" },
-          { label: "On-Time Tuition", value: "96.4%", desc: "Automated mobile invoicing curtailed late payments" },
-          { label: "Parent Satisfaction", value: "94.2%", desc: "Overwhelming praise for real-time safety alerts" }
+          { label: "Admin Time Saved", value: "60%", desc: "Reduced daily attendance and billing workload" },
+          { label: "Tuition Collection", value: "98.4%", desc: "Achieved via 1-click mobile reminders" },
+          { label: "T-BADGE Issuance", value: "100% Digital", desc: "Zero paper printing costs or delivery lag" }
         ],
         impact: [
-          "Established an industry benchmark for digital transformation in traditional martial arts academies",
-          "Pre-built markup prototypes accelerated engineering delivery by 3 full weeks",
-          "Constructed a scalable architecture ready for expansion into judo, kendo, and fitness studios"
+          "Enabled instructors to focus on student education rather than paperwork",
+          "Enhanced parent satisfaction with permanent, tamper-proof digital certificates"
         ]
       },
       myRole: {
-        primary: "End-to-end Service Planning, UI/UX Design, and Markup Prototyping",
+        primary: "End-to-end service planning, UI/UX screen specifications, backoffice policies, and T-BADGE component design",
         responsibilities: [
-          "Field requirements gathering and drafting comprehensive PRDs",
-          "Designing 36 primary mobile and web backoffice screens",
-          "Hands-on HTML/CSS code prototyping and developer coordination",
-          "Leading post-launch refinement sprints based on user interviews"
+          "Drafted comprehensive PRDs and detailed screen storyboards across Master, Mate, and Attendance apps",
+          "Engineered tournament scoring workflows and T-BADGE interactive e-Certificate specs",
+          "Defined backoffice data models and billing automation policies",
+          "Supported responsive HTML/CSS prototyping for key screens"
         ],
-        keyTakeaway: "When a product planner understands both real-world operations and actual frontend markup, requirements are translated into production code with unparalleled speed and fidelity."
+        keyTakeaway: "Listening directly to end-users on site and proactively resolving edge cases in planning is fundamental to product success."
       }
     },
     {
       id: "proj-2",
       number: "02",
-      title: "NAMBA - Vehicle License Plate Trading Platform",
-      subtitle: "Eliminating transaction fraud in gold/custom vehicle plate trading with escrow and legal guidelines",
-      category: ["Product Planning", "C2C Commerce", "Fintech / Escrow", "Policy Formulation"],
+      title: "TOPTOP - Blockchain-Powered Commercial Freight License P2P Exchange",
+      subtitle: "Formalizing freight license transactions through live tonnage pricing and secure corporate escrow checkout",
+      category: ["P2P Platform", "Freight License Exchange", "Escrow Policies", "Pricing Data UI", "UI/UX Planning"],
       period: "2025. 03 — Present",
-      thumbnailUrl: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80",
-      metric: "100% Safe Escrow",
-      metricLabel: "Zero Fraud or Dispute Cases",
-      summary: "A secure C2C marketplace platform for specialty and gold vehicle license plates. Engineered vehicle ownership validation, an escrow-based secure settlement pipeline, and built-in registration transfer guidelines across responsive web and mobile interfaces.",
-      
+      thumbnailUrl: "",
+      metric: "0 Fraud Incidents",
+      metricLabel: "Corporate Escrow Security",
+      summary: "A peer-to-peer digital marketplace revolutionizing commercial freight truck license transactions (light trucks, private freight, logistics brokerage licenses) through real-time tonnage market pricing and corporate account escrow settlement, eliminating offline broker markups and fraud.",
       artifacts: [
         {
-          id: "namba-art-1-en",
+          id: "toptop-art-1",
+          type: "wireframe",
+          title: "Real-Time Freight License Pricing Dashboard (EVs to Logistics Brokerage)",
+          description: "An intuitive market data interface displaying real-time transaction trends and price charts broken down by license tier (Light Delivery, Independent Freight, Freight Brokerage)",
+          imageUrl: "",
+          tag: "Market Pricing UI"
+        },
+        {
+          id: "toptop-art-2",
           type: "before-after",
-          title: "Plate Discovery UX Overhaul (AS-IS Plain Text vs TO-BE Visualizer)",
-          description: "Replaced plain text query inputs with authentic Korean license plate UI components and 1-tap pattern filter chips (Gold, Poker, Repeating).",
-          beforeCaption: "AS-IS: Basic text input with inability to filter by digit rhythm or aesthetic patterns",
-          afterCaption: "TO-BE: Realistic physical plate visualizer + instant pattern match filters (search speed up 75%)",
-          imageUrl: "https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=800&q=80",
-          tag: "AS-IS vs TO-BE",
-          keyInsight: "Directly addressing car enthusiast aesthetics boosted exploration-to-deal conversion by 2.8x."
-        },
-        {
-          id: "namba-art-2-en",
-          type: "architecture",
-          title: "5-Stage Escrow & Legal Title Transfer State Machine",
-          description: "Full state diagram and exception policies across Escrow Lock, Document Shipping, DMV Transfer, and Final Settlement.",
-          imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-          tag: "Transaction Policy Architecture"
-        },
-        {
-          id: "namba-art-3-en",
-          type: "release-ui",
-          title: "NAMBA Production Web Visualizer & Transaction Dashboard",
-          description: "Market pricing history charts and step-by-step offline DMV paperwork preparation checklist UI.",
-          imageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
-          tag: "Production UI"
+          title: "Guided Administrative License Transfer via Corporate Escrow",
+          description: "A chronological 5-step milestone timeline locking escrow deposits until official municipal transfer authorization is validated, eliminating fraud.",
+          beforeCaption: "AS-IS: High broker fees, deposit theft, and frequent disputes over administrative non-compliance",
+          afterCaption: "TO-BE: Corporate escrow holding → municipal document filing → official transfer validation → payout release",
+          imageUrl: "",
+          tag: "AS-IS vs TO-BE"
         }
       ],
       retrospective: {
-        title: "The Danger of Copying Standard E-Commerce 14-Day Auto-Payout Timers into Regulated Legal Procedures",
-        mistakeOrChallenge: "Initially adopted standard e-commerce logic ('Auto-confirm transaction 14 days after tracking number marked delivered'), releasing funds automatically once documents were mailed.",
-        rootCause: "Unlike general retail goods, vehicle title transfers in municipal offices frequently exceeded 14 days due to appointment delays or paperwork clerical errors in 20% of cases. Sellers stood to receive payouts before buyers legally owned the plates.",
-        howSolved: "Abolished the fixed 14-day timer completely. Integrated direct public vehicle registry API checks: escrow payout triggers strictly when official government records confirm the title has formally transitioned to the buyer.",
-        lessonLearned: "Learned never to blindly copy convention from adjacent domains without rigorously probing the unique legal and systemic risks of the current product.",
+        title: "Establishing Escrow Release Triggers Grounded in Municipal Transport Authorizations",
+        mistakeOrChallenge: "Initial blueprints considered releasing escrow funds automatically a set number of days after physical postal document delivery.",
+        rootCause: "Commercial freight licenses legally require official municipal government authorization before legal ownership formally transfers.",
+        howSolved: "Abolished arbitrary timers, linking payout release strictly to official municipal transfer approval verification.",
+        lessonLearned: "Planners must thoroughly study domain-specific legal regulations before designing transactional policies.",
         beforeAfterComparison: {
-          beforeText: "Timer-based automated payout risked releasing escrowed funds before official DMV title change",
-          afterText: "Direct DMV database registry confirmation required before release of seller payout"
+          beforeText: "Automatic payout upon mail delivery (exposed to non-compliance risks)",
+          afterText: "Payout triggered strictly upon municipal title transfer confirmation"
         }
       },
       externalLinks: [
         {
-          label: "Figma Prototype & Transaction Flow",
-          url: "https://figma.com",
-          type: "figma",
-          note: "Sensitive legal clauses masked"
+          label: "TOPTOP (Google Play Store)",
+          url: "https://play.google.com/store/apps/details?id=kr.co.assembrix.toptop3&hl=ko",
+          type: "live",
+          note: "Commercial freight truck license exchange & live pricing Android application"
         }
       ],
       overview: {
-        project: "NAMBA",
+        project: "TOPTOP",
         company: "Assemblix Co., Ltd. ((주)어셈브릭스)",
         duration: "2025. 03 — Present",
-        role: "Lead Service & Policy Planner",
-        platform: "Responsive Web / Mobile Web & App",
-        team: "1 PM/Planner, 1 UI Designer, 2 Fullstack Devs"
+        role: "Lead Service & UI/UX Planner",
+        platform: "Mobile Web & App (Android / iOS) / Admin Backoffice",
+        team: "1 Planner, 1 Designer, 3 Developers"
       },
-      background: "Specialty vehicle license plates (repeating digits, sequential numbers) carry substantial collector value but had been traded exclusively through unregulated online forums. This resulted in frequent advance-payment fraud and severe administrative confusion regarding official transfer protocols.",
+      background: "Commercial freight license trading involved tens of thousands of dollars per deal, yet operated through opaque offline brokers with exorbitant fees, deposit embezzlement, and frequent contractual disputes. Transparent pricing and escrow safety were overdue.",
       problem: [
-        "High incidence of wire-transfer fraud where sellers vanish after receiving payment",
-        "Lack of pre-verification ensuring the seller actually holds legal title to the vehicle plate",
-        "Complex government vehicle registry procedures triggering administrative disputes",
-        "Cluttered search interfaces making it difficult to find desired digit combinations"
+        "Lack of authentic, real-time transaction price data across tonnage categories",
+        "Absence of trusted intermediary escrow systems for high-value P2P deals",
+        "Confusion surrounding complex municipal transport transfer regulations"
       ],
       approach: [
-        "Architected an escrow payment and milestone-based release system safeguarding funds until legal transfer completes",
-        "Designed an automated title verification process cross-referencing vehicle registration documents",
-        "Engineered a 5-stage visual progress tracker guiding both parties through paperwork and DMV visits",
-        "Developed a custom number search engine filtering repeating, ascending, and mirror digit combinations in real time"
+        "Engineered live price chart components categorizing electric vehicles, light delivery, and logistics brokerage licenses",
+        "Built corporate escrow workflows backed by 5-step administrative transfer guidance",
+        "Designed 1-tap 'Buy/Sell' transaction inquiry forms and personalized saved listing filters"
       ],
       planning: {
-        serviceStructure: "Designed a 7-stage transaction state machine: Seller Listing → Ownership Verification → Public Discovery → Escrow Deposit → Document Exchange → DMV Registration → Escrow Payout.",
-        userFlow: "Visualized convoluted legal steps into actionable checklist cards, always surfacing the next required action (CTA) for both buyer and seller.",
-        informationArchitecture: "Structured around: Plate Discovery (Filters/Valuations), Seller Listing, Deal Progress Tracker, 1:1 Secure Messenger, and User Profile.",
+        serviceStructure: "Structured an end-to-end pipeline: Pricing Lookup → Verified Listings → Escrow Holding → Administrative Validation → Settlement.",
+        userFlow: "Browse pricing → request deal → deposit funds to corporate escrow → submit municipal transfer filings → official approval confirmation → seller payout",
+        informationArchitecture: "Home / Live Pricing / Buy & Sell Listings / Saved Items / My Trades",
         details: [
-          "Deposit forfeiture and escrow refund policies for non-compliance",
-          "Automated checklist generation for local DMV submission documents",
-          "Admin intervention console for dispute mitigation"
+          "Pre-verification policies for freight qualification credentials and registration certificates",
+          "Corporate account escrow refund policies upon administrative transfer denial",
+          "Administrative dispute arbitration workflows"
         ]
       },
       uiux: {
-        wireframeNotes: "Crafted interactive plate visualization components that emulate the actual physical vehicle plate to deliver immediate visual clarity.",
-        screenPlanning: "The transaction tracker features step-by-step progress bars and mandatory document upload slots.",
-        interaction: "Instant dynamic matching counter that updates available inventory in real time as the user types digits on the numeric keypad.",
+        wireframeNotes: "Structured high-contrast, large-typography layouts optimized for truck drivers reviewing listings on mobile devices.",
+        screenPlanning: "Designed interactive monthly price trend charts comparing market prices across license tiers.",
+        interaction: "Provided immediate guided deal instruction modals upon tapping 'Request Transaction' on listing cards.",
         highlights: [
-          "Authentic vehicle plate visualizer component",
-          "Phase-by-phase secure escrow deal tracker UI",
-          "Backoffice console for escrow settlement and dispute resolution"
+          "Tonnage-specific market price comparison chart",
+          "Chrono-milestone transaction progress tracker",
+          "1-tap saved listings filter"
         ]
       },
       collaboration: {
-        designer: "Researched official automotive font proportions and reflective plate aesthetics to establish maximum user trust.",
-        developer: "Outlined all webhook triggers and state-machine transitions covering edge cases (cancellations, refund delays, document mismatches).",
-        marketing: "Crafted search-optimized metadata and dynamic preview cards tailored to automotive enthusiast forums.",
-        operations: "Created backoffice verification tools allowing agents to rapidly cross-examine uploaded DMV titles."
+        designer: "Established a professional blue/orange mobile design system conveying transactional security.",
+        developer: "Defined state machine transitions and municipal document upload verification protocols.",
+        marketing: "Created promotional landing pages targeting freight driver online forums and transport associations.",
+        operations: "Authored operational playbooks for customer support and document inspection."
       },
       result: {
-        summary: "Maintained a 100% fraud-free record across all platform transactions and achieved a 98% transfer completion rate.",
+        summary: "Maintained a 100% fraud-free record across all platform deals and brought price transparency to the freight license ecosystem.",
         metrics: [
-          { label: "Transaction Safety", value: "100%", desc: "Zero financial losses or fraudulent transactions" },
-          { label: "Transfer Success", value: "98.1%", desc: "High completion rate via guided DMV checklists" },
-          { label: "Search Velocity", value: "-75%", desc: "Specialized numeric filters accelerated discovery" }
+          { label: "Fraud Rate", value: "0 Incidents", desc: "Secured via corporate escrow guarantees" },
+          { label: "Market Pricing", value: "Live by Tonnage", desc: "Comprehensive coverage from EVs to brokerage" }
         ],
         impact: [
-          "Institutionalized a formal, transparent marketplace for an industry previously dominated by black-market risks",
-          "Demonstrated rigorous expertise in fintech escrow logic coupled with public administrative protocols"
+          "Transformed an opaque offline broker trade into a transparent digital marketplace",
+          "Relieved freight drivers of exorbitant intermediary broker fees"
         ]
       },
       myRole: {
-        primary: "Service Policy Formulation, UI/UX Planning, and Escrow Business Logic Design",
+        primary: "Business model architecture, UI/UX planning, and corporate escrow policy design",
         responsibilities: [
-          "Reviewing legal vehicle transfer regulations and establishing buyer/seller protection terms",
-          "Drafting full responsive web/app storyboards for discovery and transaction pipelines",
-          "Designing admin backoffice screens for dispute arbitration and payout approvals",
-          "Authoring customer support playbooks and operational SOPs"
+          "Authored service policy documents and step-by-step user journey maps",
+          "Designed mobile app screen specifications and tonnage market price dashboards",
+          "Formulated municipal transfer verification protocols and escrow payout conditions",
+          "Architected administrative backoffice settlement and dispute screens"
         ],
-        keyTakeaway: "In industries with high legal and administrative hurdles, breaking down friction into transparent, guided UX steps builds unbeatable customer trust."
+        keyTakeaway: "Platfom planning for niche trade sectors succeeds when planners deeply understand industry jargon, actual trading habits, and operational safety nets."
       }
     },
     {
       id: "proj-3",
       number: "03",
-      title: "HYPERCOMIC & PrompTale - Global AI & Webtoon IP Platform",
-      subtitle: "Telegram Tap-to-Earn mini-app planning and 5.47M NFT minting global operations",
-      category: ["AI & IP Platform", "Telegram Mini-App", "Global Product", "UI/UX & Growth"],
+      title: "HYPERCOMIC & PrompTale - Blockchain Webtoon & AI Creator Platform",
+      subtitle: "Planning webtoon reading rewards (HYCO), AI creator nodes, and 5.47M utility NFT campaigns",
+      category: ["AI Platform", "Blockchain Webtoon", "Node Architecture", "Utility NFTs", "UI/UX Planning"],
       period: "2024. 05 — 2025. 03",
-      thumbnailUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      metric: "5,476,972 Mints",
-      metricLabel: "837,456 Unique Transacting Wallets",
-      summary: "Planned Telegram-based Tap-to-Earn mini-apps and web applications, optimized viral onboarding funnels, and supervised global customer operations for a flagship webtoon IP and AI creation platform, delivering over 5.47 million NFT mints.",
-      
+      thumbnailUrl: "",
+      metric: "5.47M+ Minted",
+      metricLabel: "Utility NFT Sellout & Node Setup",
+      summary: "At Archria Studio, planned webtoon reward app 'HYPERCOMIC' (earning HYCO tokens by reading) and comic creator AI platform 'PrompTale', architecting AI training pipelines, distributed computing NODE services, and utility NFT campaigns that sold 5,476,972 units.",
       artifacts: [
         {
-          id: "hyper-art-1-en",
+          id: "promptale-art-1",
+          type: "wireframe",
+          title: "PrompTale: Artist AI Style Training & Distributed Node Management UI",
+          description: "Workflow interface allowing comic creators to upload artwork assets to train proprietary AI models, powered by distributed computing NODEs for accelerated rendering",
+          imageUrl: "",
+          tag: "AI & Node System Architecture",
+          keyInsight: "Demystified complex AI parameters into an intuitive step-by-step canvas UI tailored specifically for non-technical comic artists."
+        },
+        {
+          id: "promptale-art-2",
           type: "before-after",
-          title: "Telegram Onboarding Funnel Compression (AS-IS 6 Steps vs TO-BE 2 Steps)",
-          description: "Replaced mandatory external wallet creation with session-based temporary keys, cutting onboarding drop-off by 62%.",
-          beforeCaption: "AS-IS: Immediate mnemonic key storage and wallet connection modal required (78% bounce rate)",
-          afterCaption: "TO-BE: 1-tap game engagement, deferring wallet binding until reward claim (84% completion rate)",
-          imageUrl: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80",
-          tag: "Funnel Optimization",
-          keyInsight: "In Web3/AI products, reverse the journey: deliver immediate delight and perceived value before asking users to manage infrastructure."
-        },
-        {
-          id: "hyper-art-2-en",
-          type: "flowchart",
-          title: "5.47M NFT Minting Load Throttling & Queue Architecture",
-          description: "Step-by-step queueing and user state feedback UI mitigating gas spikes and stuck transactions during global viral bursts.",
-          imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-          tag: "System Flowchart"
-        },
-        {
-          id: "hyper-art-3-en",
-          type: "release-ui",
-          title: "PrompTale AI Webtoon Storyboard Generator & Mini-App Interface",
-          description: "Prompt-driven webtoon panel generation interface and responsive mobile dashboard.",
-          imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-          tag: "Live Production UI"
+          title: "HYPERCOMIC Webtoon Rewards & Utility Membership Funnels",
+          description: "Transitioning users from passive webtoon readers to active token earners, with utility NFTs granting free comic chapters and AI image generation compute discounts",
+          beforeCaption: "AS-IS: Standard paywall subscription without reader token rewards",
+          afterCaption: "TO-BE: Read-to-Earn HYCO tokens + Utility NFT holding unlocks free PrompTale AI generations",
+          imageUrl: "",
+          tag: "AS-IS vs TO-BE"
         }
       ],
       retrospective: {
-        title: "Telegram In-App WebView Cookie Volatility & Global Traffic Peak Hardening",
-        mistakeOrChallenge: "Initially designed session cookies adhering to standard Safari/Chrome browser rules, resulting in users losing session states every time they closed the Telegram mini-app.",
-        rootCause: "Telegram WebView operates within an isolated sandbox with unpredictable storage lifecycles. On low-memory Android devices in emerging markets, web caches were cleared aggressively by the OS.",
-        howSolved: "Rushed out an emergency redesign marrying Telegram's `Telegram.WebApp.initData` cryptographic hash with short-lived JWT backend tokens and Telegram CloudStorage API, driving session loss below 0.01%.",
-        lessonLearned: "Planning without empirical technical validation of host sandbox environments (in-app WebViews) is built on sand. Institutionalized mandatory sandbox proof-of-concept testing across all client platforms.",
+        title: "Optimizing User Feedback for AI Generation Latency & Distributed Node Processing",
+        mistakeOrChallenge: "Initial blueprints displayed a static loading spinner while distributed nodes calculated heavy comic panels.",
+        rootCause: "High-resolution multi-character rendering took up to 30 seconds, causing users to assume errors and refresh their browsers.",
+        howSolved: "Visualized granular generation stages (Prompt Analysis → Sketch Drafting → Detail Synthesis) via real-time progress bars and background toast notifications.",
+        lessonLearned: "In generative AI services, predictable progress feedback during backend processing is vital to user retention.",
         beforeAfterComparison: {
-          beforeText: "Frequent wallet re-signature popups and session drops upon mini-app reopen (CS complaint surge)",
-          afterText: "Automated Telegram initData signature verification + CloudStorage sync enabling 0.3s seamless resume"
+          beforeText: "Static spinner causing confusion and drop-offs during AI generation",
+          afterText: "Granular stage progress bars + background completion notifications"
         }
       },
       externalLinks: [
         {
-          label: "PrompTale Global Web Platform",
-          url: "https://promptale.io",
+          label: "HYPERCOMIC (Webtoon Reward App)",
+          url: "https://play.hypercomic.io/Webtoon",
           type: "live",
-          note: "Global AI Webtoon Creation Service"
+          note: "Blockchain-powered webtoon reader rewarding HYCO tokens per chapter read"
+        },
+        {
+          label: "PrompTale AI (Comic Creator AI Studio)",
+          url: "https://www.promptale.io/",
+          type: "live",
+          note: "Personalized artist style training and distributed computing NODE infrastructure"
         }
       ],
       overview: {
         project: "HYPERCOMIC & PrompTale",
         company: "Archria Studio Co., Ltd. ((주)아크리아스튜디오)",
         duration: "2024. 05 — 2025. 03",
-        role: "Service Planner & Operations Manager",
-        platform: "Telegram Mini-App / Web Application",
-        team: "1 PM/Planner, 1 UI Designer, 3 Web/Blockchain Devs, 2 Marketers"
+        role: "Service & Growth Planner",
+        platform: "Web & Mobile / PrompTale AI (Web) & HYPERCOMIC Webtoon (App)",
+        team: "1 Planner, 2 Designers, 5 Developers"
       },
-      background: "A next-generation entertainment platform where webtoon fandoms and creators expand story universes using AI tools and earn on-chain rewards. Reaching millions required an ultra-frictionless viral mini-app accessible directly inside Telegram without standalone downloads.",
+      background: "Comic creators suffered from repetitive, intensive drawing workloads, while digital readers lacked meaningful engagement incentives. A generative AI creator tool coupled with a reward-driven webtoon platform was required.",
       problem: [
-        "High friction in web3 wallet creation causing drastic drop-offs during traditional onboarding",
-        "Need for a lightweight, instant-loading UI capable of supporting hundreds of thousands of concurrent users",
-        "Lack of scalable multilingual customer support to resolve user transactions across global time zones",
-        "Absence of an engaging funnel to convert casual viral clickers into committed node owners"
+        "Inability of generic AI tools to learn and faithfully replicate a specific artist's unique drawing style",
+        "Lack of user engagement hooks in conventional webtoon apps",
+        "Need for tangible platform utility rather than speculative tokens"
       ],
       approach: [
-        "Architected an instant Tap-to-Earn mini-app operating natively within Telegram in under 1 second",
-        "Engineered viral growth loops combining daily rewards, social follow quests, and referral bonuses",
-        "Designed clear tier benefits and a real-time earnings dashboard for $180 node purchases",
-        "Established a remote 24/7 CS center in India, standardizing ticket escalation and feedback loops"
+        "PrompTale: Designed custom drawing style training workflows and distributed computing NODE infrastructures",
+        "HYPERCOMIC: Engineered read-to-earn token reward mechanics distributing HYCO upon chapter completion",
+        "Utility NFTs: Crafted membership tiers granting free comic chapters and PrompTale AI compute discounts, driving 5.47M mints"
       ],
       planning: {
-        serviceStructure: "Bridged Telegram client interfaces with cloud databases and smart contracts, enabling 1-click authentication and instant reward settlements.",
-        userFlow: "Telegram Bot Link → Instant Mini-App Launch → Tap Interaction & Quests → Referral Link Generation → Tiered Node Upgrade Funnel.",
-        informationArchitecture: "Compact bottom navigation: Home (Tap Loop), Quests, Leaderboard, and Wallet/Node Store.",
+        serviceStructure: "Unified HYPERCOMIC Webtoon Reader, PrompTale AI Studio, Node Infrastructure, and Utility Memberships into a single ecosystem hub.",
+        userFlow: "Readers: Read webtoons → earn HYCO / Artists: Upload artwork → train AI → generate panels / NFT Holders: Enjoy free webtoons and AI compute perks",
+        informationArchitecture: "Webtoon Library / AI Studio / Node Dashboard / Membership Perks / Wallet Hub",
         details: [
-          "Anti-abuse behavioral verification policies preventing bot exploits",
-          "Traffic queue throttling logic during high-volume viral surges",
-          "English and Japanese SOP documentation for remote India support teams"
+          "Computing power contribution and priority queue policies for PrompTale Node owners",
+          "Daily HYCO token earning caps and anti-abuse bot mitigation rules",
+          "Tiered AI generation credit allocation for utility NFT holders"
         ]
       },
       uiux: {
-        wireframeNotes: "Optimized the entire interface for single-handed mobile navigation within the natural thumb zone.",
-        screenPlanning: "Specified particle burst animations and haptic vibrations upon every tap to maximize tactile engagement.",
-        interaction: "Icon-centric visual hierarchy that transcends language barriers for international audiences.",
+        wireframeNotes: "Prioritized an unobstructed canvas UI that preserves creative flow for artists.",
+        screenPlanning: "Designed node dashboard widgets showing real-time compute load, uptime, and remaining credits.",
+        interaction: "Created delightful micro-animations upon token reward acquisition with smooth auto-scroll to the next chapter.",
         highlights: [
-          "Ultra-lightweight Telegram WebApp specifications",
-          "Real-time reward yield monitor for node purchasers",
-          "In-app ticketing interface with 24/7 multilingual coverage"
+          "Artist-centric visual AI prompt builder",
+          "Distributed node monitoring console",
+          "Utility membership tier status cards"
         ]
       },
       collaboration: {
-        designer: "Maintained daily reviews with the UI team to produce vibrant, cohesive visual assets.",
-        developer: "Documented Telegram Bot API and wallet signature handling to avert backend performance bottlenecks.",
-        marketing: "Incorporated user community feedback from live AMA sessions into feature updates.",
-        operations: "Held weekly standups with India CS leads to address the top 10 user pain points in rapid hotfix cycles."
+        designer: "Collaborated on dark-themed UI components and visual assets reflecting webtoon IP branding.",
+        developer: "Aligned AI model inference API specifications with blockchain node validation protocols.",
+        marketing: "Planned global creator AMAs and utility NFT marketing campaigns.",
+        operations: "Drafted customer support playbooks for international Discord and Telegram communities."
       },
       result: {
-        summary: "Delivered 5,476,972 NFT mints and sales across 837,456 unique wallets, while driving sales of more than 2,000 nodes at $180 each.",
+        summary: "Sold out 5,476,972 utility NFTs and distributed over 2,000 computing nodes, establishing a robust creative ecosystem.",
         metrics: [
-          { label: "NFTs Minted & Sold", value: "5,476,972", desc: "Monumental milestone across global web3 communities" },
-          { label: "Unique Active Wallets", value: "837,456", desc: "Authentic on-chain transacting user base" },
-          { label: "Node Sales Volume", value: "2,000+ Units", desc: "Sold out $180 nodes generating sustainable revenue" }
+          { label: "NFTs Minted", value: "5,476,972", desc: "Driven by tangible service utility" },
+          { label: "Nodes Sold", value: "2,000+ Units", desc: "Distributed computing power for PrompTale AI" },
+          { label: "Active Wallets", value: "837,456", desc: "Global engagement across platform features" }
         ],
         impact: [
-          "Set a successful benchmark for Telegram mini-app architecture and massive viral traffic scaling",
-          "Demonstrated holistic product leadership uniting product planning, growth marketing, and global support"
+          "Proved product viability by anchoring token models to practical creator utility",
+          "Pioneered an integrated service model bridging generative AI with digital content platforms"
         ]
       },
       myRole: {
-        primary: "Marketing Service Planning, Telegram Mini-App UI/UX, and Global Operations",
+        primary: "PrompTale AI node service planning, HYPERCOMIC reward mechanics, and utility NFT campaigns",
         responsibilities: [
-          "Authoring UI/UX wireframes for Telegram mini-apps and companion websites",
-          "Designing social growth loops and node sales conversion funnels",
-          "Directing India CS center operations and product iterations via VOC",
-          "Expanding international partnerships and community engagement"
+          "Authored screen storyboards for PrompTale AI artist training and node management",
+          "Formulated HYPERCOMIC token reward rules and utility membership perks",
+          "Structured onboarding funnels and promotional landing pages driving 5.47M NFT sales",
+          "Gathered user feedback from international creator communities"
         ],
-        keyTakeaway: "For global mass audiences, the most complex technology must be delivered through zero-friction, delightfully simple UX to spark exponential growth."
+        keyTakeaway: "Products achieve sustainable adoption when planners focus on tangible, everyday user value rather than speculative trends."
       }
     },
     {
       id: "proj-4",
       number: "04",
-      title: "Entertainment Metaverse & Social Game Platforms",
-      subtitle: "Selling out NFTs in 3 minutes and onboarding 40,000+ users via viral marketing and web portal planning",
-      category: ["Metaverse/P2E", "Global Strategy", "Viral Marketing", "Web Platforms"],
+      title: "nfTTcity & Virtual Real Estate Metaverse Platform",
+      subtitle: "3-minute sellout of in-game character utility NFTs and onboarding 40,000+ global pre-registrants",
+      category: ["Metaverse", "Virtual Real Estate", "nfTTcity", "Onboarding Funnels", "Multilingual UX"],
       period: "2021. 09 — 2023. 05",
-      thumbnailUrl: "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?auto=format&fit=crop&w=800&q=80",
-      metric: "Sold Out in 3 Mins",
-      metricLabel: "40,000+ Global Users Acquired",
-      summary: "Planned web portals, international licensing strategies, and viral marketing funnels across EL Park, Wizbl, and Metaverse2, achieving an instant 3-minute NFT sellout and onboarding tens of thousands of international users.",
+      thumbnailUrl: "",
+      metric: "3-Min Sellout",
+      metricLabel: "40,000+ Global Pre-Registrants",
+      summary: "Planned the 'nfTTcity' project at EL Group (EL Park), designing character avatars with exclusive in-game utilities that sold out in 3 minutes and onboarded 40,000+ pre-registered users. Also planned web portal features and multilingual localization for 'Metaverse2' (earth2.io model) at The Future Company.",
+      artifacts: [
+        {
+          id: "metaverse2-art-1",
+          type: "wireframe",
+          title: "Metaverse 2 (Rule the World) Virtual Real Estate Portal & Key Visual",
+          description: "Global launch key visual and multilingual (EN/JA/KR) web portal UX architecture for Metaverse 2, a 1:1 scale virtual earth trading land tiles and constructing customized 3D cities.",
+          imageUrl: "",
+          tag: "Metaverse 2 Platform Planning",
+          keyInsight: "Structured 3D planetary landmarks and intuitive tile-purchasing user flows allowing global users to immediately grasp virtual land ownership."
+        }
+      ],
       overview: {
-        project: "Entertainment Metaverse & Social Platform",
-        company: "EL Park / Wizbl / The Future Company",
+        project: "nfTTcity & Metaverse2",
+        company: "EL Group (EL Park) / The Future Company / Wizbl",
         duration: "2021. 09 — 2023. 05",
         role: "Service & Business Strategy Planner",
-        platform: "Web Portal / Global Metaverse Platforms",
-        team: "2 Strategy Planners, 2 UI Designers, 4 Engineers"
+        platform: "Web Portal / Global Metaverse Platform",
+        team: "2 Strategic Planners, 2 Designers, 4 Developers"
       },
-      background: "In the burgeoning social gaming and metaverse sector, many platforms struggled to acquire and retain real users despite solid technology. Delivering a crystal-clear user journey with rewarding game loops and intuitive web portals was vital.",
+      background: "During the emergence of metaverses and virtual real estate, digital assets often lacked tangible utility. Platforms required engaging avatar utilities and trustworthy web portal foundations.",
       problem: [
-        "Limited international investor and user discovery for early-stage ventures",
-        "Steep barriers to entry due to complicated game mechanics and token economies",
-        "Absence of structured documentation for international exchange listings and smart contract audits"
+        "Difficulty securing sustained brand recognition during early metaverse platform launches",
+        "Lack of real in-game utility for digital NFT collectibles",
+        "Absence of native multilingual (EN/JA/KR) service environments for international user communities"
       ],
       approach: [
-        "Mapped user journeys from landing and registration to gameplay and reward claims",
-        "Executed aggressive social viral marketing funnels yielding over 40,000 pre-registered users",
-        "Oversaw token minting, exchange audit compliance, and trilingual investor presentations"
+        "nfTTcity: Engineered 3D avatar utilities that functioned as playable characters with exclusive perks in the upcoming metaverse",
+        "Built a countdown launch website and viral campaign that delivered a 3-minute complete sellout",
+        "Metaverse2: Planned web features for virtual real estate tile transactions modeled after earth2.io with full EN/JA localization"
       ],
       planning: {
-        serviceStructure: "Structured web portals as central hubs connecting game launchers, marketplace exchanges, and community reward centers.",
-        userFlow: "Pre-marketing engagement → Whitelist qualification → 1-click launch day purchase → Community verification loop.",
-        informationArchitecture: "Home / Roadmap / Play Portal / Tokenomics / Global Community.",
+        serviceStructure: "Structured the web portal as a central hub linking world lore, pre-registration events, NFT minting, and international communities.",
+        userFlow: "Viral campaign arrival → 1-click whitelist registration → 1-click minting on launch day → avatar verification & community joining",
+        informationArchitecture: "Home / Lore & Avatars / Minting Center / Roadmap / Global Community",
         details: [
-          "International exchange listing coordination protocols",
-          "English, Japanese, and Korean localization frameworks",
-          "Entertainment gaming license regulatory compliance"
+          "In-game utility perk matrix for nfTTcity character tiers",
+          "Trilingual localization guidelines for English, Japanese, and Korean",
+          "Global terms of service and community moderation standards"
         ]
       },
       uiux: {
-        wireframeNotes: "Balanced high-contrast cyberpunk aesthetics with crisp, modern layout principles.",
-        screenPlanning: "Prominently featured live countdown timers and real-time inventory gauges to heighten urgency.",
-        interaction: "Instant celebration modal and 1-click social sharing upon sellout completion.",
+        wireframeNotes: "Balanced high-contrast cyberpunk aesthetics with clear, accessible information hierarchy.",
+        screenPlanning: "Integrated live countdown timers and real-time remaining supply counters to maximize launch-day anticipation.",
+        interaction: "Implemented celebratory modals and 1-click social sharing buttons immediately upon sellout.",
         highlights: [
-          "High-concurrency web UI engineered for massive launch-day traffic spikes",
-          "Instant English/Japanese language switcher integration",
-          "Real-time Twitter and Discord community feed widgets"
+          "Robust web UI engineered to handle launch-day traffic spikes",
+          "Instant trilingual language switcher (EN/JA/KR)",
+          "Live social community widgets (Twitter/Discord)"
         ]
       },
       collaboration: {
-        designer: "Standardized visual assets to match global design benchmarks.",
-        developer: "Pre-tested caching layers and payment fallback routes ahead of peak traffic.",
-        marketing: "Orchestrated influencer promotions and airdrop distribution schedules.",
-        operations: "Provided live trilingual support across Discord channels on launch day."
+        designer: "Reviewed 3D avatar key visuals and UI components in real time against global design benchmarks.",
+        developer: "Coordinated caching policies and performance optimization to handle traffic surges smoothly.",
+        marketing: "Orchestrated influencer campaigns and community airdrop events.",
+        operations: "Provided live trilingual support during launch day across global community channels."
       },
       result: {
-        summary: "Sold out the 1st NFT round in just 3 minutes, followed by 6,500 of 7,500 units in subsequent rounds, while rallying an active global community of 40,000+ members.",
+        summary: "Sold out nfTTcity NFTs in just 3 minutes and built an active global community of over 40,000 members.",
         metrics: [
-          { label: "Sellout Record", value: "3 Minutes", desc: "Entire launch allocation claimed instantly" },
-          { label: "Users Acquired", value: "40,000+", desc: "Massive community driven by viral campaigns" },
-          { label: "Subsequent Sales", value: "86.6%", desc: "6,500 of 7,500 units sold in follow-up round" }
+          { label: "Sellout Record", value: "Sold Out in 3 Min", desc: "Complete initial round exhaustion" },
+          { label: "Pre-Registrants", value: "40,000+", desc: "Massive influx from synchronized viral campaigns" },
+          { label: "Subsequent Sales", value: "86.6%", desc: "6,500 of 7,500 units sold in follow-up rounds" }
         ],
         impact: [
-          "Validated the synergy between tight product planning and viral global growth strategies",
-          "Established deep product operations resilience that continues to inform modern platform planning"
+          "Proved the effectiveness of in-platform utility in driving rapid digital asset adoption",
+          "Successfully coordinated international launches for virtual real estate and metaverse platforms"
         ]
       },
       myRole: {
-        primary: "Platform Web Planning, Global Business Strategy, and Viral Marketing",
+        primary: "nfTTcity utility design, launch portal planning, and international communications leadership",
         responsibilities: [
-          "Authoring web portal Information Architecture and screen wireframes",
-          "Devising viral marketing strategies and 40,000-user onboarding funnels",
-          "Leading token audit coordination and crafting investor IR materials in EN/JA",
-          "Directing global community events and multilingual moderation"
+          "Authored website Information Architecture (IA) and detailed screen specifications",
+          "Defined avatar utility perks and designed onboarding funnels for 40,000+ registrants",
+          "Drafted English/Japanese strategy collateral and audited multilingual copy",
+          "Supervised global community operations and user feedback"
         ],
-        keyTakeaway: "Disciplined pre-planning and high-anticipation launch UX possess the immense power to activate tens of thousands of global users simultaneously."
+        keyTakeaway: "Platform success begins with creating authentic, practical utility and pairing it with a frictionless launch user experience."
       }
     }
   ],
   howIWork: [
     {
       step: "01",
-      title: "Business Model & Backoffice Architecture",
-      subtitle: "Defining operational foundations before sketching screens",
-      description: "I dissect how the business monetizes and how administrators manage daily tasks in the backoffice. Uncovering operational bottlenecks and edge cases early ensures a resilient service structure."
+      title: "Business Model & PRD Scoping",
+      subtitle: "Why & What First",
+      description: "Defining core problems and business goals before drafting screens. Writing unambiguous PRDs and policy documents to align the entire cross-functional team."
     },
     {
       step: "02",
-      title: "PRDs & Information Architecture (IA)",
-      subtitle: "Establishing robust business rules and data flows",
-      description: "Abstract ideas are decomposed into explicit feature units, accompanied by unambiguous business logic, access control matrices, and logical information hierarchies."
+      title: "IA & Backoffice Architecture",
+      subtitle: "Structure & Operations",
+      description: "Structuring both customer-facing interfaces and operational backoffice workflows to ensure robust data management from day one."
     },
     {
       step: "03",
-      title: "Figma Storyboards & Edge Case Specs",
-      subtitle: "Complete state coverage, not just empty mockups",
-      description: "Every screen is specified across all critical states: Normal, Empty, Loading, Error, and Unauthorized, ensuring zero guesswork for engineers during development."
+      title: "Wireframes & Markup Prototypes",
+      subtitle: "Figma & HTML/CSS",
+      description: "Creating precise Figma storyboards specifying all edge cases. Drafting direct HTML/CSS prototypes when necessary to reduce engineering communication friction."
     },
     {
       step: "04",
-      title: "HTML/CSS Prototyping & Tech Alignment",
-      subtitle: "A tech-literate planner who codes markup",
-      description: "When development faces tight deadlines or nuanced interaction challenges, I craft and share direct HTML/CSS prototypes in VSCode, bridging the gap with engineering seamlessly."
+      title: "Development Collaboration & QA",
+      subtitle: "Engineering Alignment",
+      description: "Discussing technical feasibility and API communication patterns collaboratively, ensuring exhaustive edge-case coverage to minimize launch defects."
     },
     {
       step: "05",
-      title: "Post-Launch VOC & Operational Refinement",
-      subtitle: "Launch is just day one: data-driven iterative optimization",
-      description: "Drawing on extensive operations leadership at iHerb and Google YouTube, I analyze user tickets (VOC) and operational pain points to automate admin workflows and drive second-stage sprints."
+      title: "Launch & VOC Feedback Loops",
+      subtitle: "Continuous Improvement",
+      description: "Synthesizing post-launch customer inquiries and operational data into clear improvement initiatives for subsequent product sprints."
+    },
+    {
+      step: "06",
+      title: "Data Analytics & Growth Iteration",
+      subtitle: "Data & Growth",
+      description: "Analyzing key funnel conversion and retention metrics to minimize drop-offs and drive data-grounded feature iterations."
     }
   ]
 };

@@ -5,14 +5,92 @@
     --font-pretendard: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
   }
 
+  html {
+    background-color: #080C15;
+    color-scheme: dark;
+    margin: 0;
+    padding: 0;
+  }
+
   html, body, button, input, select, textarea, span, p, h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-pretendard);
   }
 
   body {
+    background-color: #080C15;
+    margin: 0;
+    padding: 0;
     letter-spacing: -0.015em;
     word-break: keep-all;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Subtle, modern grainy film noise texture overlay without composite boundary artifacts */
+  body::before {
+    content: "";
+    position: fixed;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.022;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
   }
 }
+
+/* Dedicated Clean Print & PDF Export Rules */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm;
+  }
+
+  body::before {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #18181b !important;
+    overflow: visible !important;
+  }
+
+  header, main {
+    display: none !important;
+  }
+
+  .resume-modal-backdrop {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+    inset: auto !important;
+    z-index: auto !important;
+  }
+
+  .resume-modal-card {
+    max-height: none !important;
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+  }
+
+  .resume-content-body {
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+}
+

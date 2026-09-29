@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 import { ProjectCaseStudy, ProfileData, WorkArtifact, ProjectRetrospective, ProjectExternalLink } from '../types';
-import { Lock, KeyRound, Save, RotateCcw, X, Plus, Trash2, Check, Edit3, ShieldAlert, LogOut, FileText, AlertTriangle, Layers, ExternalLink, Link2, Image as ImageIcon, Globe, UploadCloud, RefreshCw } from 'lucide-react';
-import { compressImageFile } from '../utils/imageCompressor';
+import { Lock, KeyRound, Save, RotateCcw, X, Plus, Trash2, Check, Edit3, ShieldAlert, LogOut, FileText, AlertTriangle, Layers, ExternalLink, Link2, Image as ImageIcon, Globe, UploadCloud, RefreshCw, Upload } from 'lucide-react';
+import { compressImage, compressFile } from '../lib/imageCompressor';
 
 export const AdminModal: React.FC = () => {
   const {
     data,
     language,
     setLanguage,
-    updateData,
     resetToDefault,
-    updateProfile,
-    updateProject,
-    addProject,
-    deleteProject,
+    saveProfile,
+    saveProject,
+    addNewProject,
+    removeProject,
     isSyncing,
     lastSyncedAt,
-    publishToCloud,
     isAdminAuthenticated,
     isAdminModalOpen,
     closeAdminModal,
@@ -28,7 +26,7 @@ export const AdminModal: React.FC = () => {
 
   const [inputPassword, setInputPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [activeTab, setActiveTab] = useState<'profile' | 'projects' | 'competencies' | 'security'>('profile');
+  const [activeTab, setActiveTab] = useState<'profile' | 'projects' | 'security'>('profile');
   
   // Password change state
   const [newPassword, setNewPassword] = useState('');
@@ -90,28 +88,55 @@ export const AdminModal: React.FC = () => {
   };
 
   const handleSaveProfile = async () => {
-    updateProfile(editableProfile);
-    const success = await publishToCloud();
-    if (success) {
-      showToast('저장 완료! Netlify 라이브 사이트 및 방문자 화면에 실시간 반영되었습니다.');
-    } else {
-      showToast('일시적인 네트워크 지연이 있습니다. 로컬 저장소에는 안전하게 보관되었습니다.', 'error');
+    try {
+      let finalProfile = { ...editableProfile };
+      if (finalProfile.photoUrl && finalProfile.photoUrl.startsWith('data:image')) {
+        finalProfile.photoUrl = await compressImage(finalProfile.photoUrl, 400, 0.7);
+      }
+      const success = await saveProfile(finalProfile);
+      if (success) {
+        showToast('저장 완료! Netlify 라이브 사이트 및 방문자 화면에 실시간 반영되었습니다.');
+      } else {
+        showToast('Firestore 저장 실패: 콘솔 로그를 확인하세요.', 'error');
+      }
+    } catch (err: any) {
+      console.error('handleSaveProfile error:', err);
+      showToast(`저장 오류: ${err?.message || '알 수 없는 오류'}`, 'error');
     }
   };
 
   const handleSaveProject = async () => {
     if (editingProjectData) {
-      updateProject(editingProjectData);
-      const success = await publishToCloud();
-      if (success) {
-        showToast(`'${editingProjectData.title}' 저장 완료! Netlify 라이브 사이트에 즉시 실시간 반영되었습니다.`);
-      } else {
-        showToast('일시적인 네트워크 지연이 있습니다. 로컬 저장소에는 안전하게 보관되었습니다.', 'error');
+      try {
+        let finalProj = { ...editingProjectData };
+        if (finalProj.thumbnailUrl && finalProj.thumbnailUrl.startsWith('data:image')) {
+          finalProj.thumbnailUrl = await compressImage(finalProj.thumbnailUrl, 720, 0.68);
+        }
+        if (finalProj.artifacts && finalProj.artifacts.length > 0) {
+          finalProj.artifacts = await Promise.all(
+            finalProj.artifacts.map(async (art) => {
+              if (art.imageUrl && art.imageUrl.startsWith('data:image')) {
+                const compressed = await compressImage(art.imageUrl, 720, 0.68);
+                return { ...art, imageUrl: compressed };
+              }
+              return art;
+            })
+          );
+        }
+        const success = await saveProject(finalProj);
+        if (success) {
+          showToast(`'${finalProj.title}' 저장 완료! Netlify 라이브 사이트에 즉시 실시간 반영되었습니다.`);
+        } else {
+          showToast('저장 중 Firestore 문서 용량 한도 또는 네트워크 지연이 발생했습니다. 이미지는 자동 최적화되어 로컬에 저장되었습니다.', 'error');
+        }
+      } catch (err: any) {
+        console.error('handleSaveProject error:', err);
+        showToast(`저장 오류: ${err?.message || '알 수 없는 오류'}`, 'error');
       }
     }
   };
 
-  const handleAddNewProject = () => {
+  const handleAddNewProject = async () => {
     const newId = `proj-${Date.now()}`;
     const newProj: ProjectCaseStudy = {
       id: newId,
@@ -161,29 +186,34 @@ export const AdminModal: React.FC = () => {
         keyTakeaway: '이 프로젝트를 통해 얻은 기획자로서의 인사이트'
       }
     };
-    addProject(newProj);
     setSelectedProjectId(newId);
     setEditingProjectData(newProj);
-    triggerSaveToast();
+    const success = await addNewProject(newProj);
+    if (success) {
+      showToast('새 프로젝트가 추가되고 실시간 저장되었습니다.');
+    }
   };
 
-  const handleDeleteCurrentProject = () => {
+  const handleDeleteCurrentProject = async () => {
     if (confirm(`'${editingProjectData?.title}' 프로젝트를 정말 삭제하시겠습니까?`)) {
       if (editingProjectData) {
-        deleteProject(editingProjectData.id);
-        const remaining = data.projects.filter(p => p.id !== editingProjectData.id);
+        const idToDelete = editingProjectData.id;
+        const remaining = data.projects.filter(p => p.id !== idToDelete);
         if (remaining[0]) {
           setSelectedProjectId(remaining[0].id);
           setEditingProjectData(remaining[0]);
         }
-        triggerSaveToast();
+        const success = await removeProject(idToDelete);
+        if (success) {
+          showToast('프로젝트가 삭제되었습니다.');
+        }
       }
     }
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
     if (confirm('포트폴리오의 모든 데이터를 초기 원본 상태로 복원하시겠습니까? (직접 수정한 내용이 초기화됩니다)')) {
-      resetToDefault();
+      await resetToDefault();
       closeAdminModal();
     }
   };
@@ -208,14 +238,14 @@ export const AdminModal: React.FC = () => {
               <Lock className="w-3.5 h-3.5" />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-zinc-950">
-                {isAdminAuthenticated ? 'Portfolio CMS / 관리자 모드' : '관리자 인증'}
+              <h2 className="text-sm font-semibold text-zinc-950 font-mono tracking-tight">
+                ADMIN
               </h2>
-              {isAdminAuthenticated && (
-                <p className="text-[11px] text-zinc-500 font-mono">
-                  관리자 인증됨 · 저장 시 Netlify 라이브에 실시간 반영
-                </p>
-              )}
+              <p className="text-[11px] text-zinc-500 font-mono">
+                {isAdminAuthenticated
+                  ? '관리자 인증됨 · 변경 사항 실시간 저장'
+                  : '관리자 접근 비밀번호를 입력해주세요'}
+              </p>
             </div>
           </div>
 
@@ -333,16 +363,6 @@ export const AdminModal: React.FC = () => {
                 프로젝트 관리 ({data.projects.length}개)
               </button>
               <button
-                onClick={() => setActiveTab('competencies')}
-                className={`py-3 border-b-2 transition-colors whitespace-nowrap ${
-                  activeTab === 'competencies'
-                    ? 'border-zinc-950 text-zinc-950 font-semibold'
-                    : 'border-transparent text-zinc-500 hover:text-zinc-800'
-                }`}
-              >
-                역량 (What I Do)
-              </button>
-              <button
                 onClick={() => setActiveTab('security')}
                 className={`py-3 border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === 'security'
@@ -379,9 +399,9 @@ export const AdminModal: React.FC = () => {
                     </button>
                   </div>
 
-                  {/* Photo & Quick Info */}
+                  {/* Photo & Upload Field */}
                   <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50/50 flex flex-col sm:flex-row items-center gap-5">
-                    <div className="w-20 h-20 rounded-xl overflow-hidden bg-zinc-200 border border-zinc-300 flex items-center justify-center flex-shrink-0 relative">
+                    <div className="w-20 h-20 rounded-xl overflow-hidden bg-slate-900 border border-zinc-300 flex items-center justify-center shrink-0 relative shadow-inner">
                       {editableProfile.photoUrl ? (
                         <img
                           src={editableProfile.photoUrl}
@@ -389,45 +409,71 @@ export const AdminModal: React.FC = () => {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <span className="font-mono text-xs text-zinc-500">No Photo</span>
+                        <div className="w-full h-full bg-gradient-to-br from-blue-700 via-indigo-800 to-slate-900 text-white flex flex-col items-center justify-center font-bold tracking-wider select-none">
+                          <span className="text-xl font-mono">KN</span>
+                          <span className="text-[9px] text-blue-200/80 font-normal">등록 대기</span>
+                        </div>
                       )}
                     </div>
-                    <div className="flex-1 space-y-2 text-xs">
-                      <div className="font-semibold text-zinc-900">프로필 사진 업로드</div>
-                      <p className="text-[11px] text-zinc-500">
-                        준비하신 사진 파일(Koen Photo.jpg)을 업로드하면 웹사이트 및 이력서에 즉시 반영됩니다.
-                      </p>
-                      <div className="flex items-center gap-2">
-                        <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-zinc-900 text-white hover:bg-zinc-800 text-xs font-medium transition-colors">
-                          <span>사진 파일 선택</span>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={async (e) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                try {
-                                  const compressed = await compressImageFile(file, 600, 0.88);
-                                  if (compressed) {
-                                    setEditableProfile(prev => ({ ...prev, photoUrl: compressed }));
+                    <div className="flex-1 space-y-2 text-xs w-full">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-zinc-900">프로필 사진 변경</span>
+                        <div className="flex items-center gap-2">
+                          <label className="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md border border-blue-200 transition-colors">
+                            <Upload className="w-3 h-3" />
+                            <span>내 PC에서 사진 파일 선택</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  try {
+                                    showToast('이미지 최적화 중입니다...');
+                                    const compressed = await compressFile(file, 480, 0.65);
+                                    setEditableProfile({
+                                      ...editableProfile,
+                                      photoUrl: compressed
+                                    });
+                                    try {
+                                      localStorage.setItem('koen_portfolio_custom_photo', compressed);
+                                    } catch {}
+                                    showToast('사진이 첨부되었습니다! 상단 [저장 및 라이브 배포]를 눌러주세요.');
+                                  } catch (err) {
+                                    console.error('File compression failed', err);
                                   }
-                                } catch (err) {
-                                  console.error('Failed to compress image:', err);
                                 }
-                              }
-                            }}
-                          />
-                        </label>
-                        {editableProfile.photoUrl && (
+                              }}
+                            />
+                          </label>
                           <button
                             type="button"
-                            onClick={() => setEditableProfile(prev => ({ ...prev, photoUrl: '' }))}
-                            className="text-[11px] text-red-600 hover:underline"
+                            onClick={() => {
+                              setEditableProfile({
+                                ...editableProfile,
+                                photoUrl: ''
+                              });
+                              try {
+                                localStorage.removeItem('koen_portfolio_custom_photo');
+                              } catch {}
+                              showToast('프로필 사진이 초기화(모노그램 배지)되었습니다.');
+                            }}
+                            className="px-2 py-1 text-[11px] text-zinc-600 bg-zinc-100 hover:bg-zinc-200 rounded border border-zinc-200 transition-colors"
                           >
-                            사진 삭제
+                            사진 초기화
                           </button>
-                        )}
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <span className="text-[11px] text-zinc-500 block">이미지 웹 URL 또는 경로:</span>
+                        <input
+                          type="text"
+                          value={editableProfile.photoUrl || ''}
+                          onChange={e => setEditableProfile({ ...editableProfile, photoUrl: e.target.value })}
+                          placeholder="직접 파일 업로드 또는 이미지 웹 URL (비워둘 시 KN 모노그램)"
+                          className="w-full px-2.5 py-1 text-xs rounded border border-zinc-300 bg-white"
+                        />
                       </div>
                     </div>
                   </div>
@@ -657,7 +703,7 @@ export const AdminModal: React.FC = () => {
                           />
                         </div>
 
-                        {/* Thumbnail Image Upload & URL */}
+                        {/* Thumbnail Image URL & Preview */}
                         <div className="pt-3 border-t border-zinc-100 space-y-2">
                           <label className="font-mono text-zinc-700 font-semibold block">
                             프로젝트 대표 썸네일 이미지
@@ -670,11 +716,14 @@ export const AdminModal: React.FC = () => {
                                 <span className="font-mono text-[10px] text-zinc-400">No Image</span>
                               )}
                             </div>
-                            <div className="flex-1 space-y-1.5 w-full">
-                              <div className="flex items-center gap-2">
-                                <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-900 text-white hover:bg-zinc-800 text-[11px] font-medium transition-colors">
-                                  <ImageIcon className="w-3 h-3" />
-                                  <span>이미지 파일 업로드</span>
+                            <div className="flex-1 space-y-2 w-full">
+                              <div className="flex items-center justify-between">
+                                <span className="text-[11px] text-zinc-500 block">
+                                  프로젝트 썸네일 이미지 경로 또는 웹 URL:
+                                </span>
+                                <label className="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md border border-blue-200 transition-colors">
+                                  <Upload className="w-3 h-3" />
+                                  <span>내 PC에서 이미지 파일 선택</span>
                                   <input
                                     type="file"
                                     accept="image/*"
@@ -683,32 +732,26 @@ export const AdminModal: React.FC = () => {
                                       const file = e.target.files?.[0];
                                       if (file) {
                                         try {
-                                          const compressed = await compressImageFile(file, 900, 0.85);
-                                          if (compressed) {
-                                            setEditingProjectData({ ...editingProjectData, thumbnailUrl: compressed });
-                                          }
+                                          showToast('이미지 최적화 중입니다...');
+                                          const compressed = await compressFile(file, 640, 0.65);
+                                          setEditingProjectData({
+                                            ...editingProjectData,
+                                            thumbnailUrl: compressed
+                                          });
+                                          showToast('이미지 파일이 첨부되었습니다! 하단 [저장 및 라이브 배포] 버튼을 누르면 즉시 반영됩니다.');
                                         } catch (err) {
-                                          console.error('Thumbnail upload error:', err);
+                                          console.error('File compression failed', err);
                                         }
                                       }
                                     }}
                                   />
                                 </label>
-                                {editingProjectData.thumbnailUrl && (
-                                  <button
-                                    type="button"
-                                    onClick={() => setEditingProjectData({ ...editingProjectData, thumbnailUrl: '' })}
-                                    className="text-[11px] text-red-600 hover:underline"
-                                  >
-                                    이미지 삭제
-                                  </button>
-                                )}
                               </div>
                               <input
                                 type="text"
                                 value={editingProjectData.thumbnailUrl || ''}
                                 onChange={e => setEditingProjectData({ ...editingProjectData, thumbnailUrl: e.target.value })}
-                                placeholder="또는 이미지 URL 직접 입력 (https://...)"
+                                placeholder="직접 이미지 파일 업로드 또는 이미지 웹 URL (비워둘 시 대기 슬롯)"
                                 className="w-full px-2.5 py-1 text-xs rounded border border-zinc-300 bg-white"
                               />
                             </div>
@@ -914,7 +957,7 @@ export const AdminModal: React.FC = () => {
                                 </button>
                               </div>
 
-                              {/* Image upload & URL for artifact */}
+                              {/* Image URL & Preview for artifact */}
                               <div className="flex flex-col sm:flex-row items-center gap-3 p-2.5 rounded bg-white border border-zinc-200">
                                 <div className="w-20 h-14 rounded overflow-hidden bg-zinc-100 border border-zinc-200 shrink-0 flex items-center justify-center">
                                   {artifact.imageUrl ? (
@@ -923,31 +966,34 @@ export const AdminModal: React.FC = () => {
                                     <span className="text-[10px] text-zinc-400">No Image</span>
                                   )}
                                 </div>
-                                <div className="flex-1 space-y-1 w-full">
-                                  <label className="cursor-pointer inline-flex items-center gap-1 px-2 py-0.5 rounded bg-zinc-900 text-white hover:bg-zinc-800 text-[10px]">
-                                    <ImageIcon className="w-3 h-3" />
-                                    <span>실무 이미지 파일 첨부</span>
-                                    <input
-                                      type="file"
-                                      accept="image/*"
-                                      className="hidden"
-                                      onChange={async (e) => {
-                                        const file = e.target.files?.[0];
-                                        if (file) {
-                                          try {
-                                            const compressed = await compressImageFile(file, 1000, 0.85);
-                                            if (compressed) {
+                                <div className="flex-1 space-y-1.5 w-full">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[11px] text-zinc-500 block">산출물 이미지 URL:</span>
+                                    <label className="cursor-pointer inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 rounded border border-blue-200 transition-colors">
+                                      <Upload className="w-2.5 h-2.5" />
+                                      <span>내 PC에서 이미지 파일 선택</span>
+                                      <input
+                                        type="file"
+                                        accept="image/*"
+                                        className="hidden"
+                                        onChange={async (e) => {
+                                          const file = e.target.files?.[0];
+                                          if (file) {
+                                            try {
+                                              showToast('산출물 이미지 최적화 중입니다...');
+                                              const compressed = await compressFile(file, 640, 0.65);
                                               const updated = [...(editingProjectData.artifacts || [])];
                                               updated[aIdx] = { ...updated[aIdx], imageUrl: compressed };
                                               setEditingProjectData({ ...editingProjectData, artifacts: updated });
+                                              showToast('산출물 이미지가 첨부되었습니다! 하단 [저장 및 라이브 배포] 버튼을 누르면 즉시 반영됩니다.');
+                                            } catch (err) {
+                                              console.error('File compression failed', err);
                                             }
-                                          } catch (err) {
-                                            console.error('Artifact file upload error:', err);
                                           }
-                                        }
-                                      }}
-                                    />
-                                  </label>
+                                        }}
+                                      />
+                                    </label>
+                                  </div>
                                   <input
                                     type="text"
                                     value={artifact.imageUrl}
@@ -956,8 +1002,8 @@ export const AdminModal: React.FC = () => {
                                       updated[aIdx] = { ...updated[aIdx], imageUrl: e.target.value };
                                       setEditingProjectData({ ...editingProjectData, artifacts: updated });
                                     }}
-                                    placeholder="또는 이미지 URL 직접 입력"
-                                    className="w-full px-2 py-1 text-xs rounded border border-zinc-300"
+                                    placeholder="이미지 경로 또는 직접 파일 선택"
+                                    className="w-full px-2 py-1 text-xs rounded border border-zinc-300 bg-white"
                                   />
                                 </div>
                               </div>
@@ -1148,62 +1194,12 @@ export const AdminModal: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Bottom Save Action Bar */}
-                      <div className="pt-4 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-3 bg-zinc-50/70 p-4 rounded-xl border border-zinc-200">
-                        <span className="text-xs text-zinc-600 font-medium">
-                          💡 [저장 및 라이브 배포]를 누르면 Netlify 라이브 사이트에 즉시 실시간 배포됩니다.
-                        </span>
-                        <button
-                          onClick={handleSaveProject}
-                          disabled={isSyncing}
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 px-5 py-2.5 rounded-lg shadow-xs transition-colors disabled:opacity-50"
-                        >
-                          {isSyncing ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
-                          <span>{isSyncing ? '저장 및 배포 중...' : '저장 및 라이브 배포'}</span>
-                        </button>
-                      </div>
-
                     </div>
                   )}
                 </div>
               )}
 
-              {/* TAB 3: Competencies */}
-              {activeTab === 'competencies' && (
-                <div className="space-y-6">
-                  <div className="pb-3 border-b border-zinc-200">
-                    <h3 className="text-sm font-semibold text-zinc-900">
-                      역량(What I Do) 구분
-                    </h3>
-                    <p className="text-xs text-zinc-500">
-                      01·02 Main Core(핵심)와 03·04 Supporting(서브 역량) 설명을 점검합니다.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                    {data.competencies.map(c => (
-                      <div key={c.id} className="p-4 bg-white rounded-xl border border-zinc-200 space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="font-bold text-zinc-900">{c.number}. {c.title}</span>
-                          <span className="font-mono px-2 py-0.5 rounded bg-zinc-100 text-zinc-700 text-[10px]">
-                            {c.badge}
-                          </span>
-                        </div>
-                        <p className="text-zinc-600 leading-relaxed">{c.description}</p>
-                        <div className="flex flex-wrap gap-1 pt-1">
-                          {c.tags.map((t, idx) => (
-                            <span key={idx} className="bg-zinc-50 border border-zinc-200 px-1.5 py-0.5 rounded text-[10px]">
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 4: Security & Password */}
+              {/* TAB 3: Security & Password */}
               {activeTab === 'security' && (
                 <div className="space-y-6 max-w-lg">
                   <div className="pb-3 border-b border-zinc-200">

@@ -47,13 +47,6 @@ export const ProjectDetailModal: React.FC = () => {
 
   if (!project) return null;
 
-  const scrollToStep = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const hasArtifacts = Boolean(project.artifacts && project.artifacts.length > 0);
   const hasRetrospective = Boolean(project.retrospective);
   const hasExternalLinks = Boolean(project.externalLinks && project.externalLinks.length > 0);
@@ -65,18 +58,6 @@ export const ProjectDetailModal: React.FC = () => {
     if (artifactFilter === 'release-ui') return item.type === 'release-ui';
     return true;
   });
-
-  const stepsList = [
-    { num: '01', title: t('개요', 'OVERVIEW'), id: 'step-overview' },
-    { num: '03', title: t('문제', 'PROBLEM'), id: 'step-problem' },
-    { num: '05', title: t('기획', 'PLANNING'), id: 'step-planning' },
-    { num: '06', title: t('화면설계', 'UI/UX'), id: 'step-uiux' },
-    ...(hasArtifacts ? [{ num: '★', title: t('산출물', 'ARTIFACTS'), id: 'step-artifacts', highlight: true }] : []),
-    ...(hasRetrospective ? [{ num: '🚨', title: t('실수 극복기', 'RETROSPECTIVE'), id: 'step-mistake', highlight: true }] : []),
-    { num: '07', title: t('협업', 'COLLAB'), id: 'step-collab' },
-    { num: '08', title: t('성과', 'RESULT'), id: 'step-result' },
-    { num: '09', title: t('기획자 역할', 'MY ROLE'), id: 'step-myrole' }
-  ];
 
   return (
     <div
@@ -109,34 +90,33 @@ export const ProjectDetailModal: React.FC = () => {
           </button>
         </div>
 
-        {/* Quick Step Bar */}
-        <div className="bg-white px-6 py-2 border-b border-zinc-200/70 overflow-x-auto no-scrollbar flex items-center gap-4 text-[11px] font-mono whitespace-nowrap text-zinc-500">
-          <span className="text-zinc-400 font-sans uppercase">{t('바로가기:', 'Jump to:')}</span>
-          {stepsList.map(s => (
-            <button
-              key={s.num}
-              onClick={() => scrollToStep(s.id)}
-              className="hover:text-blue-600 transition-colors py-0.5"
-            >
-              {s.num}. {s.title}
-            </button>
-          ))}
-        </div>
-
         {/* Scrollable Body */}
         <div className="overflow-y-auto px-6 sm:px-10 py-8 space-y-12 text-zinc-800">
           
           {/* Main Title Hero within Modal */}
           <div className="space-y-4 pb-8 border-b border-zinc-200">
-            {project.thumbnailUrl && (
-              <div className="w-full h-48 sm:h-64 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 shadow-xs relative">
+            {/* Visual Cover Header Slot */}
+            <div className="w-full h-48 sm:h-64 rounded-xl overflow-hidden bg-slate-950 border border-zinc-200/90 shadow-xs relative flex items-center justify-center">
+              {project.thumbnailUrl ? (
                 <img
                   src={project.thumbnailUrl}
                   alt={project.title}
                   className="w-full h-full object-cover"
                 />
-              </div>
-            )}
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950/40 flex flex-col items-center justify-center p-6 text-center border-dashed border border-slate-800 text-white">
+                  <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center mb-2 shadow-inner">
+                    <Layers className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <span className="text-sm font-semibold tracking-tight text-slate-200">
+                    {project.title}
+                  </span>
+                  <span className="text-xs font-mono text-slate-400 mt-1">
+                    {t('프로젝트 대표 산출물 이미지 영역', 'Project Cover Image Slot')}
+                  </span>
+                </div>
+              )}
+            </div>
             <div className="flex flex-wrap gap-1.5">
               {project.category.map((c, i) => (
                 <span key={i} className="text-xs font-mono bg-blue-50 text-blue-800 border border-blue-200/70 px-2.5 py-0.5 rounded">
@@ -441,24 +421,32 @@ export const ProjectDetailModal: React.FC = () => {
                                 AS-IS ({t('개선 전 문제점', 'Previous Problem')})
                               </span>
                             </div>
-                            <div 
-                              onClick={() => setLightboxData({
-                                url: artifact.imageUrl || 'https://images.unsplash.com/photo-1581291518655-9523c932edcf?auto=format&fit=crop&w=1200&q=80',
-                                title: `${artifact.title} (AS-IS)`,
-                                caption: artifact.beforeCaption
-                              })}
-                              className="relative group rounded-lg overflow-hidden border border-zinc-300 bg-white aspect-video cursor-pointer"
-                            >
-                              <img 
-                                src={artifact.imageUrl} 
-                                alt="AS-IS Preview"
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                              />
-                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-medium backdrop-blur-2xs">
-                                <ZoomIn className="w-4 h-4" />
-                                {t('클릭하여 확대', 'Click to zoom')}
+                            {artifact.imageUrl ? (
+                              <div 
+                                onClick={() => setLightboxData({
+                                  url: artifact.imageUrl!,
+                                  title: `${artifact.title} (AS-IS)`,
+                                  caption: artifact.beforeCaption
+                                })}
+                                className="relative group rounded-lg overflow-hidden border border-zinc-300 bg-white aspect-video cursor-pointer"
+                              >
+                                <img 
+                                  src={artifact.imageUrl} 
+                                  alt="AS-IS Preview"
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-medium backdrop-blur-2xs">
+                                  <ZoomIn className="w-4 h-4" />
+                                  {t('클릭하여 확대', 'Click to zoom')}
+                                </div>
                               </div>
-                            </div>
+                            ) : (
+                              <div className="relative rounded-lg overflow-hidden border border-dashed border-rose-200 bg-rose-50/30 aspect-video flex flex-col items-center justify-center p-4 text-center">
+                                <FileText className="w-7 h-7 text-rose-300 mb-1.5" />
+                                <span className="text-xs font-semibold text-rose-900">AS-IS {t('기획 화면 슬롯', 'Wireframe Slot')}</span>
+                                <span className="text-[11px] text-zinc-500 mt-0.5">{t('실제 산출물 이미지 등록 대기', 'Awaiting real screenshot')}</span>
+                              </div>
+                            )}
                             {artifact.beforeCaption && (
                               <p className="text-xs text-zinc-600 leading-relaxed bg-white/80 p-2.5 rounded border border-zinc-200">
                                 <span className="font-semibold text-rose-700">● </span>
@@ -475,24 +463,32 @@ export const ProjectDetailModal: React.FC = () => {
                                 TO-BE ({t('개선 후 해결책', 'Improved Solution')})
                               </span>
                             </div>
-                            <div 
-                              onClick={() => setLightboxData({
-                                url: artifact.imageUrl || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-                                title: `${artifact.title} (TO-BE)`,
-                                caption: artifact.afterCaption
-                              })}
-                              className="relative group rounded-lg overflow-hidden border border-emerald-300 bg-white aspect-video cursor-pointer"
-                            >
-                              <img 
-                                src={artifact.imageUrl} 
-                                alt="TO-BE Preview"
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                              />
-                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-medium backdrop-blur-2xs">
-                                <ZoomIn className="w-4 h-4" />
-                                {t('클릭하여 확대', 'Click to zoom')}
+                            {artifact.imageUrl ? (
+                              <div 
+                                onClick={() => setLightboxData({
+                                  url: artifact.imageUrl!,
+                                  title: `${artifact.title} (TO-BE)`,
+                                  caption: artifact.afterCaption
+                                })}
+                                className="relative group rounded-lg overflow-hidden border border-emerald-300 bg-white aspect-video cursor-pointer"
+                              >
+                                <img 
+                                  src={artifact.imageUrl} 
+                                  alt="TO-BE Preview"
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-medium backdrop-blur-2xs">
+                                  <ZoomIn className="w-4 h-4" />
+                                  {t('클릭하여 확대', 'Click to zoom')}
+                                </div>
                               </div>
-                            </div>
+                            ) : (
+                              <div className="relative rounded-lg overflow-hidden border border-dashed border-emerald-200 bg-emerald-50/30 aspect-video flex flex-col items-center justify-center p-4 text-center">
+                                <FileText className="w-7 h-7 text-emerald-400 mb-1.5" />
+                                <span className="text-xs font-semibold text-emerald-900">TO-BE {t('개선 화면 슬롯', 'Solution Slot')}</span>
+                                <span className="text-[11px] text-zinc-500 mt-0.5">{t('실제 산출물 이미지 등록 대기', 'Awaiting real screenshot')}</span>
+                              </div>
+                            )}
                             {artifact.afterCaption && (
                               <p className="text-xs text-zinc-600 leading-relaxed bg-white/80 p-2.5 rounded border border-zinc-200">
                                 <span className="font-semibold text-emerald-700">● </span>
@@ -502,24 +498,32 @@ export const ProjectDetailModal: React.FC = () => {
                           </div>
                         </div>
                       ) : (
-                        <div 
-                          onClick={() => setLightboxData({
-                            url: artifact.imageUrl,
-                            title: artifact.title,
-                            caption: artifact.description
-                          })}
-                          className="relative group rounded-lg overflow-hidden border border-zinc-300 bg-white aspect-video cursor-pointer max-h-80"
-                        >
-                          <img 
-                            src={artifact.imageUrl} 
-                            alt={artifact.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-medium backdrop-blur-2xs">
-                            <ZoomIn className="w-4 h-4" />
-                            {t('클릭하여 고해상도 확대 (Zoom)', 'Click to zoom high-res')}
+                        artifact.imageUrl ? (
+                          <div 
+                            onClick={() => setLightboxData({
+                              url: artifact.imageUrl!,
+                              title: artifact.title,
+                              caption: artifact.description
+                            })}
+                            className="relative group rounded-lg overflow-hidden border border-zinc-300 bg-white aspect-video cursor-pointer max-h-80"
+                          >
+                            <img 
+                              src={artifact.imageUrl} 
+                              alt={artifact.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-medium backdrop-blur-2xs">
+                              <ZoomIn className="w-4 h-4" />
+                              {t('클릭하여 고해상도 확대 (Zoom)', 'Click to zoom high-res')}
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          <div className="relative rounded-lg overflow-hidden border border-dashed border-blue-200 bg-blue-50/30 aspect-video max-h-80 flex flex-col items-center justify-center p-6 text-center">
+                            <Layers className="w-8 h-8 text-blue-400 mb-2" />
+                            <span className="text-xs font-semibold text-zinc-800">{artifact.title}</span>
+                            <span className="text-[11px] font-mono text-zinc-500 mt-1">{t('기획 명세서 / 화면설계서 산출물 영역', 'Deliverable Specification & UI Frame Slot')}</span>
+                          </div>
+                        )
                       )}
 
                       {/* Description & Key Insight */}
@@ -828,19 +832,6 @@ export const ProjectDetailModal: React.FC = () => {
             </section>
           )}
 
-        </div>
-
-        {/* Modal Footer */}
-        <div className="bg-white px-6 py-4 border-t border-zinc-200 flex items-center justify-between">
-          <span className="text-xs font-mono text-zinc-400">
-            {t('케이스 스터디 완료', 'End of Case Study')} · {project.overview.project}
-          </span>
-          <button
-            onClick={closeProjectDetail}
-            className="text-xs font-medium bg-zinc-900 text-white px-4 py-2 rounded-md hover:bg-zinc-800 transition-colors"
-          >
-            {t('케이스 스터디 닫기', 'Close Case Study')}
-          </button>
         </div>
 
       </div>

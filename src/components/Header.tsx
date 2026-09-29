@@ -26,10 +26,10 @@ export const Header: React.FC = () => {
   return (
     <header
       id="main-header"
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-300 py-3.5 sm:py-4 ${
         isScrolled
-          ? 'bg-[#FAF9F6]/90 backdrop-blur-md border-b border-zinc-200/80 py-3.5 shadow-[0_2px_12px_rgba(0,0,0,0.03)]'
-          : 'bg-transparent py-5'
+          ? 'bg-[#060911]/98 border-b border-slate-800/80 shadow-lg shadow-black/50'
+          : 'bg-[#050811]/80 border-b border-transparent'
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 sm:px-8 flex items-center justify-between">
@@ -39,48 +39,48 @@ export const Header: React.FC = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="flex items-center gap-2.5 text-left group"
         >
-          <span className="font-semibold text-zinc-950 tracking-tight text-lg group-hover:text-zinc-700 transition-colors">
+          <span className="font-bold text-white tracking-tight text-lg group-hover:text-blue-400 transition-colors">
             {data.profile.name}
           </span>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200/60">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-blue-400 bg-blue-950/80 px-2 py-0.5 rounded border border-blue-800/60">
             {t('기획자', 'Planner')}
           </span>
         </button>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-7 text-[13.5px] font-medium text-zinc-600">
-          <button
-            id="nav-about"
-            onClick={() => scrollTo('about')}
-            className="hover:text-zinc-950 transition-colors"
-          >
-            {t('소개', 'About')}
-          </button>
+        <nav className="hidden md:flex items-center gap-7 text-[13.5px] font-medium text-slate-300">
           <button
             id="nav-projects"
             onClick={() => scrollTo('projects')}
-            className="hover:text-zinc-950 transition-colors"
+            className="hover:text-white transition-colors"
           >
             {t('프로젝트', 'Projects')}
           </button>
           <button
+            id="nav-about"
+            onClick={() => scrollTo('about')}
+            className="hover:text-white transition-colors"
+          >
+            {t('소개', 'About')}
+          </button>
+          <button
             id="nav-experience"
             onClick={() => scrollTo('experience')}
-            className="hover:text-zinc-950 transition-colors"
+            className="hover:text-white transition-colors"
           >
             {t('경력 & 전주기', 'Experience')}
           </button>
           <button
             id="nav-how-i-work"
             onClick={() => scrollTo('how-i-work')}
-            className="hover:text-zinc-950 transition-colors"
+            className="hover:text-white transition-colors"
           >
             {t('업무 방식', 'How I Work')}
           </button>
           <button
             id="nav-contact"
             onClick={() => scrollTo('contact')}
-            className="hover:text-zinc-950 transition-colors"
+            className="hover:text-white transition-colors"
           >
             {t('연락처', 'Contact')}
           </button>
@@ -91,7 +91,7 @@ export const Header: React.FC = () => {
           {/* Language Toggle Button (KR / ENG) */}
           <div
             id="lang-toggle-group"
-            className="inline-flex items-center p-0.5 bg-zinc-100/90 rounded-md border border-zinc-200/90 text-xs font-mono shadow-2xs"
+            className="inline-flex items-center p-0.5 bg-slate-900/90 rounded-md border border-slate-800 text-xs font-mono shadow-xs"
             role="group"
             aria-label="Language selection"
           >
@@ -102,7 +102,7 @@ export const Header: React.FC = () => {
               className={`px-2.5 py-1 rounded text-xs font-semibold transition-all ${
                 language === 'ko'
                   ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-zinc-600 hover:text-blue-600'
+                  : 'text-slate-400 hover:text-white'
               }`}
               title="한국어 버전으로 보기 (기본)"
             >
@@ -115,7 +115,7 @@ export const Header: React.FC = () => {
               className={`px-2.5 py-1 rounded text-xs font-semibold transition-all ${
                 language === 'en'
                   ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-zinc-600 hover:text-blue-600'
+                  : 'text-slate-400 hover:text-white'
               }`}
               title="View in English"
             >
@@ -126,43 +126,54 @@ export const Header: React.FC = () => {
           <button
             id="header-resume-btn"
             onClick={openResume}
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 hover:text-blue-700 bg-white hover:bg-blue-50/40 px-3 py-1.5 rounded-md border border-zinc-200 hover:border-blue-200 shadow-xs transition-all"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 px-3.5 py-1.5 rounded-md border border-slate-700/80 hover:border-slate-500 shadow-xs transition-all"
           >
-            <FileText className="w-3.5 h-3.5 text-zinc-500" />
+            <FileText className="w-3.5 h-3.5 text-blue-400" />
             <span>{t('이력서', 'Resume')}</span>
           </button>
 
-          {isAdminAuthenticated && (
-            <div className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200/90 px-2 py-1 rounded-md text-xs">
+          {/* ADMIN Button (Top Header - Unified before & after login) */}
+          {isAdminAuthenticated ? (
+            <div className="inline-flex items-center gap-2 bg-amber-950/60 border border-amber-800/80 px-2.5 py-1.5 rounded-md text-xs font-mono">
               <button
                 id="header-admin-btn"
                 onClick={openAdminModal}
-                className="inline-flex items-center gap-1 font-medium text-amber-900 hover:text-amber-950 font-mono text-[11px]"
-                title={t('CMS 관리자 열기', 'Open CMS Admin')}
+                className="inline-flex items-center gap-1.5 font-semibold text-amber-300 hover:text-amber-200 text-xs transition-colors"
+                title={t('관리자 CMS 열기', 'Open Admin CMS')}
               >
-                <Lock className="w-3 h-3 text-amber-700" />
-                <span>{t('CMS 관리', 'CMS Admin')}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>ADMIN</span>
               </button>
-              <span className="text-amber-300">|</span>
+              <span className="text-amber-800/80">|</span>
               <button
                 onClick={adminLogout}
-                className="text-[10px] font-mono text-zinc-500 hover:text-zinc-800"
+                className="text-[11px] text-slate-400 hover:text-slate-200 transition-colors"
                 title={t('관리자 로그아웃', 'Admin Logout')}
               >
                 {t('로그아웃', 'Logout')}
               </button>
             </div>
+          ) : (
+            <button
+              id="header-admin-btn"
+              onClick={openAdminModal}
+              className="inline-flex items-center gap-1.5 text-xs font-medium font-mono text-slate-300 hover:text-white bg-slate-900/90 hover:bg-slate-800 px-3 py-1.5 rounded-md border border-slate-700/80 hover:border-slate-500 shadow-xs transition-all"
+              title={t('관리자 로그인', 'Admin Login')}
+            >
+              <Lock className="w-3 h-3 text-slate-400" />
+              <span>ADMIN</span>
+            </button>
           )}
         </div>
 
         {/* Mobile controls */}
         <div className="flex md:hidden items-center gap-2">
           {/* Mobile Language Pill */}
-          <div className="inline-flex items-center p-0.5 bg-zinc-100 rounded-md border border-zinc-200 text-xs font-mono">
+          <div className="inline-flex items-center p-0.5 bg-slate-900 rounded-md border border-slate-800 text-xs font-mono">
             <button
               onClick={() => setLanguage('ko')}
               className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-colors ${
-                language === 'ko' ? 'bg-blue-600 text-white shadow-2xs' : 'text-zinc-600 hover:text-blue-600'
+                language === 'ko' ? 'bg-blue-600 text-white shadow-2xs' : 'text-slate-400 hover:text-white'
               }`}
             >
               KR
@@ -170,27 +181,31 @@ export const Header: React.FC = () => {
             <button
               onClick={() => setLanguage('en')}
               className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-colors ${
-                language === 'en' ? 'bg-blue-600 text-white shadow-2xs' : 'text-zinc-600 hover:text-blue-600'
+                language === 'en' ? 'bg-blue-600 text-white shadow-2xs' : 'text-slate-400 hover:text-white'
               }`}
             >
               ENG
             </button>
           </div>
 
-          {isAdminAuthenticated && (
-            <button
-              id="mobile-admin-btn"
-              onClick={openAdminModal}
-              className="p-1.5 rounded-md text-amber-800 bg-amber-50 border border-amber-200"
-              title="CMS Admin"
-            >
-              <Lock className="w-4 h-4" />
-            </button>
-          )}
+          {/* Mobile ADMIN Button */}
+          <button
+            id="mobile-admin-btn"
+            onClick={openAdminModal}
+            className={`px-2 py-1 rounded-md text-xs font-mono font-medium flex items-center gap-1 border transition-colors ${
+              isAdminAuthenticated
+                ? 'text-amber-300 bg-amber-950/60 border-amber-800/80'
+                : 'text-slate-300 bg-slate-900 border-slate-800'
+            }`}
+            title="ADMIN"
+          >
+            <Lock className="w-3 h-3" />
+            <span>ADMIN</span>
+          </button>
           <button
             id="mobile-menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-1.5 rounded-md text-zinc-700 hover:bg-zinc-100 border border-zinc-200"
+            className="p-1.5 rounded-md text-slate-200 hover:bg-slate-800 border border-slate-800"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -200,62 +215,64 @@ export const Header: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#FAF9F6] border-b border-zinc-200 px-6 py-4 space-y-3">
-          <div className="flex flex-col space-y-2 text-sm font-medium text-zinc-700">
-            <button
-              onClick={() => scrollTo('about')}
-              className="text-left py-1.5 hover:text-zinc-950"
-            >
-              {t('소개', 'About')}
-            </button>
+        <div className="md:hidden bg-[#080C15] border-b border-slate-800 px-6 py-4 space-y-3">
+          <div className="flex flex-col space-y-2 text-sm font-medium text-slate-300">
             <button
               onClick={() => scrollTo('projects')}
-              className="text-left py-1.5 hover:text-zinc-950"
+              className="text-left py-1.5 hover:text-white"
             >
               {t('프로젝트', 'Projects')}
             </button>
             <button
+              onClick={() => scrollTo('about')}
+              className="text-left py-1.5 hover:text-white"
+            >
+              {t('소개', 'About')}
+            </button>
+            <button
               onClick={() => scrollTo('experience')}
-              className="text-left py-1.5 hover:text-zinc-950"
+              className="text-left py-1.5 hover:text-white"
             >
               {t('경력 & 전주기', 'Experience')}
             </button>
             <button
               onClick={() => scrollTo('how-i-work')}
-              className="text-left py-1.5 hover:text-zinc-950"
+              className="text-left py-1.5 hover:text-white"
             >
               {t('업무 방식', 'How I Work')}
             </button>
             <button
               onClick={() => scrollTo('contact')}
-              className="text-left py-1.5 hover:text-zinc-950"
+              className="text-left py-1.5 hover:text-white"
             >
               {t('연락처', 'Contact')}
             </button>
           </div>
-          <div className="pt-3 border-t border-zinc-200 flex items-center gap-2">
+          <div className="pt-3 border-t border-slate-800 flex items-center gap-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 openResume();
               }}
-              className="flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-medium py-2 rounded-md bg-white border border-zinc-200 text-zinc-800"
+              className="flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-medium py-2 rounded-md bg-slate-900 border border-slate-700 text-slate-200"
             >
               <FileText className="w-3.5 h-3.5" />
-              {t('이력서 보기', 'View Resume')}
+              <span>{t('이력서 보기', 'View Resume')}</span>
             </button>
-            {isAdminAuthenticated && (
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  openAdminModal();
-                }}
-                className="flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-medium py-2 rounded-md bg-amber-600 text-white"
-              >
-                <Lock className="w-3.5 h-3.5" />
-                {t('CMS 관리', 'CMS Admin')}
-              </button>
-            )}
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openAdminModal();
+              }}
+              className={`flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-mono font-medium py-2 rounded-md border ${
+                isAdminAuthenticated
+                  ? 'bg-amber-950/60 border-amber-800 text-amber-300'
+                  : 'bg-slate-900 border-slate-700 text-slate-200'
+              }`}
+            >
+              <Lock className="w-3.5 h-3.5" />
+              <span>ADMIN</span>
+            </button>
           </div>
         </div>
       )}
