@@ -208,7 +208,7 @@ export const ResumeModal: React.FC = () => {
           {/* Executive Summary */}
           <div className="space-y-3">
             <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-500 font-bold border-b border-zinc-200 pb-1">
-              {t('기획자 요약 (Executive Summary)', 'Executive Summary')}
+              {t('기획자 핵심 요약', 'Executive Summary')}
             </h2>
             <div className="text-xs sm:text-sm text-zinc-700 space-y-2 leading-relaxed">
               <p>
@@ -223,7 +223,7 @@ export const ResumeModal: React.FC = () => {
           {/* Core Competencies */}
           <div className="space-y-3">
             <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-500 font-bold border-b border-zinc-200 pb-1">
-              {t('핵심 역량 및 업무 범위 (Competencies & Scope)', 'Competencies & Scope')}
+              {t('핵심 역량 및 업무 범위', 'Competencies & Scope')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               {competencies.map(c => (
@@ -250,7 +250,7 @@ export const ResumeModal: React.FC = () => {
           {/* Experience Timeline */}
           <div className="space-y-4">
             <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-500 font-bold border-b border-zinc-200 pb-1">
-              {t('주요 경력 사항 (Professional Experience)', 'Professional Experience')}
+              {t('주요 경력 사항', 'Professional Experience')}
             </h2>
             <div className="space-y-6">
               {experiences.map(exp => (
@@ -278,7 +278,7 @@ export const ResumeModal: React.FC = () => {
           {/* Key Projects */}
           <div className="space-y-4">
             <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-500 font-bold border-b border-zinc-200 pb-1">
-              {t('선정 프로젝트 & 케이스 스터디 (Selected Projects)', 'Selected Projects & Case Studies')}
+              {t('선정 프로젝트 및 케이스 스터디', 'Selected Projects & Case Studies')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               {projects.map(p => (
@@ -305,11 +305,11 @@ export const ResumeModal: React.FC = () => {
           {/* Education & Certifications */}
           <div className="space-y-4">
             <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-500 font-bold border-b border-zinc-200 pb-1">
-              {t('학력 및 어학 자격 (Education & Certifications)', 'Education & Certifications')}
+              {t('학력 및 어학 자격', 'Education & Certifications')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="p-4 rounded-lg border border-zinc-200 bg-zinc-50/50 space-y-2">
-                <div className="font-bold text-zinc-900">{t('학력 사항 (Education)', 'Education')}</div>
+                <div className="font-bold text-zinc-900">{t('학력 사항', 'Education')}</div>
                 <div className="space-y-1.5 text-zinc-700">
                   <div className="flex justify-between items-baseline">
                     <span className="font-semibold text-zinc-900">Waseda University (일본)</span>
@@ -326,7 +326,7 @@ export const ResumeModal: React.FC = () => {
               </div>
 
               <div className="p-4 rounded-lg border border-zinc-200 bg-zinc-50/50 space-y-2">
-                <div className="font-bold text-zinc-900">{t('어학 및 자격 (Languages & Scores)', 'Languages & Scores')}</div>
+                <div className="font-bold text-zinc-900">{t('어학 및 자격 사항', 'Languages & Scores')}</div>
                 <div className="space-y-1.5 text-zinc-700">
                   <div className="flex justify-between items-baseline">
                     <span className="font-semibold text-zinc-900">TOEIC 990점</span>

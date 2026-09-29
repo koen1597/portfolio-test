@@ -158,7 +158,7 @@ export const Hero: React.FC = () => {
                     {profile.backgroundOrigin}
                   </div>
                   <div className="text-[11px] text-slate-400 pt-1 border-t border-slate-800/50">
-                    {t('일본 출생 · 글로벌 성장 · 시니어 서비스 기획', 'Born in Japan · Global Growth · Senior Service Planner')}
+                    {t('일본 출생 · 글로벌 성장 · 서비스 기획', 'Born in Japan · Global Growth · Service Planner')}
                   </div>
                 </div>
               </div>

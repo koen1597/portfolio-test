@@ -25,7 +25,7 @@ export const ExperienceSection: React.FC = () => {
             {t('03 / 경력 & 전주기', '03 / EXPERIENCE & LIFECYCLE')}
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
-            {t('서비스 전주기 (End-to-End Product Lifecycle)', 'End-to-End Product Lifecycle')}
+            {t('서비스 전주기 기획 및 운영 역량', 'End-to-End Product Lifecycle')}
           </h2>
           <p className="text-base text-slate-300 max-w-2xl font-normal leading-relaxed">
             {t(

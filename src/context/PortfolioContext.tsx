@@ -122,7 +122,12 @@ const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData =
     : data.profile.backgroundOrigin;
 
   // Sanitize obsolete placeholders
-  const expYears = (data.profile.experienceYears && (data.profile.experienceYears.includes('11년') || data.profile.experienceYears.includes('11+')))
+  const expYears = (data.profile.experienceYears && (
+    data.profile.experienceYears.includes('11년') ||
+    data.profile.experienceYears.includes('11+') ||
+    data.profile.experienceYears.includes('시니어') ||
+    data.profile.experienceYears.includes('Senior')
+  ))
     ? fallback.profile.experienceYears
     : (data.profile.experienceYears || fallback.profile.experienceYears);
 

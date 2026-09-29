@@ -6,7 +6,7 @@ export const portfolioDataEn: PortfolioData = {
     roleTitle: "Product & Service Planner · UI/UX Specialist",
     heroQuote: "Bridging business models, operational workflows, and intuitive UX.",
     heroSubquote: "Connecting business goals and user experience through web & mobile service planning, backoffice architecture, HTML/CSS prototyping, and global operations.",
-    experienceYears: "Senior Service & UI/UX Planner",
+    experienceYears: "Service & UI/UX Planner",
     phone: "010-7930-1597",
     email: "koen.nakano@gmail.com",
     location: "Seoul (Seoul · Tokyo Bilingual)",

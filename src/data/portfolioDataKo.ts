@@ -6,7 +6,7 @@ export const portfolioDataKo: PortfolioData = {
     roleTitle: "서비스 기획자 · UI/UX 기획자",
     heroQuote: "비즈니스 모델과 운영 프로세스를 꿰뚫는 실행형 기획자",
     heroSubquote: "비즈니스 분석을 기반으로 웹·앱 서비스 기획, 백오피스 설계, 프로토타이핑 및 글로벌 운영을 실행합니다.",
-    experienceYears: "시니어 서비스 기획자",
+    experienceYears: "서비스 기획자",
     phone: "010-7930-1597",
     email: "koen.nakano@gmail.com",
     location: "서울 관악구 봉천동 (Seoul / Tokyo)",

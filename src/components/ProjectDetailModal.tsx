@@ -140,7 +140,7 @@ export const ProjectDetailModal: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-zinc-400">01</span>
               <h3 className="text-base font-semibold text-zinc-950 uppercase tracking-wider">
-                {t('01. 기본 개요 (OVERVIEW)', '01. OVERVIEW')}
+                {t('01. 기본 개요', '01. OVERVIEW')}
               </h3>
             </div>
             <div className="bg-white rounded-xl border border-zinc-200/90 p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
@@ -176,7 +176,7 @@ export const ProjectDetailModal: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-zinc-400">02</span>
               <h3 className="text-base font-semibold text-zinc-950 uppercase tracking-wider">
-                {t('02. 필요성 및 배경 (BACKGROUND)', '02. BACKGROUND')}
+                {t('02. 필요성 및 배경', '02. BACKGROUND')}
               </h3>
             </div>
             <div className="bg-white rounded-xl border border-zinc-200/90 p-6 space-y-2">
@@ -194,7 +194,7 @@ export const ProjectDetailModal: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-zinc-400">03</span>
               <h3 className="text-base font-semibold text-zinc-950 uppercase tracking-wider">
-                {t('03. 해결 과제 (PROBLEM)', '03. PROBLEM')}
+                {t('03. 해결 과제 정의', '03. PROBLEM')}
               </h3>
             </div>
             <div className="bg-white rounded-xl border border-zinc-200/90 p-6 space-y-3">
@@ -219,7 +219,7 @@ export const ProjectDetailModal: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-zinc-400">04</span>
               <h3 className="text-base font-semibold text-zinc-950 uppercase tracking-wider">
-                {t('04. 해결 접근법 (APPROACH)', '04. APPROACH')}
+                {t('04. 해결 접근 전략', '04. APPROACH')}
               </h3>
             </div>
             <div className="bg-white rounded-xl border border-zinc-200/90 p-6 space-y-3">
@@ -244,13 +244,13 @@ export const ProjectDetailModal: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-zinc-400">05</span>
               <h3 className="text-base font-semibold text-zinc-950 uppercase tracking-wider">
-                {t('05. 서비스 구조 & 기능 기획 (PLANNING)', '05. PLANNING & ARCHITECTURE')}
+                {t('05. 서비스 구조 및 기능 기획', '05. PLANNING & ARCHITECTURE')}
               </h3>
             </div>
             <div className="bg-white rounded-xl border border-zinc-200/90 p-6 space-y-5">
               <div className="space-y-1">
                 <span className="text-xs font-mono uppercase text-zinc-400">
-                  {t('서비스 구조 (Service Structure)', 'Service Structure')}
+                  {t('서비스 구조', 'Service Structure')}
                 </span>
                 <p className="text-sm text-zinc-700 leading-relaxed font-medium">
                   {project.planning.serviceStructure}
@@ -259,7 +259,7 @@ export const ProjectDetailModal: React.FC = () => {
 
               <div className="space-y-1 pt-3 border-t border-zinc-100">
                 <span className="text-xs font-mono uppercase text-zinc-400">
-                  {t('사용자 동선 (User Flow)', 'User Flow')}
+                  {t('사용자 동선', 'User Flow')}
                 </span>
                 <p className="text-sm text-zinc-700 leading-relaxed">
                   {project.planning.userFlow}
@@ -268,7 +268,7 @@ export const ProjectDetailModal: React.FC = () => {
 
               <div className="space-y-1 pt-3 border-t border-zinc-100">
                 <span className="text-xs font-mono uppercase text-zinc-400">
-                  {t('정보구조 (Information Architecture)', 'Information Architecture (IA)')}
+                  {t('정보구조 (IA)', 'Information Architecture (IA)')}
                 </span>
                 <p className="text-sm text-zinc-700 leading-relaxed font-mono text-xs bg-zinc-50 p-3 rounded border border-zinc-200/60">
                   {project.planning.informationArchitecture}
@@ -278,7 +278,7 @@ export const ProjectDetailModal: React.FC = () => {
               {project.planning.details && (
                 <div className="space-y-2 pt-3 border-t border-zinc-100">
                   <span className="text-xs font-mono uppercase text-zinc-400">
-                    {t('운영 및 정책 규칙 (Rules & Edge Cases)', 'Operational & Policy Rules')}
+                    {t('운영 및 정책 규칙', 'Operational & Policy Rules')}
                   </span>
                   <ul className="space-y-1 text-xs text-zinc-600">
                     {project.planning.details.map((d, i) => (
@@ -298,7 +298,7 @@ export const ProjectDetailModal: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-zinc-400">06</span>
               <h3 className="text-base font-semibold text-zinc-950 uppercase tracking-wider">
-                {t('06. 화면 기획 & UI/UX 명세 (UI/UX SPECIFICATION)', '06. UI/UX SPECIFICATION')}
+                {t('06. 화면 기획 및 UI/UX 명세', '06. UI/UX SPECIFICATION')}
               </h3>
             </div>
             <div className="bg-white rounded-xl border border-zinc-200/90 p-6 space-y-5">
@@ -356,7 +356,7 @@ export const ProjectDetailModal: React.FC = () => {
                     ★ EVIDENCE
                   </span>
                   <h3 className="text-base font-bold text-zinc-950 uppercase tracking-wider flex items-center gap-2">
-                    {t('실무 산출물 & 화면설계서 (ARTIFACTS & WIREFRAMES)', 'WORK ARTIFACTS & WIREFRAME SPECIFICATIONS')}
+                    {t('실무 산출물 및 화면설계서', 'WORK ARTIFACTS & WIREFRAME SPECIFICATIONS')}
                   </h3>
                 </div>
 
@@ -560,7 +560,7 @@ export const ProjectDetailModal: React.FC = () => {
                 </span>
                 <div>
                   <h3 className="text-base font-bold text-zinc-950 uppercase tracking-wider">
-                    {t('기획자의 시행착오 & 실수 극복기 (MISTAKE & RETROSPECTIVE)', 'MISTAKE, ROOT CAUSE & TROUBLESHOOTING')}
+                    {t('기획자의 시행착오 및 문제 해결 과정', 'MISTAKE, ROOT CAUSE & TROUBLESHOOTING')}
                   </h3>
                   <p className="text-xs text-zinc-500 mt-0.5">
                     {t('기획자의 진짜 실력은 예상치 못한 실패와 결함을 만났을 때 집요하게 원인을 파고들어 해결하는 과정에서 드러납니다.', 'True product management competency shines when confronting unexpected pitfalls and systematically solving them.')}
@@ -632,7 +632,7 @@ export const ProjectDetailModal: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-lg bg-zinc-950/70 border border-zinc-800">
                     <div className="space-y-1">
                       <span className="text-[11px] font-mono text-rose-400 font-semibold uppercase">
-                        {t('실패/위험 상황 (Problem Impact)', 'Failure / Risk Scenario')}
+                        {t('기존 위험 상황 및 원인', 'Failure / Risk Scenario')}
                       </span>
                       <p className="text-xs text-zinc-400 leading-relaxed">
                         {project.retrospective.beforeAfterComparison.beforeText}
@@ -640,7 +640,7 @@ export const ProjectDetailModal: React.FC = () => {
                     </div>
                     <div className="space-y-1 border-t sm:border-t-0 sm:border-l border-zinc-800 pt-2 sm:pt-0 sm:pl-3">
                       <span className="text-[11px] font-mono text-emerald-400 font-semibold uppercase">
-                        {t('개편 후 안정화 (Safeguard Applied)', 'Safeguard & Stability Applied')}
+                        {t('개편 후 안정화 조치', 'Safeguard & Stability Applied')}
                       </span>
                       <p className="text-xs text-zinc-300 leading-relaxed">
                         {project.retrospective.beforeAfterComparison.afterText}
@@ -654,7 +654,7 @@ export const ProjectDetailModal: React.FC = () => {
                   <Lightbulb className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                   <div className="space-y-1">
                     <span className="text-xs font-mono uppercase text-emerald-400 font-semibold tracking-wider">
-                      {t('기획자로서 체득한 영구적 교훈 (Permanent Lesson Learned)', 'Permanent Lesson Learned as a Planner')}
+                      {t('기획자로서 체득한 핵심 교훈', 'Permanent Lesson Learned as a Planner')}
                     </span>
                     <p className="text-xs sm:text-sm text-emerald-200/90 leading-relaxed italic">
                       "{project.retrospective.lessonLearned}"
@@ -670,31 +670,31 @@ export const ProjectDetailModal: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-zinc-400">07</span>
               <h3 className="text-base font-semibold text-zinc-950 uppercase tracking-wider">
-                {t('07. 유관 부서 협업 (COLLABORATION)', '07. CROSS-FUNCTIONAL COLLABORATION')}
+                {t('07. 유관 부서 협업 및 정렬', '07. CROSS-FUNCTIONAL COLLABORATION')}
               </h3>
             </div>
             <div className="bg-white rounded-xl border border-zinc-200/90 p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="p-3 bg-zinc-50/70 rounded-lg border border-zinc-200/60 space-y-1">
                 <span className="font-semibold text-zinc-900 block font-mono uppercase text-[11px]">
-                  {t('디자이너 협업 (Designer)', 'Designer Collaboration')}
+                  {t('디자이너 협업', 'Designer Collaboration')}
                 </span>
                 <p className="text-zinc-600 leading-relaxed">{project.collaboration.designer}</p>
               </div>
               <div className="p-3 bg-zinc-50/70 rounded-lg border border-zinc-200/60 space-y-1">
                 <span className="font-semibold text-zinc-900 block font-mono uppercase text-[11px]">
-                  {t('개발자 협업 (Developer)', 'Developer Collaboration')}
+                  {t('개발자 협업', 'Developer Collaboration')}
                 </span>
                 <p className="text-zinc-600 leading-relaxed">{project.collaboration.developer}</p>
               </div>
               <div className="p-3 bg-zinc-50/70 rounded-lg border border-zinc-200/60 space-y-1">
                 <span className="font-semibold text-zinc-900 block font-mono uppercase text-[11px]">
-                  {t('마케팅 정렬 (Marketing)', 'Marketing Alignment')}
+                  {t('마케팅 정렬', 'Marketing Alignment')}
                 </span>
                 <p className="text-zinc-600 leading-relaxed">{project.collaboration.marketing}</p>
               </div>
               <div className="p-3 bg-zinc-50/70 rounded-lg border border-zinc-200/60 space-y-1">
                 <span className="font-semibold text-zinc-900 block font-mono uppercase text-[11px]">
-                  {t('운영 & VOC 동기화 (Operations)', 'Operations & VOC Sync')}
+                  {t('운영 및 고객의견(VOC) 동기화', 'Operations & VOC Sync')}
                 </span>
                 <p className="text-zinc-600 leading-relaxed">{project.collaboration.operations}</p>
               </div>
@@ -706,7 +706,7 @@ export const ProjectDetailModal: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-zinc-400">08</span>
               <h3 className="text-base font-semibold text-zinc-950 uppercase tracking-wider">
-                {t('08. 성과 & 임팩트 (RESULT & IMPACT)', '08. RESULT & IMPACT')}
+                {t('08. 성과 및 비즈니스 임팩트', '08. RESULT & IMPACT')}
               </h3>
             </div>
             <div className="bg-white rounded-xl border border-zinc-200/90 p-6 space-y-5">
@@ -751,7 +751,7 @@ export const ProjectDetailModal: React.FC = () => {
                 09 ★ CRUCIAL
               </span>
               <h3 className="text-base font-bold text-zinc-950 uppercase tracking-wider">
-                {t('09. 기획자로서의 역할과 기여 (MY ROLE)', '09. MY ROLE & CONTRIBUTION')}
+                {t('09. 기획자로서의 역할과 기여', '09. MY ROLE & CONTRIBUTION')}
               </h3>
             </div>
             
@@ -767,7 +767,7 @@ export const ProjectDetailModal: React.FC = () => {
 
               <div className="space-y-2">
                 <span className="text-xs font-mono uppercase text-zinc-400">
-                  {t('구체적으로 무엇을 했는가? (What exactly did I do?)', 'What exactly did I do?')}
+                  {t('주요 기획 업무 및 세부 실행 내역', 'What exactly did I do?')}
                 </span>
                 <ul className="space-y-2">
                   {project.myRole.responsibilities.map((r, idx) => (
@@ -781,7 +781,7 @@ export const ProjectDetailModal: React.FC = () => {
 
               <div className="pt-4 border-t border-zinc-800 space-y-1">
                 <span className="text-xs font-mono uppercase text-emerald-400">
-                  {t('기획자로서 얻은 인사이트 (Key Takeaway)', 'Key Takeaway as a Planner')}
+                  {t('기획자로서 얻은 핵심 인사이트', 'Key Takeaway as a Planner')}
                 </span>
                 <p className="text-xs sm:text-sm text-zinc-300 italic leading-relaxed">
                   "{project.myRole.keyTakeaway}"
@@ -814,14 +814,11 @@ export const ProjectDetailModal: React.FC = () => {
                         {link.type === 'pdf' && <span className="text-xs font-mono px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200">PDF</span>}
                         {link.type === 'live' && <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Live Service</span>}
                         {link.type === 'notion' && <span className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-100 text-zinc-700 border border-zinc-300">Notion</span>}
-                        <span className="text-xs text-zinc-400 font-mono">
-                          {t('대외비 마스킹 완료', 'Confidential Data Masked')}
-                        </span>
                       </div>
                       <h5 className="text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-blue-600 transition-colors">
                         {link.label}
                       </h5>
-                      {link.note && (
+                      {link.note && link.note !== '대외비 마스킹 완료' && (
                         <p className="text-xs text-zinc-500">{link.note}</p>
                       )}
                     </div>

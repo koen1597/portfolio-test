@@ -1059,7 +1059,7 @@ export const AdminModal: React.FC = () => {
                                 label: 'Figma 프로토타입 / 화면설계서',
                                 url: 'https://www.figma.com',
                                 type: 'figma',
-                                note: '대외비 마스킹 완료'
+                                note: ''
                               };
                               setEditingProjectData({
                                 ...editingProjectData,
