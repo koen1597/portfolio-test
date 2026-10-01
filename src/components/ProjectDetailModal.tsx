@@ -701,57 +701,14 @@ export const ProjectDetailModal: React.FC = () => {
             </div>
           </section>
 
-          {/* 08. RESULT */}
-          <section id="step-result" className="space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold text-zinc-400">08</span>
-              <h3 className="text-base font-semibold text-zinc-950 uppercase tracking-wider">
-                {t('08. 성과 및 비즈니스 임팩트', '08. RESULT & IMPACT')}
-              </h3>
-            </div>
-            <div className="bg-white rounded-xl border border-zinc-200/90 p-6 space-y-5">
-              <p className="text-sm sm:text-base text-zinc-800 leading-relaxed">
-                {project.result.summary}
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {project.result.metrics.map((m, i) => (
-                  <div key={i} className="p-4 bg-zinc-50 rounded-lg border border-zinc-200/80 text-center">
-                    <span className="text-xs text-zinc-500 block">{m.label}</span>
-                    <span className="text-2xl font-semibold text-zinc-950 font-mono tracking-tight block my-0.5">
-                      {m.value}
-                    </span>
-                    {m.desc && <span className="text-[11px] text-zinc-400 block">{m.desc}</span>}
-                  </div>
-                ))}
-              </div>
-
-              {project.result.impact && (
-                <div className="space-y-1 pt-2 border-t border-zinc-100">
-                  <span className="text-xs font-mono uppercase text-zinc-400">
-                    {t('주요 비즈니스 성과', 'Key Outcomes')}
-                  </span>
-                  <ul className="space-y-1 text-xs text-zinc-600">
-                    {project.result.impact.map((imp, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-zinc-800 shrink-0 mt-0.5" />
-                        <span>{imp}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </section>
-
-          {/* 09. MY ROLE */}
+          {/* 08. MY ROLE */}
           <section id="step-myrole" className="space-y-3 pt-2">
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
-                09 ★ CRUCIAL
+                08 ★ CRUCIAL
               </span>
               <h3 className="text-base font-bold text-zinc-950 uppercase tracking-wider">
-                {t('09. 기획자로서의 역할과 기여', '09. MY ROLE & CONTRIBUTION')}
+                {t('08. 기획자로서의 역할과 기여', '08. MY ROLE & CONTRIBUTION')}
               </h3>
             </div>
             
@@ -790,13 +747,13 @@ export const ProjectDetailModal: React.FC = () => {
             </div>
           </section>
 
-          {/* 10. EXTERNAL ARTIFACT LINKS */}
+          {/* 09. EXTERNAL ARTIFACT LINKS */}
           {hasExternalLinks && project.externalLinks && (
             <section id="step-links" className="space-y-3 pt-2">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold text-zinc-400">10</span>
+                <span className="text-xs font-mono font-bold text-zinc-400">09</span>
                 <h3 className="text-base font-bold text-zinc-950 uppercase tracking-wider">
-                  {t('관련 기획 산출물 & 프로토타입 링크', 'RELATED ARTIFACT & PROTOTYPE LINKS')}
+                  {t('09. 관련 기획 산출물 & 프로토타입 링크', '09. RELATED ARTIFACT & PROTOTYPE LINKS')}
                 </h3>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

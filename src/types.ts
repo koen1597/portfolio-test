@@ -86,7 +86,7 @@ export interface ProjectCaseStudy {
     marketing: string;
     operations: string;
   };
-  result: {
+  result?: {
     summary: string;
     metrics: { label: string; value: string; desc?: string }[];
     impact: string[];

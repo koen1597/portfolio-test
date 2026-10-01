@@ -1,6 +1,6 @@
 import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { ArrowRight, TrendingUp, Layers, AlertTriangle, ExternalLink as ExternalLinkIcon } from 'lucide-react';
+import { ArrowRight, Layers, ExternalLink as ExternalLinkIcon } from 'lucide-react';
 import { SectionTransition, FadeIn, StaggerContainer, StaggerItem } from './SectionTransition';
 
 export const ProjectsSection: React.FC = () => {
@@ -55,9 +55,6 @@ export const ProjectsSection: React.FC = () => {
         {/* Project Cards Grid */}
         <StaggerContainer staggerDelay={0.12} className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project) => {
-            const artifactCount = project.artifacts?.length || 0;
-            const hasRetro = Boolean(project.retrospective);
-
             return (
               <StaggerItem key={project.id} className="h-full">
                 <div
@@ -92,30 +89,6 @@ export const ProjectsSection: React.FC = () => {
                     <span className="text-[11px] font-mono font-bold bg-slate-950/90 text-white px-2.5 py-1 rounded backdrop-blur-md border border-slate-700/80 shadow-xs">
                       PROJECT {project.number}
                     </span>
-                  </div>
-
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white text-xs z-10">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      {artifactCount > 0 && (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold bg-blue-950/90 text-blue-200 px-2 py-0.5 rounded backdrop-blur-md border border-blue-600/40">
-                          <Layers className="w-3 h-3 text-blue-300" />
-                          {t(`산출물 ${artifactCount}건`, `${artifactCount} Artifacts`)}
-                        </span>
-                      )}
-                      {hasRetro && (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold bg-amber-950/90 text-amber-200 px-2 py-0.5 rounded backdrop-blur-md border border-amber-600/40">
-                          <AlertTriangle className="w-3 h-3 text-amber-400" />
-                          {t('시행착오 극복기', 'Retrospective')}
-                        </span>
-                      )}
-                    </div>
-                    
-                    {project.metric && (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold bg-emerald-950/90 text-emerald-200 px-2.5 py-0.5 rounded backdrop-blur-md border border-emerald-500/40 shrink-0">
-                        <TrendingUp className="w-3 h-3 text-emerald-400" />
-                        {project.metric}
-                      </span>
-                    )}
                   </div>
                 </div>
 
