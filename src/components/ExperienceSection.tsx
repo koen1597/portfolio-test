@@ -230,130 +230,27 @@ export const ExperienceSection: React.FC = () => {
       {/* Ambient background glows */}
       <div className="absolute top-10 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-20">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-16">
         
-        {/* Section Header */}
-        <FadeIn className="space-y-3">
+        {/* 1. Section Header: Career Timeline & Milestones (Placed immediately after Case Studies) */}
+        <FadeIn className="space-y-4">
           <div className="text-xs font-mono tracking-widest text-blue-400 uppercase">
-            {t('03 / 경력 & 전주기', '03 / EXPERIENCE & LIFECYCLE')}
+            {t('02 / 경력 & 전주기', '02 / EXPERIENCE & LIFECYCLE')}
           </div>
-          <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
-            {t('서비스 전주기 기획 및 운영 역량', 'End-to-End Product Lifecycle')}
-          </h2>
-          <p className="text-base text-slate-300 max-w-2xl font-normal leading-relaxed">
-            {t(
-              '단순히 회사를 나열하는 경력이 아닌, 서비스가 기획되어 출시되고 성장하는 전 주기를 직접 조율해 온 기획자로서의 역량을 보여줍니다.',
-              'Demonstrating end-to-end orchestration across every phase of product evolution, from initial discovery and scoping to launch and ongoing operations.'
-            )}
-          </p>
-        </FadeIn>
-
-        {/* Lifecycle Visual Pipeline */}
-        <FadeIn delay={0.1} className="space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-              {t('서비스 라이프사이클 파이프라인', 'Service Lifecycle Pipeline')}
-            </h3>
-            <span className="text-xs font-mono text-slate-400">
-              {t('단계별 역할을 클릭하여 상세를 확인하세요', 'Click a stage to view role breakdown')}
-            </span>
-          </div>
-
-          {/* Stepper bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-            {lifecycle.map((phase, idx) => {
-              const isActive = selectedStage === idx;
-              return (
-                <button
-                  key={phase.stage}
-                  onClick={() => setSelectedStage(idx)}
-                  className={`p-4 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
-                    isActive
-                      ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/25'
-                      : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:border-slate-700 hover:bg-slate-850'
-                  }`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className={`text-[10px] font-mono tracking-widest ${isActive ? 'text-blue-100 font-bold' : 'text-slate-500'}`}>
-                        0{idx + 1}
-                      </span>
-                      <span className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded ${
-                        isActive ? 'bg-blue-800 text-white' : 'bg-slate-950 text-slate-400'
-                      }`}>
-                        {phase.stage}
-                      </span>
-                    </div>
-                    <div className="font-bold text-xs tracking-tight leading-snug">
-                      {phase.title.split('(')[0]}
-                    </div>
-                  </div>
-                  <div className={`text-[11px] mt-2 font-mono leading-tight ${isActive ? 'text-blue-100' : 'text-slate-400'}`}>
-                    {phase.subtitle}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Selected Stage Detail Card */}
-          <motion.div 
-            key={selectedStage}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="bg-slate-900/90 rounded-2xl border border-slate-800 p-6 sm:p-8 space-y-4 shadow-xl backdrop-blur-md"
-          >
-            <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-800">
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-mono font-bold uppercase bg-blue-600 text-white px-2.5 py-1 rounded shadow-xs">
-                  {lifecycle[selectedStage].stage}
-                </span>
-                <h4 className="text-base sm:text-lg font-bold text-white">
-                  {lifecycle[selectedStage].title}
-                </h4>
-              </div>
-              <span className="text-xs text-blue-400 font-medium font-mono">
-                {lifecycle[selectedStage].subtitle}
-              </span>
-            </div>
-
-            <p className="text-sm text-slate-300 leading-relaxed max-w-3xl font-normal">
-              {lifecycle[selectedStage].description}
-            </p>
-
-            <div className="pt-2">
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">
-                {t('주요 산출물 & 역량 (Artifacts & Output)', 'Key Artifacts & Output')}
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {lifecycle[selectedStage].skills.map((s, i) => (
-                  <span
-                    key={i}
-                    className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-200 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 shadow-2xs hover:border-slate-700"
-                  >
-                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </FadeIn>
-
-        {/* Career Timeline Section */}
-        <div className="space-y-8 pt-4">
-          <FadeIn className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-slate-800">
             <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                <Briefcase className="w-4 h-4 text-blue-400" />
+              <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight flex items-center gap-3">
+                <Briefcase className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 shrink-0" />
                 <span>{t('경력 타임라인 & 주요 이력', 'Career Timeline & Milestones')}</span>
-              </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
-                {t('서비스 기획, 백오피스 설계 및 글로벌 운영 중심', 'Focused on service planning, backoffice design, and global ops')}
+              </h2>
+              <p className="text-sm sm:text-base text-slate-300 max-w-2xl font-normal leading-relaxed mt-2">
+                {t(
+                  '서비스 기획, 백오피스 설계 및 글로벌 운영 중심의 실무 이력과 주요 성과입니다.',
+                  'Detailed track record and deliverables across service planning, backoffice architecture, and global operations.'
+                )}
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 shrink-0">
               <span className="text-xs font-mono text-slate-400">
                 {showAllExperiences ? experiences.length : coreExperiences.length} / {experiences.length} {t('건 표시 중', 'shown')}
               </span>
@@ -369,110 +266,220 @@ export const ExperienceSection: React.FC = () => {
                 {showAllExperiences ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
               </button>
             </div>
+          </div>
+        </FadeIn>
+
+        {/* Career Timeline Cards: Core 5 Experiences (Always Visible) */}
+        <div className="space-y-6">
+          {coreExperiences.map((exp, idx) => (
+            <motion.div
+              key={exp.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.45, delay: idx * 0.06, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {renderExperienceCard(exp, idx)}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Extended Experiences (Smooth Cascade Reveal via AnimatePresence) */}
+        <AnimatePresence initial={false}>
+          {showAllExperiences && (
+            <motion.div
+              key="extended-experiences-container"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{
+                opacity: 1,
+                height: 'auto',
+                transition: {
+                  height: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+                  opacity: { duration: 0.35, delay: 0.05 }
+                }
+              }}
+              exit={{
+                opacity: 0,
+                height: 0,
+                transition: {
+                  height: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+                  opacity: { duration: 0.2 }
+                }
+              }}
+              className="overflow-hidden space-y-6"
+            >
+              {/* Visual Chapter Divider */}
+              <div className="flex items-center gap-3 pt-6 pb-2">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-500/40 to-slate-800" />
+                <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-blue-300 bg-blue-950/80 px-3.5 py-1.5 rounded-full border border-blue-800/60 shadow-xs">
+                  {t('이전 글로벌 플랫폼 및 운영 기반 이력 (6~11)', 'Early Career & Global Ops Milestones (6–11)')}
+                </span>
+                <div className="h-px flex-1 bg-gradient-to-l from-transparent via-blue-500/40 to-slate-800" />
+              </div>
+
+              {extendedExperiences.map((exp, idx) => (
+                <motion.div
+                  key={exp.id}
+                  initial={{ opacity: 0, y: 24, scale: 0.98 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: {
+                      duration: 0.45,
+                      delay: idx * 0.07,
+                      ease: [0.16, 1, 0.3, 1]
+                    }
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -12,
+                    scale: 0.98,
+                    transition: { duration: 0.2 }
+                  }}
+                >
+                  {renderExperienceCard(exp, idx + 5)}
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Bottom Expand / Collapse Toggle Button */}
+        {experiences.length > 5 && (
+          <div className="text-center pt-2">
+            {!showAllExperiences ? (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setShowAllExperiences(true)}
+                className="group inline-flex items-center gap-2.5 px-7 py-3.5 text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-xl shadow-lg shadow-blue-600/25 border border-blue-400/40 transition-all cursor-pointer"
+              >
+                <span>{t(`이전 경력 전체 펼쳐보기 (${extendedExperiences.length}개 더보기)`, `Show All Previous Roles (${extendedExperiences.length} more)`)}</span>
+                <ChevronDown className="w-4 h-4 text-blue-200 group-hover:translate-y-0.5 transition-transform" />
+              </motion.button>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setShowAllExperiences(false)}
+                className="group inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-semibold text-slate-300 hover:text-white bg-slate-900/90 hover:bg-slate-850 rounded-xl border border-slate-700 shadow-md transition-all cursor-pointer"
+              >
+                <span>{t('경력 이력 접기 (핵심 5개만 보기)', 'Collapse to Core Roles (5)')}</span>
+                <ChevronUp className="w-4 h-4 text-slate-400 group-hover:-translate-y-0.5 transition-transform" />
+              </motion.button>
+            )}
+          </div>
+        )}
+
+        {/* 2. Service Lifecycle Pipeline: Placed AFTER Career Timeline */}
+        <div className="pt-16 border-t border-slate-800/80 space-y-6">
+          <FadeIn className="space-y-3">
+            <div className="text-xs font-mono tracking-widest text-blue-400 uppercase">
+              {t('서비스 전주기 기획 및 운영 역량', 'END-TO-END PRODUCT LIFECYCLE')}
+            </div>
+            <h3 className="text-xl sm:text-3xl font-bold text-white tracking-tight">
+              {t('서비스 전주기 기획 및 운영 역량', 'End-to-End Product Lifecycle Capability')}
+            </h3>
+            <p className="text-sm sm:text-base text-slate-300 max-w-2xl font-normal leading-relaxed">
+              {t(
+                '단순히 회사를 나열하는 경력이 아닌, 서비스가 기획되어 출시되고 성장하는 전 주기를 직접 조율해 온 기획자로서의 역량을 보여줍니다.',
+                'Demonstrating end-to-end orchestration across every phase of product evolution, from initial discovery and scoping to launch and ongoing operations.'
+              )}
+            </p>
           </FadeIn>
 
-          {/* Core 5 Experiences (Always Visible) */}
-          <div className="space-y-6">
-            {coreExperiences.map((exp, idx) => (
-              <motion.div
-                key={exp.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.45, delay: idx * 0.06, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {renderExperienceCard(exp, idx)}
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Extended Experiences (Smooth Cascade Reveal via AnimatePresence) */}
-          <AnimatePresence initial={false}>
-            {showAllExperiences && (
-              <motion.div
-                key="extended-experiences-container"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{
-                  opacity: 1,
-                  height: 'auto',
-                  transition: {
-                    height: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
-                    opacity: { duration: 0.35, delay: 0.05 }
-                  }
-                }}
-                exit={{
-                  opacity: 0,
-                  height: 0,
-                  transition: {
-                    height: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
-                    opacity: { duration: 0.2 }
-                  }
-                }}
-                className="overflow-hidden space-y-6"
-              >
-                {/* Visual Chapter Divider */}
-                <div className="flex items-center gap-3 pt-6 pb-2">
-                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-500/40 to-slate-800" />
-                  <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-blue-300 bg-blue-950/80 px-3.5 py-1.5 rounded-full border border-blue-800/60 shadow-xs">
-                    {t('이전 글로벌 플랫폼 및 운영 기반 이력 (6~11)', 'Early Career & Global Ops Milestones (6–11)')}
-                  </span>
-                  <div className="h-px flex-1 bg-gradient-to-l from-transparent via-blue-500/40 to-slate-800" />
-                </div>
-
-                {extendedExperiences.map((exp, idx) => (
-                  <motion.div
-                    key={exp.id}
-                    initial={{ opacity: 0, y: 24, scale: 0.98 }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                      transition: {
-                        duration: 0.45,
-                        delay: idx * 0.07,
-                        ease: [0.16, 1, 0.3, 1]
-                      }
-                    }}
-                    exit={{
-                      opacity: 0,
-                      y: -12,
-                      scale: 0.98,
-                      transition: { duration: 0.2 }
-                    }}
-                  >
-                    {renderExperienceCard(exp, idx + 5)}
-                  </motion.div>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Bottom Expand / Collapse Toggle Button */}
-          {experiences.length > 5 && (
-            <div className="text-center pt-4">
-              {!showAllExperiences ? (
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setShowAllExperiences(true)}
-                  className="group inline-flex items-center gap-2.5 px-7 py-3.5 text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-xl shadow-lg shadow-blue-600/25 border border-blue-400/40 transition-all cursor-pointer"
-                >
-                  <span>{t(`이전 경력 전체 펼쳐보기 (${extendedExperiences.length}개 더보기)`, `Show All Previous Roles (${extendedExperiences.length} more)`)}</span>
-                  <ChevronDown className="w-4 h-4 text-blue-200 group-hover:translate-y-0.5 transition-transform" />
-                </motion.button>
-              ) : (
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setShowAllExperiences(false)}
-                  className="group inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-semibold text-slate-300 hover:text-white bg-slate-900/90 hover:bg-slate-850 rounded-xl border border-slate-700 shadow-md transition-all cursor-pointer"
-                >
-                  <span>{t('경력 이력 접기 (핵심 5개만 보기)', 'Collapse to Core Roles (5)')}</span>
-                  <ChevronUp className="w-4 h-4 text-slate-400 group-hover:-translate-y-0.5 transition-transform" />
-                </motion.button>
-              )}
+          <FadeIn delay={0.1} className="space-y-6">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <h4 className="text-sm font-bold uppercase tracking-wider text-white">
+                {t('서비스 라이프사이클 파이프라인', 'Service Lifecycle Pipeline')}
+              </h4>
+              <span className="text-xs font-mono text-slate-400">
+                {t('단계별 역할을 클릭하여 상세를 확인하세요', 'Click a stage to view role breakdown')}
+              </span>
             </div>
-          )}
+
+            {/* Stepper bar */}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              {lifecycle.map((phase, idx) => {
+                const isActive = selectedStage === idx;
+                return (
+                  <button
+                    key={phase.stage}
+                    onClick={() => setSelectedStage(idx)}
+                    className={`p-4 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+                      isActive
+                        ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/25'
+                        : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:border-slate-700 hover:bg-slate-850'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className={`text-[10px] font-mono tracking-widest ${isActive ? 'text-blue-100 font-bold' : 'text-slate-500'}`}>
+                          0{idx + 1}
+                        </span>
+                        <span className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded ${
+                          isActive ? 'bg-blue-800 text-white' : 'bg-slate-950 text-slate-400'
+                        }`}>
+                          {phase.stage}
+                        </span>
+                      </div>
+                      <div className="font-bold text-xs tracking-tight leading-snug">
+                        {phase.title.split('(')[0]}
+                      </div>
+                    </div>
+                    <div className={`text-[11px] mt-2 font-mono leading-tight ${isActive ? 'text-blue-100' : 'text-slate-400'}`}>
+                      {phase.subtitle}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Selected Stage Detail Card */}
+            <motion.div 
+              key={selectedStage}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="bg-slate-900/90 rounded-2xl border border-slate-800 p-6 sm:p-8 space-y-4 shadow-xl backdrop-blur-md"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-800">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono font-bold uppercase bg-blue-600 text-white px-2.5 py-1 rounded shadow-xs">
+                    {lifecycle[selectedStage].stage}
+                  </span>
+                  <h4 className="text-base sm:text-lg font-bold text-white">
+                    {lifecycle[selectedStage].title}
+                  </h4>
+                </div>
+                <span className="text-xs text-blue-400 font-medium font-mono">
+                  {lifecycle[selectedStage].subtitle}
+                </span>
+              </div>
+
+              <p className="text-sm text-slate-300 leading-relaxed max-w-3xl font-normal">
+                {lifecycle[selectedStage].description}
+              </p>
+
+              <div className="pt-2">
+                <div className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">
+                  {t('주요 산출물 & 역량 (Artifacts & Output)', 'Key Artifacts & Output')}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {lifecycle[selectedStage].skills.map((s, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-200 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 shadow-2xs hover:border-slate-700"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </FadeIn>
         </div>
 
       </div>

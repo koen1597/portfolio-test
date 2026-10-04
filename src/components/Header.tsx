@@ -57,18 +57,18 @@ export const Header: React.FC = () => {
             {t('프로젝트', 'Projects')}
           </button>
           <button
-            id="nav-about"
-            onClick={() => scrollTo('about')}
-            className="hover:text-white transition-colors"
-          >
-            {t('소개', 'About')}
-          </button>
-          <button
             id="nav-experience"
             onClick={() => scrollTo('experience')}
             className="hover:text-white transition-colors"
           >
             {t('경력 & 전주기', 'Experience')}
+          </button>
+          <button
+            id="nav-about"
+            onClick={() => scrollTo('about')}
+            className="hover:text-white transition-colors"
+          >
+            {t('소개', 'About')}
           </button>
           <button
             id="nav-how-i-work"
@@ -224,16 +224,16 @@ export const Header: React.FC = () => {
               {t('프로젝트', 'Projects')}
             </button>
             <button
-              onClick={() => scrollTo('about')}
-              className="text-left py-1.5 hover:text-white"
-            >
-              {t('소개', 'About')}
-            </button>
-            <button
               onClick={() => scrollTo('experience')}
               className="text-left py-1.5 hover:text-white"
             >
               {t('경력 & 전주기', 'Experience')}
+            </button>
+            <button
+              onClick={() => scrollTo('about')}
+              className="text-left py-1.5 hover:text-white"
+            >
+              {t('소개', 'About')}
             </button>
             <button
               onClick={() => scrollTo('how-i-work')}

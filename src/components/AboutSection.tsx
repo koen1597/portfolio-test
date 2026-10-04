@@ -18,7 +18,7 @@ export const AboutSection: React.FC = () => {
         {/* Section Header */}
         <FadeIn className="space-y-3">
           <div className="text-xs font-mono tracking-widest text-blue-400 uppercase">
-            {t('02 / 기획자 소개 & 역량', '02 / ABOUT ME')}
+            {t('03 / 기획자 소개 & 역량', '03 / ABOUT ME')}
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
             {t('기획은 제가 경험해 온 모든 역량이 만나는 중심점입니다.', 'Service planning is where all my cross-functional experience converges.')}
