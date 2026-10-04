@@ -175,12 +175,28 @@ const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData =
   );
   const allCleanedProjects = [...cleanedProjects, ...additionalProjects];
 
-  // Experiences check: if existing has obsolete data, replace with fallback.experiences
-  const hasStaleExp = !data.experiences || data.experiences.some(e => {
-    const s = JSON.stringify(e);
-    return s.includes('남바') || s.includes('NAMBA') || s.includes('골드 번호판');
+  // Experiences check: Ensure ALL experiences from fallback exist and are merged
+  const cleanedExperiences = fallback.experiences.map(fallbackExp => {
+    const existing = (data.experiences || []).find(e => e.id === fallbackExp.id);
+    if (!existing) return fallbackExp;
+    return {
+      ...fallbackExp,
+      ...existing,
+      responsibilities: (existing.responsibilities && existing.responsibilities.length > 0)
+        ? existing.responsibilities
+        : fallbackExp.responsibilities,
+      tags: (existing.tags && existing.tags.length > 0)
+        ? existing.tags
+        : fallbackExp.tags
+    };
   });
-  const cleanedExperiences = hasStaleExp ? fallback.experiences : data.experiences;
+  const additionalExperiences = (data.experiences || []).filter(
+    e => !fallback.experiences.some(fe => fe.id === e.id)
+  );
+  const allCleanedExperiences = [...cleanedExperiences, ...additionalExperiences].filter(e => {
+    const s = JSON.stringify(e);
+    return !s.includes('남바') && !s.includes('NAMBA') && !s.includes('골드 번호판');
+  });
 
   let customPhoto = '';
   try {
@@ -204,7 +220,7 @@ const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData =
       photoUrl: resolvedPhoto,
       languages: cleanPortfolioLanguages(data.profile.languages, isKo)
     },
-    experiences: cleanedExperiences,
+    experiences: allCleanedExperiences,
     projects: allCleanedProjects,
     competencies: fallback.competencies,
     lifecycle: fallback.lifecycle,
@@ -364,7 +380,8 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
             // ignore
           }
           const rawStr = JSON.stringify(cloudData);
-          if (rawStr.includes('남바') || rawStr.includes('NAMBA')) {
+          const needsExpSync = !cloudData.experiences || cloudData.experiences.length < portfolioDataKo.experiences.length;
+          if (rawStr.includes('남바') || rawStr.includes('NAMBA') || needsExpSync) {
             setDoc(doc(db, 'portfolio', 'ko'), {
               ...cleaned,
               language: 'ko',
@@ -391,7 +408,8 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
             // ignore
           }
           const rawStr = JSON.stringify(cloudData);
-          if (rawStr.includes('NAMBA') || rawStr.includes('남바')) {
+          const needsExpSync = !cloudData.experiences || cloudData.experiences.length < portfolioDataEn.experiences.length;
+          if (rawStr.includes('NAMBA') || rawStr.includes('남바') || needsExpSync) {
             setDoc(doc(db, 'portfolio', 'en'), {
               ...cleaned,
               language: 'en',

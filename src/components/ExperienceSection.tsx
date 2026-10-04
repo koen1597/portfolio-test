@@ -158,7 +158,7 @@ export const ExperienceSection: React.FC = () => {
             </div>
           </FadeIn>
 
-          <StaggerContainer staggerDelay={0.08} className="space-y-6">
+          <StaggerContainer key={showAllExperiences ? 'all' : 'core'} staggerDelay={0.06} className="space-y-6">
             {displayedExperiences.map((exp) => (
               <StaggerItem key={exp.id}>
                 <div
@@ -211,16 +211,26 @@ export const ExperienceSection: React.FC = () => {
             ))}
           </StaggerContainer>
 
-          {/* Bottom expand toggle button if collapsed */}
-          {!showAllExperiences && (
+          {/* Bottom expand/collapse toggle button */}
+          {experiences.length > 5 && (
             <div className="text-center pt-2">
-              <button
-                onClick={() => setShowAllExperiences(true)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-blue-300 bg-blue-950/80 hover:bg-blue-900 rounded-lg border border-blue-800 shadow-md transition-colors"
-              >
-                <span>{t(`이전 경력 전체 펼쳐보기 (${experiences.length - 5}개 더보기)`, `Show All Previous Roles (${experiences.length - 5} more)`)}</span>
-                <ChevronDown className="w-4 h-4 text-blue-400" />
-              </button>
+              {!showAllExperiences ? (
+                <button
+                  onClick={() => setShowAllExperiences(true)}
+                  className="inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-semibold text-blue-300 hover:text-white bg-blue-950/80 hover:bg-blue-900 rounded-xl border border-blue-800 shadow-lg shadow-blue-950/50 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <span>{t(`이전 경력 전체 펼쳐보기 (${experiences.length - 5}개 더보기)`, `Show All Previous Roles (${experiences.length - 5} more)`)}</span>
+                  <ChevronDown className="w-4 h-4 text-blue-400" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => setShowAllExperiences(false)}
+                  className="inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-semibold text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 rounded-xl border border-slate-700 shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <span>{t('경력 이력 접기 (핵심 5개만 보기)', 'Collapse to Core Roles (5)')}</span>
+                  <ChevronUp className="w-4 h-4 text-slate-400" />
+                </button>
+              )}
             </div>
           )}
         </div>
