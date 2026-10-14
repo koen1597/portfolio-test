@@ -57,6 +57,22 @@ export const AdminModal: React.FC = () => {
     }
   }, [language, data]);
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeAdminModal();
+    };
+    if (isAdminModalOpen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isAdminModalOpen, closeAdminModal]);
+
   if (!isAdminModalOpen) return null;
 
   const handleLogin = (e: React.FormEvent) => {
@@ -525,6 +541,16 @@ export const AdminModal: React.FC = () => {
                         onChange={e => setEditableProfile({ ...editableProfile, mbti: e.target.value })}
                         placeholder="ENTJ-A"
                         className="w-full px-3 py-2 rounded border border-zinc-300 bg-white"
+                      />
+                    </div>
+                    <div className="space-y-1 sm:col-span-2">
+                      <label className="font-mono uppercase text-zinc-500">체류 / 취업 비자 (Visa & Work Eligibility)</label>
+                      <input
+                        type="text"
+                        value={editableProfile.visaStatus || ''}
+                        onChange={e => setEditableProfile({ ...editableProfile, visaStatus: e.target.value })}
+                        placeholder="F-2 (거주 비자) · 국내 취업 활동 제한 없음 (기업 비자 스폰서십 불필요)"
+                        className="w-full px-3 py-2 rounded border border-zinc-300 bg-white text-xs"
                       />
                     </div>
                     <div className="space-y-1 sm:col-span-2">

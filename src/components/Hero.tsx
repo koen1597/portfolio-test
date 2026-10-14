@@ -147,6 +147,23 @@ export const Hero: React.FC = () => {
                 </div>
               </div>
 
+              {/* Visa & Work Eligibility Status Badge */}
+              <div className="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-emerald-950/40 border border-emerald-800/60 text-xs">
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                </span>
+                <div className="min-w-0 flex-1 text-[11px] leading-tight">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="font-semibold text-emerald-300 font-mono">F-2 {t('거주 비자', 'Resident Visa')}</span>
+                    <span className="text-emerald-400 font-medium">· {t('국내 취업 활동 제한 없음', 'Full Work Eligibility')}</span>
+                  </div>
+                  <span className="block text-[10px] text-slate-400 mt-0.5">
+                    {t('*기업 비자 지원(스폰서십) 불필요 · 내국인과 동일 채용 가능', '*No sponsorship required · Eligible for immediate standard hiring')}
+                  </span>
+                </div>
+              </div>
+
               {/* Background & Languages */}
               <div className="space-y-2">
                 <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">

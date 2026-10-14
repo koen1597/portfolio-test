@@ -141,6 +141,7 @@ export interface ProfileData {
   phone?: string;
   location?: string;
   mbti?: string;
+  visaStatus?: string;
   photoUrl?: string;
   resumeUrl?: string;
   githubUrl?: string;

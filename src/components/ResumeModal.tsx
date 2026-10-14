@@ -189,6 +189,10 @@ export const ResumeModal: React.FC = () => {
                   <p className="text-xs text-zinc-500 font-mono mt-0.5">
                     {profile.location || 'Seoul · Tokyo'} · {profile.mbti || 'ENTJ-A'}
                   </p>
+                  <div className="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-300 text-[11px] font-semibold text-emerald-800">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0"></span>
+                    <span>{t('F-2 거주 비자 · 국내 취업 활동 제한 없음 (비자 스폰서십 불필요)', 'F-2 Resident Visa · Full Legal Employment Rights (No Sponsorship Required)')}</span>
+                  </div>
                 </div>
               </div>
 
@@ -197,6 +201,9 @@ export const ResumeModal: React.FC = () => {
                 <div>Phone: <a href={`tel:${profile.phone || '010-7930-1597'}`} className="text-zinc-900 hover:text-blue-600">{profile.phone || '010-7930-1597'}</a></div>
                 <div>{t('문화적 배경: ', 'Background: ')}{profile.backgroundOrigin}</div>
                 <div>{t('구사 언어: 일본어 (모국어) / 한국어 (원어민 수준) / 영어 (일상 회화)', 'Languages: JA (Native) / KO (Native Level) / EN (Conversational)')}</div>
+                <div className="text-emerald-700 font-bold pt-0.5">
+                  {t('체류/취업 자격: F-2 거주 비자 (내국인과 동일하게 취업 제한 없음 · 기업 스폰서십 불필요)', 'Work Eligibility: F-2 Resident Visa (Full legal employment rights · No sponsorship required)')}
+                </div>
               </div>
             </div>
 

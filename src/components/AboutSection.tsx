@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
-import { Globe, Sparkles, CheckCircle2, Award, BookOpen, Layers } from 'lucide-react';
+import { Globe, Sparkles, CheckCircle2, Award, BookOpen, Layers, ShieldCheck } from 'lucide-react';
 import { SectionTransition, FadeIn, StaggerContainer, StaggerItem } from './SectionTransition';
 
 export const AboutSection: React.FC = () => {
@@ -114,6 +114,28 @@ export const AboutSection: React.FC = () => {
                     <span className="font-semibold text-emerald-200">TOEIC 990 / TOEFL 107</span>
                     <span className="text-emerald-300 font-mono text-[11px] font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-600/40">{t('만점 및 고득점', 'Top Score')}</span>
                   </div>
+                </div>
+              </div>
+
+              {/* Visa & Work Eligibility */}
+              <div className="space-y-2 pt-2 border-t border-slate-800">
+                <div className="text-xs text-slate-400 font-mono flex items-center justify-between">
+                  <span>{t('체류 및 취업 자격', 'Visa & Work Authorization')}</span>
+                  <span className="text-emerald-400 font-semibold">{t('취업 활동 자유', 'Fully Eligible')}</span>
+                </div>
+                <div className="p-3 rounded-xl bg-emerald-950/30 border border-emerald-800/50 space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-xs font-bold text-emerald-200">
+                      {t('F-2 (거주 비자) · 국내 취업 제한 없음', 'F-2 Resident Visa · No Work Restrictions')}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-relaxed pl-6">
+                    {t(
+                      '*내국인과 동일하게 법적 취업 활동에 제한이 없으며, 기업의 별도 비자 발급 지원(스폰서십)이나 행정 절차 없이 즉시 정규직/계약직 채용 및 4대 보험 적용이 가능합니다.',
+                      '*Full legal employment rights in South Korea with zero restrictions. No corporate visa sponsorship or administrative sponsor procedures required.'
+                    )}
+                  </p>
                 </div>
               </div>
 

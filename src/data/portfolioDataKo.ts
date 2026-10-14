@@ -11,6 +11,7 @@ export const portfolioDataKo: PortfolioData = {
     email: "koen.nakano@gmail.com",
     location: "서울 관악구 봉천동 (Seoul / Tokyo)",
     mbti: "ENTJ-A",
+    visaStatus: "F-2 (거주 비자) · 국내 취업 활동 제한 없음 (기업 비자 스폰서십 불필요)",
     photoUrl: "",
     coreBadges: [
       "서비스 기획 (Service Planning)",

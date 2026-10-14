@@ -165,6 +165,12 @@ export const ContactSection: React.FC = () => {
                   'Languages: Japanese (Native), Korean (Native Level), English (Conversational)'
                 )}
               </div>
+              <div className="text-[11px] text-emerald-400 font-medium pt-1.5 border-t border-blue-900/40">
+                {t(
+                  '체류 자격: F-2 거주 비자 (내국인과 동일하게 취업 제한 없음 · 기업 지원 불필요)',
+                  'Work Authorization: F-2 Resident Visa (Fully authorized to work · No sponsorship required)'
+                )}
+              </div>
             </div>
 
           </FadeIn>

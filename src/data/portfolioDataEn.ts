@@ -11,6 +11,7 @@ export const portfolioDataEn: PortfolioData = {
     email: "koen.nakano@gmail.com",
     location: "Seoul (Seoul · Tokyo Bilingual)",
     mbti: "ENTJ-A",
+    visaStatus: "F-2 Resident Visa · Fully eligible to work in Korea (No sponsorship required)",
     photoUrl: "",
     coreBadges: [
       "Service Planning (PRD & IA)",
