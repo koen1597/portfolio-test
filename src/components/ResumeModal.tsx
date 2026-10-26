@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { X, Printer } from 'lucide-react';
+import { X, Printer, Bot, Check, Copy } from 'lucide-react';
 
 export const ResumeModal: React.FC = () => {
   const { data, isResumeOpen, closeResume, language, setLanguage, t } = usePortfolio();
   const { profile, competencies, experiences, projects } = data;
+  const [copiedForAI, setCopiedForAI] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -12,12 +13,15 @@ export const ResumeModal: React.FC = () => {
     };
     if (isResumeOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('resume-open');
       window.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = '';
+      document.body.classList.remove('resume-open');
     }
     return () => {
       document.body.style.overflow = '';
+      document.body.classList.remove('resume-open');
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isResumeOpen, closeResume]);
@@ -104,6 +108,40 @@ export const ResumeModal: React.FC = () => {
     window.print();
   };
 
+  const handleCopyForAI = () => {
+    const aiText = `# 나카노 코엔 (Koen Nakano) - 서비스 기획자 포트폴리오 & 이력서
+- 포지션: ${profile.roleTitle} (8년+ 실무 기획 및 운영)
+- 연락처: ${profile.phone || '010-7930-1597'} / ${profile.email}
+- 거주지: ${profile.location || 'Seoul · Tokyo'} (ENTJ-A)
+- 비자/체류자격: F-2 거주 비자 (내국인과 동일하게 취업 제한 없음 · 기업 스폰서십 불필요)
+- 언어: 일본어 (모국어) / 한국어 (원어민 수준) / 영어 (일상 회화 - TOEIC 990 / TOEFL 107)
+- 학력: 와세다 대학교 교육심리학과 중퇴 / 미국 검정고시(GED)
+
+## 기획 철학 & 핵심 강점
+${profile.aboutIntro}
+${profile.aboutPhilosophy}
+${profile.aboutCollaboration}
+
+## 주요 프로젝트 케이스 스터디
+${projects.map(p => `### [${p.title}] - ${p.subtitle}
+- 요약: ${p.summary}
+- 문제 정의: ${p.problemDefinition?.context || ''}
+- 가설 및 해결책: ${p.hypothesisAndSolution?.solutionCore || ''}
+- 성과 지표: ${p.metricLabel || ''}: ${p.metric || ''}
+`).join('\n')}
+
+## 주요 경력 타임라인 (11개사)
+${experiences.map(e => `- [${e.period}] ${e.company} | ${e.role}
+  * ${e.summary}
+  * 주요 업무: ${e.responsibilities?.join(', ') || ''}
+`).join('\n')}
+`;
+
+    navigator.clipboard.writeText(aiText);
+    setCopiedForAI(true);
+    setTimeout(() => setCopiedForAI(false), 2500);
+  };
+
   return (
     <div
       onClick={(e) => {
@@ -141,6 +179,14 @@ export const ResumeModal: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={handleCopyForAI}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3.5 py-1.5 rounded-md shadow-xs transition-colors cursor-pointer"
+              title={t('ChatGPT, Claude 등 다른 AI에게 전달할 수 있는 전체 텍스트 복사', 'Copy entire portfolio text for ChatGPT, Claude, etc.')}
+            >
+              {copiedForAI ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Bot className="w-3.5 h-3.5 text-blue-600" />}
+              <span>{copiedForAI ? t('AI용 복사 완료!', 'Copied for AI!') : t('AI용 텍스트 복사', 'Copy for AI')}</span>
+            </button>
             <button
               onClick={handlePrint}
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 px-3.5 py-1.5 rounded-md shadow-xs transition-colors cursor-pointer"

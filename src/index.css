@@ -48,24 +48,38 @@
 @media print {
   @page {
     size: A4 portrait;
-    margin: 12mm 15mm;
+    margin: 10mm 12mm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   body::before {
     display: none !important;
   }
 
-  body {
+  /* Always hide the fixed floating header when printing */
+  header,
+  #main-header,
+  .print-hidden,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* CASE 1: When Resume Modal is OPEN -> Only print the clean white resume */
+  body.resume-open main {
+    display: none !important;
+  }
+
+  body.resume-open {
     background: #ffffff !important;
     color: #18181b !important;
     overflow: visible !important;
   }
 
-  header, main {
-    display: none !important;
-  }
-
-  .resume-modal-backdrop {
+  body.resume-open .resume-modal-backdrop {
     position: static !important;
     background: transparent !important;
     padding: 0 !important;
@@ -75,22 +89,50 @@
     z-index: auto !important;
   }
 
-  .resume-modal-card {
+  body.resume-open .resume-modal-card {
     max-height: none !important;
     max-width: 100% !important;
     border: none !important;
     box-shadow: none !important;
     overflow: visible !important;
     border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #18181b !important;
   }
 
-  .resume-content-body {
+  body.resume-open .resume-content-body {
     overflow: visible !important;
     padding: 0 !important;
   }
 
-  .print-hidden {
-    display: none !important;
+  /* CASE 2: When printing the main website (Ctrl + P on normal page) -> Print all sections! */
+  body:not(.resume-open) {
+    background: #080C15 !important;
+    color: #f1f5f9 !important;
+    overflow: visible !important;
+  }
+
+  body:not(.resume-open) main {
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  /* Override Framer Motion initial { opacity: 0 } so all off-screen cards print clearly */
+  body:not(.resume-open) main * {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Avoid cutting cards in half across printed pages */
+  body:not(.resume-open) section,
+  body:not(.resume-open) article,
+  body:not(.resume-open) .bg-slate-900\/90,
+  body:not(.resume-open) .rounded-2xl {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 }
 
