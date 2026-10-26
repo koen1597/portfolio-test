@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { Lock, FileText, Menu, X, Bot, Check } from 'lucide-react';
+import { Lock, FileText, Menu, X } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { data, language, setLanguage, openAdminModal, openResume, t, isAdminAuthenticated, adminLogout } = usePortfolio();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [copiedForAI, setCopiedForAI] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,30 +14,6 @@ export const Header: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleCopyForAI = () => {
-    const aiText = `# 나카노 코엔 (Koen Nakano) - 서비스 기획자 포트폴리오
-- 포지션: ${data.profile.roleTitle} (8년+ 실무)
-- 연락처: ${data.profile.phone || '010-7930-1597'} / ${data.profile.email}
-- 거주지: ${data.profile.location || 'Seoul · Tokyo'} (ENTJ-A)
-- 체류/비자: F-2 거주 비자 (내국인과 동일하게 취업 제한 없음 · 기업 스폰서십 불필요)
-- 언어: 일본어(모국어) / 한국어(원어민 수준) / 영어(일상 회화 - TOEIC 990 / TOEFL 107)
-
-## 기획 철학 & 핵심 강점
-${data.profile.aboutIntro}
-${data.profile.aboutPhilosophy}
-${data.profile.aboutCollaboration}
-
-## 대표 프로젝트 케이스 스터디 (3종)
-${data.projects.map(p => `- [${p.title}] ${p.subtitle}: ${p.summary} (${p.metricLabel || ''}: ${p.metric || ''})`).join('\n')}
-
-## 주요 경력 타임라인 (11개사)
-${data.experiences.map(e => `- [${e.period}] ${e.company} | ${e.role}: ${e.summary}`).join('\n')}
-`;
-    navigator.clipboard.writeText(aiText);
-    setCopiedForAI(true);
-    setTimeout(() => setCopiedForAI(false), 2500);
-  };
 
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
@@ -147,16 +122,6 @@ ${data.experiences.map(e => `- [${e.period}] ${e.company} | ${e.role}: ${e.summa
               ENG
             </button>
           </div>
-
-          <button
-            id="header-ai-copy-btn"
-            onClick={handleCopyForAI}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-300 hover:text-white bg-blue-950/80 hover:bg-blue-900 px-3 py-1.5 rounded-md border border-blue-800/80 shadow-xs transition-all cursor-pointer"
-            title={t('ChatGPT, Claude 등 다른 AI에게 전달할 수 있는 전체 텍스트 복사', 'Copy text for ChatGPT, Claude, etc.')}
-          >
-            {copiedForAI ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Bot className="w-3.5 h-3.5 text-blue-400" />}
-            <span>{copiedForAI ? t('복사됨!', 'Copied!') : t('AI 전달용 복사', 'Copy for AI')}</span>
-          </button>
 
           <button
             id="header-resume-btn"
@@ -307,18 +272,6 @@ ${data.experiences.map(e => `- [${e.period}] ${e.company} | ${e.role}: ${e.summa
             >
               <Lock className="w-3.5 h-3.5" />
               <span>ADMIN</span>
-            </button>
-          </div>
-          <div className="pt-2">
-            <button
-              onClick={() => {
-                handleCopyForAI();
-                setTimeout(() => setMobileMenuOpen(false), 900);
-              }}
-              className="w-full inline-flex justify-center items-center gap-2 text-xs font-semibold py-2 rounded-md bg-blue-950/80 border border-blue-800 text-blue-300 active:bg-blue-900 transition-colors"
-            >
-              {copiedForAI ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Bot className="w-3.5 h-3.5 text-blue-400" />}
-              <span>{copiedForAI ? t('AI용 복사 완료!', 'Copied for AI!') : t('AI 전달용 전체 요약 복사', 'Copy Text for AI')}</span>
             </button>
           </div>
         </div>
