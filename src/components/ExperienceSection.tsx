@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePortfolio } from '../context/PortfolioContext';
+import { usePortfolio, cleanLeadText } from '../context/PortfolioContext';
 import { 
   CheckCircle2, 
   ChevronDown, 
@@ -28,7 +28,7 @@ export const ExperienceSection: React.FC = () => {
   const getDomainBadge = (id: string, company: string) => {
     if (id === 'exp-1' || company.includes('어셈브릭스') || company.includes('Assemblix')) {
       return {
-        label: t('SaaS & 물류 플랫폼 기획 총괄', 'Lead SaaS & Logistics Platform Planner'),
+        label: t('SaaS & 물류 플랫폼 기획', 'SaaS & Logistics Platform Planner'),
         color: 'text-blue-300 bg-blue-950/80 border-blue-700/70',
         icon: <Building2 className="w-3.5 h-3.5 text-blue-400" />
       };
@@ -77,14 +77,14 @@ export const ExperienceSection: React.FC = () => {
     }
     if (id === 'exp-8' || company.includes('YouTube')) {
       return {
-        label: t('Google YouTube 글로벌 CS 운영 리드', 'Google YouTube Global Support Lead'),
+        label: t('Google YouTube 글로벌 CS 운영', 'Google YouTube Global Support Operations'),
         color: 'text-rose-300 bg-rose-950/80 border-rose-700/70',
         icon: <Globe className="w-3.5 h-3.5 text-rose-400" />
       };
     }
     if (id === 'exp-9' || company.includes('iHerb')) {
       return {
-        label: t('글로벌 이커머스 해외 운영팀 리드 (3년 2개월)', 'Global E-Commerce Operations Lead (3y 2m)'),
+        label: t('글로벌 이커머스 해외 운영팀 (3년 2개월)', 'Global E-Commerce Operations (3y 2m)'),
         color: 'text-emerald-300 bg-emerald-950/80 border-emerald-700/70',
         icon: <Award className="w-3.5 h-3.5 text-emerald-400" />
       };
@@ -160,7 +160,7 @@ export const ExperienceSection: React.FC = () => {
             <h4 className={`font-bold tracking-tight text-white ${
               isCurrent ? 'text-lg sm:text-xl' : 'text-base sm:text-lg'
             }`}>
-              {exp.role}
+              {cleanLeadText(exp.role)}
             </h4>
 
             {/* Domain Highlight Badge */}
@@ -243,12 +243,6 @@ export const ExperienceSection: React.FC = () => {
                 <Briefcase className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 shrink-0" />
                 <span>{t('경력 타임라인 & 주요 이력', 'Career Timeline & Milestones')}</span>
               </h2>
-              <p className="text-sm sm:text-base text-slate-300 max-w-2xl font-normal leading-relaxed mt-2">
-                {t(
-                  '서비스 기획, 백오피스 설계 및 글로벌 운영 중심의 실무 이력과 주요 성과입니다.',
-                  'Detailed track record and deliverables across service planning, backoffice architecture, and global operations.'
-                )}
-              </p>
             </div>
             <div className="flex items-center gap-3 shrink-0">
               <span className="text-xs font-mono text-slate-400">
@@ -374,19 +368,13 @@ export const ExperienceSection: React.FC = () => {
 
         {/* 2. Service Lifecycle Pipeline: Placed AFTER Career Timeline */}
         <div className="pt-16 border-t border-slate-800/80 space-y-6">
-          <FadeIn className="space-y-3">
+          <FadeIn className="space-y-2">
             <div className="text-xs font-mono tracking-widest text-blue-400 uppercase">
-              {t('서비스 전주기 기획 및 운영 역량', 'END-TO-END PRODUCT LIFECYCLE')}
+              {t('02-B / 전주기 기획 파이프라인', '02-B / LIFECYCLE PIPELINE')}
             </div>
             <h3 className="text-xl sm:text-3xl font-bold text-white tracking-tight">
               {t('서비스 전주기 기획 및 운영 역량', 'End-to-End Product Lifecycle Capability')}
             </h3>
-            <p className="text-sm sm:text-base text-slate-300 max-w-2xl font-normal leading-relaxed">
-              {t(
-                '단순히 회사를 나열하는 경력이 아닌, 서비스가 기획되어 출시되고 성장하는 전 주기를 직접 조율해 온 기획자로서의 역량을 보여줍니다.',
-                'Demonstrating end-to-end orchestration across every phase of product evolution, from initial discovery and scoping to launch and ongoing operations.'
-              )}
-            </p>
           </FadeIn>
 
           <FadeIn delay={0.1} className="space-y-6">

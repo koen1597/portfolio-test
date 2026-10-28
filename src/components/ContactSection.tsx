@@ -43,12 +43,6 @@ export const ContactSection: React.FC = () => {
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
             {t('복잡한 문제를 명확한 서비스로 만듭니다.', "Let's build something meaningful together.")}
           </h2>
-          <p className="text-base text-slate-300 max-w-xl font-normal leading-relaxed">
-            {t(
-              '복잡한 비즈니스 문제를 명확한 서비스 구조와 직관적인 화면으로 구체화할 기획자를 찾고 계신가요? 편하게 연락주세요.',
-              'Looking for a service planner who structures complex business logic into intuitive user experiences? Feel free to reach out.'
-            )}
-          </p>
         </FadeIn>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -151,28 +145,6 @@ export const ContactSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Quick Context Card */}
-            <div className="p-4 rounded-xl bg-blue-950/30 border border-blue-800/40 text-xs text-slate-300 space-y-1">
-              <div className="font-bold text-blue-300">
-                {t('활동 및 거주 권역:', 'Location & Mobility:')}
-              </div>
-              <div>
-                {t('한국 (서울) 및 일본 (도쿄 / 원격) 프로젝트 유연 대응 가능', 'Available for Seoul, Tokyo, and remote cross-border projects')}
-              </div>
-              <div className="text-[11px] text-slate-400 mt-1">
-                {t(
-                  '언어: 일본어 (모국어), 한국어 (원어민 수준), 영어 (일상 회화)',
-                  'Languages: Japanese (Native), Korean (Native Level), English (Conversational)'
-                )}
-              </div>
-              <div className="text-[11px] text-emerald-400 font-medium pt-1.5 border-t border-blue-900/40">
-                {t(
-                  '체류 자격: F-2 거주 비자 (내국인과 동일하게 취업 제한 없음 · 기업 지원 불필요)',
-                  'Work Authorization: F-2 Resident Visa (Fully authorized to work · No sponsorship required)'
-                )}
-              </div>
-            </div>
-
           </FadeIn>
 
           {/* Quick Message Box */}
@@ -195,7 +167,7 @@ export const ContactSection: React.FC = () => {
                 <input
                   type="text"
                   required
-                  placeholder={t('예: 홍길동 (스타트업 대표 / 채용 담당자)', 'e.g. Alex Kim (Product Lead / Hiring Team)')}
+                  placeholder={t('예: 홍길동 (스타트업 대표 / 채용 담당자)', 'e.g. Alex Kim (Product Manager / Hiring Team)')}
                   value={senderName}
                   onChange={e => setSenderName(e.target.value)}
                   className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white focus:outline-hidden focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-slate-600"

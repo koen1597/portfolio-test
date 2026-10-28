@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { usePortfolio } from '../context/PortfolioContext';
+import { usePortfolio, cleanLeadText } from '../context/PortfolioContext';
 import { 
   X, 
   CheckCircle2, 
@@ -158,7 +158,7 @@ export const ProjectDetailModal: React.FC = () => {
               </div>
               <div>
                 <span className="text-zinc-400 block font-mono text-[11px] uppercase">{t('담당 역할', 'Role')}</span>
-                <span className="font-semibold text-zinc-900 mt-0.5 block">{project.overview.role}</span>
+                <span className="font-semibold text-zinc-900 mt-0.5 block">{cleanLeadText(project.overview.role)}</span>
               </div>
               <div>
                 <span className="text-zinc-400 block font-mono text-[11px] uppercase">{t('타깃 플랫폼', 'Platform')}</span>
@@ -562,9 +562,6 @@ export const ProjectDetailModal: React.FC = () => {
                   <h3 className="text-base font-bold text-zinc-950 uppercase tracking-wider">
                     {t('기획자의 시행착오 및 문제 해결 과정', 'MISTAKE, ROOT CAUSE & TROUBLESHOOTING')}
                   </h3>
-                  <p className="text-xs text-zinc-500 mt-0.5">
-                    {t('기획자의 진짜 실력은 예상치 못한 실패와 결함을 만났을 때 집요하게 원인을 파고들어 해결하는 과정에서 드러납니다.', 'True product management competency shines when confronting unexpected pitfalls and systematically solving them.')}
-                  </p>
                 </div>
               </div>
 
@@ -705,7 +702,7 @@ export const ProjectDetailModal: React.FC = () => {
           <section id="step-myrole" className="space-y-3 pt-2">
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
-                08 ★ CRUCIAL
+                08
               </span>
               <h3 className="text-base font-bold text-zinc-950 uppercase tracking-wider">
                 {t('08. 기획자로서의 역할과 기여', '08. MY ROLE & CONTRIBUTION')}
@@ -718,7 +715,7 @@ export const ProjectDetailModal: React.FC = () => {
                   {t('기획자 핵심 책임', 'Primary Responsibility')}
                 </span>
                 <h4 className="text-lg font-semibold text-white">
-                  {project.myRole.primary}
+                  {cleanLeadText(project.myRole.primary)}
                 </h4>
               </div>
 

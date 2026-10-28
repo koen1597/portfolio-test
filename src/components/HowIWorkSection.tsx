@@ -22,12 +22,6 @@ export const HowIWorkSection: React.FC = () => {
           <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
             {t('구조화와 실행의 6단계 작업 방식', 'Methodical & Transparent Process')}
           </h2>
-          <p className="text-base text-slate-300 max-w-2xl font-normal leading-relaxed">
-            {t(
-              '추상적인 아이디어를 손에 잡히는 서비스로 구체화하기 위해 지키는 6단계 작업 원칙입니다.',
-              'A six-stage disciplined framework translating ambiguous business requirements into robust, high-fidelity digital products.'
-            )}
-          </p>
         </FadeIn>
 
         {/* 6 Steps Grid */}
@@ -73,22 +67,6 @@ export const HowIWorkSection: React.FC = () => {
             </StaggerItem>
           ))}
         </StaggerContainer>
-
-        {/* Summary Motto Box */}
-        <FadeIn delay={0.2} className="p-7 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-blue-950 text-white border border-blue-900/50 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
-          <div className="space-y-1.5 text-center sm:text-left">
-            <span className="text-xs font-mono uppercase tracking-wider text-blue-400 font-semibold">{t('기획 철학', 'Planning Philosophy')}</span>
-            <p className="text-sm sm:text-base font-medium text-slate-200 leading-relaxed">
-              {t(
-                '"화면은 기획의 결과물일 뿐, 기획의 본질은 복잡한 현실의 제약을 단순한 시스템으로 푸는 것입니다."',
-                '"Screens are merely artifacts of planning; the essence of planning is untangling complex real-world constraints into simple, robust systems."'
-              )}
-            </p>
-          </div>
-          <span className="text-xs font-mono bg-blue-950 text-blue-300 px-4 py-2 rounded-xl border border-blue-800/80 whitespace-nowrap shadow-md">
-            {data.profile.name}
-          </span>
-        </FadeIn>
 
       </div>
     </SectionTransition>

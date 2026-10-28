@@ -23,12 +23,6 @@ export const AboutSection: React.FC = () => {
           <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
             {t('기획은 제가 경험해 온 모든 역량이 만나는 중심점입니다.', 'Service planning is where all my cross-functional experience converges.')}
           </h2>
-          <p className="text-base text-slate-300 max-w-2xl font-normal leading-relaxed">
-            {t(
-              '다양한 직무를 경험한 뒤 기획을 중심으로 정립했습니다. 마케팅부터 개발 협업, 고객 응대까지 서비스 전체의 흐름을 읽고 설계합니다.',
-              'Starting across marketing, operations, and support before focusing on service planning. Reading and architecting the entire product lifecycle from user acquisition to technical execution.'
-            )}
-          </p>
         </FadeIn>
 
         {/* Narrative & Background Cards */}
@@ -44,18 +38,6 @@ export const AboutSection: React.FC = () => {
             <p className="text-slate-400">
               {profile.aboutCollaboration}
             </p>
-
-            <div className="pt-2 border-t border-slate-800/80">
-              <div className="bg-slate-900/80 rounded-xl p-5 border border-slate-800 text-sm text-slate-300 space-y-1.5 shadow-md">
-                <span className="font-semibold text-blue-300 block">{t('핵심 포지셔닝: ', 'Core Positioning: ')}</span>
-                <span className="leading-relaxed block">
-                  {t(
-                    '"이것저것 다 해본 사람"이 아니라, 기획이 중심이고 다른 직무를 경험했기 때문에 전체적인 관점에서 실행 가능한 기획을 도출하는 사람입니다.',
-                    'Not simply someone who touched many areas, but a planner at the core whose cross-functional foundation yields executable, cohesive solutions.'
-                  )}
-                </span>
-              </div>
-            </div>
           </FadeIn>
 
           {/* Background Card (Korean / Japanese & Trilingual) */}
@@ -138,13 +120,6 @@ export const AboutSection: React.FC = () => {
                   </p>
                 </div>
               </div>
-
-              <div className="text-[11px] text-slate-400 italic pt-1">
-                {t(
-                  '* 글로벌 프로덕트 및 크로스보더 서비스 협업에 유연하게 대응 가능합니다.',
-                  '* Fluent cross-border communication for international product expansion.'
-                )}
-              </div>
             </div>
           </FadeIn>
         </div>
@@ -164,13 +139,6 @@ export const AboutSection: React.FC = () => {
               {t('서비스 전주기 관점', 'Product Lifecycle Perspective')}
             </span>
           </div>
-
-          <p className="text-sm text-slate-300 max-w-3xl leading-relaxed">
-            {t(
-              '마케팅에서 출발하여 고객과 운영 현장을 마주하고, 이를 해결하기 위해 서비스 기획과 UI/UX 설계로 수렴되었습니다. 각 단계를 직접 겪었기에 디자이너·개발자·운영진 사이의 병목을 사전에 방지합니다.',
-              'Beginning in marketing and operations before converging on service and UI/UX planning. Having worked across these domains prevents costly bottlenecks between design, development, and customer operations.'
-            )}
-          </p>
 
           {/* Flow visualization with stagger */}
           <StaggerContainer staggerDelay={0.07} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
@@ -241,16 +209,6 @@ export const AboutSection: React.FC = () => {
               </StaggerItem>
             ))}
           </StaggerContainer>
-
-          <div className="p-3 bg-blue-950/40 rounded-xl border border-blue-800/50 text-xs text-slate-300 flex items-center justify-between flex-wrap gap-2">
-            <span>
-              💡 <strong className="text-blue-300">{t('구조적 메시지:', 'Key Narrative:')}</strong>{' '}
-              {t(
-                '사용자를 이해하고 → 서비스를 설계하고 → 화면으로 구체화하고 → 개발자와 협업하고 → 실제 운영하면서 지속 개선하는 기획자',
-                'Understanding users → Architecting services → Specifying screens → Aligning with engineering → Improving in live operations'
-              )}
-            </span>
-          </div>
         </FadeIn>
 
         {/* What I Do: Main vs Supporting Bento */}
@@ -264,9 +222,6 @@ export const AboutSection: React.FC = () => {
                 {t('역량 구분: Main Core & Supporting Strength', 'Competency Matrix: Main Core & Supporting Strength')}
               </h3>
             </div>
-            <p className="text-xs text-slate-400 font-mono">
-              {t('Main 2개 직무(Core) + Supporting 2개 직무(Strength)', 'Main 2 Core Functions + 2 Supporting Strengths')}
-            </p>
           </FadeIn>
 
           <StaggerContainer staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 gap-6">

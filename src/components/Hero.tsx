@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { usePortfolio } from '../context/PortfolioContext';
+import { usePortfolio, cleanLeadText } from '../context/PortfolioContext';
 import { ArrowDown, ArrowUpRight, ShieldCheck, Globe2 } from 'lucide-react';
 
 export const Hero: React.FC = () => {
@@ -63,9 +63,11 @@ export const Hero: React.FC = () => {
               <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight text-white leading-[1.14] text-balance">
                 {profile.heroQuote}
               </h1>
-              <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
-                {profile.heroSubquote}
-              </p>
+              {profile.heroSubquote ? (
+                <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
+                  {profile.heroSubquote}
+                </p>
+              ) : null}
             </div>
 
             {/* Key Skill Badges */}
@@ -139,7 +141,7 @@ export const Hero: React.FC = () => {
                     {profile.name}
                   </h2>
                   <p className="text-xs text-blue-400 font-medium truncate mt-0.5">
-                    {profile.roleTitle}
+                    {cleanLeadText(profile.roleTitle)}
                   </p>
                   <p className="text-[11px] font-mono text-slate-400 mt-0.5">
                     {profile.location || 'Seoul · Tokyo'} · {profile.mbti || 'ENTJ-A'}
@@ -170,27 +172,11 @@ export const Hero: React.FC = () => {
                   <span>{t('문화적 배경 & 언어', 'Background & Languages')}</span>
                   <span className="text-blue-400">KO / JA / EN</span>
                 </div>
-                <div className="bg-slate-950/80 rounded-lg p-3 border border-slate-800/80 space-y-1.5 text-xs">
+                <div className="bg-slate-950/80 rounded-lg p-3 border border-slate-800/80 text-xs">
                   <div className="text-slate-200 font-medium leading-relaxed">
                     {profile.backgroundOrigin}
                   </div>
-                  <div className="text-[11px] text-slate-400 pt-1 border-t border-slate-800/50">
-                    {t('일본 출생 · 글로벌 성장 · 서비스 기획', 'Born in Japan · Global Growth · Service Planner')}
-                  </div>
                 </div>
-              </div>
-
-              {/* Core Philosophy mini quote */}
-              <div className="space-y-1.5">
-                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
-                  {t('기획 철학', 'Planning Philosophy')}
-                </div>
-                <p className="text-xs text-slate-300 leading-relaxed italic border-l-2 border-blue-500 pl-3 py-0.5">
-                  {t(
-                    '"비즈니스 모델과 운영 동선을 먼저 꿰뚫어야 안정적인 UI/UX가 완성됩니다."',
-                    '"True UI/UX stability stems from mastering the business and operational architecture first."'
-                  )}
-                </p>
               </div>
 
               {/* Quick stats row */}

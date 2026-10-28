@@ -5,14 +5,14 @@ export const portfolioDataEn: PortfolioData = {
     name: "Koen Nakano",
     roleTitle: "Product & Service Planner · UI/UX Specialist",
     heroQuote: "Bridging business models, operational workflows, and intuitive UX.",
-    heroSubquote: "Connecting business goals and user experience through web & mobile service planning, backoffice architecture, HTML/CSS prototyping, and global operations.",
+    heroSubquote: "",
     experienceYears: "Service & UI/UX Planner",
     phone: "010-7930-1597",
     email: "koen.nakano@gmail.com",
     location: "Seoul (Seoul · Tokyo Bilingual)",
     mbti: "ENTJ-A",
     visaStatus: "F-2 Resident Visa · Fully eligible to work in Korea (No sponsorship required)",
-    photoUrl: "",
+    photoUrl: "firestore://media/profile_photo",
     coreBadges: [
       "Service Planning (PRD & IA)",
       "UI/UX Planning & Wireframes",
@@ -69,7 +69,7 @@ export const portfolioDataEn: PortfolioData = {
       number: "03",
       title: "Service Operations & VOC Analysis",
       badge: "My Strength",
-      description: "Leveraging team lead experience at iHerb, Google YouTube, and global CS centers to analyze user inquiries (VOC), resolve operational bottlenecks, and refine backoffice workflows.",
+      description: "Leveraging operational experience at iHerb, Google YouTube, and global CS centers to analyze user inquiries (VOC), resolve operational bottlenecks, and refine backoffice workflows.",
       tags: [
         "Workflow Optimization",
         "Customer VOC Analysis",
@@ -119,7 +119,7 @@ export const portfolioDataEn: PortfolioData = {
       stage: "OPERATE",
       title: "Operations & VOC Loop",
       subtitle: "Live Issue Resolution & Process Playbooks",
-      description: "Applying global operational leadership to analyze user feedback, eliminate backoffice bottlenecks, and standardize service procedures.",
+      description: "Applying global operational experience to analyze user feedback, eliminate backoffice bottlenecks, and standardize service procedures.",
       skills: ["VOC Feedback Loop", "Backoffice Planning", "Global Operations", "Troubleshooting"]
     },
     {
@@ -135,8 +135,8 @@ export const portfolioDataEn: PortfolioData = {
       id: "exp-1",
       period: "2025. 03 — Present",
       company: "Assemblix Co., Ltd. ((주)어셈브릭스)",
-      role: "Lead Service & UI/UX Planner",
-      summary: "Directing service planning, admin backoffice architecture, UI/UX design, and HTML/CSS prototyping for 'T-NECT' (martial arts SaaS & tournament system) and 'TOPTOP' (freight license exchange).",
+      role: "Service & UI/UX Planner",
+      summary: "Conducting service planning, admin backoffice architecture, UI/UX design, and HTML/CSS prototyping for 'T-NECT' (martial arts SaaS & tournament system) and 'TOPTOP' (freight license exchange).",
       responsibilities: [
         "Formulated multi-product ecosystem for 'T-NECT' (https://www.t-nect.com/): T-NECT Master (directors), T-NECT Mate (parents & students), dedicated attendance kiosk app, tournament manager, and blockchain-based 'T-BADGE' e-Certificates",
         "Architected 'TOPTOP', a blockchain-backed P2P exchange for commercial freight licenses: live tonnage pricing dashboards and corporate escrow checkout workflows",
@@ -191,10 +191,10 @@ export const portfolioDataEn: PortfolioData = {
       period: "2022. 11 — 2023. 05 (7 Mos)",
       company: "EL Park / EL Group (이엘파크)",
       role: "Platform Strategy Associate",
-      summary: "Led strategy and website planning for the 'nfTTcity' metaverse project, achieving a 3-minute sellout of utility NFTs and 40,000+ pre-registrations.",
+      summary: "Managed strategy and website planning for the 'nfTTcity' metaverse project, achieving a 3-minute sellout of utility NFTs and 40,000+ pre-registrations.",
       responsibilities: [
         "Designed utility NFTs usable directly as in-game player avatars in an upcoming metaverse platform",
-        "Structured pre-launch countdown funnels, leading to a 3-minute complete sellout on launch day",
+        "Structured pre-launch countdown funnels, resulting in a 3-minute complete sellout on launch day",
         "Onboarded over 40,000 pre-registered global users through viral social media marketing"
       ],
       tags: ["nfTTcity", "Metaverse Planning", "3-Min Sellout", "40K User Funnel"]
@@ -229,27 +229,27 @@ export const portfolioDataEn: PortfolioData = {
       id: "exp-8",
       period: "2021. 01 — 2021. 09 (9 Mos)",
       company: "Google YouTube (YouTube POS JP)",
-      role: "YouTube POS JP Team Lead",
-      summary: "Led customer support operations for YouTube POS in Japan, driving QA compliance and team performance metrics.",
+      role: "YouTube POS JP Operations Specialist",
+      summary: "Managed customer support operations for YouTube POS in Japan, driving QA compliance and team performance metrics.",
       responsibilities: [
         "Supervised dedicated customer resolution streams leveraging native Japanese fluency",
         "Coached team members against strict CS quality assurance and KPI benchmarks",
         "Synthesized repetitive customer feedback into actionable product defect reports"
       ],
-      tags: ["Google YouTube", "Operations Team Lead", "Native Japanese", "KPI Management"]
+      tags: ["Google YouTube", "Operations Management", "Native Japanese", "KPI Management"]
     },
     {
       id: "exp-9",
       period: "2017. 10 — 2020. 11 (3 Yrs 2 Mos)",
       company: "iHerb®",
-      role: "International Operations Team Lead",
-      summary: "Directed overseas customer operations, analyzed VOC inquiry trends, and supervised staff training.",
+      role: "International Operations Specialist",
+      summary: "Managed overseas customer operations, analyzed VOC inquiry trends, and supervised staff training.",
       responsibilities: [
         "Conducted quantitative VOC analysis across international customer inquiry categories",
         "Formulated onboarding curricula for incoming support agents and conducted talent interviews",
         "Standardized customer resolution playbooks for global billing and cross-border shipping anomalies"
       ],
-      tags: ["iHerb", "International Ops Lead", "VOC Analysis", "Quality Management", "Playbook Standardization"]
+      tags: ["iHerb", "International Operations", "VOC Analysis", "Quality Management", "Playbook Standardization"]
     },
     {
       id: "exp-10",
@@ -285,7 +285,7 @@ export const portfolioDataEn: PortfolioData = {
       subtitle: "All-in-one ecosystem encompassing academy SaaS, live tournament operations, and blockchain e-Certificates (T-BADGE)",
       category: ["SaaS Platform", "UI/UX Planning", "Tournament Management", "T-BADGE e-Certificate", "HTML/CSS Prototyping"],
       period: "2025. 03 — Present",
-      thumbnailUrl: "",
+      thumbnailUrl: "firestore://media/thumb_proj-1",
       metric: "60% Admin Time Saved",
       metricLabel: "Time Saved on Administration",
       summary: "An integrated platform modernizing martial arts academies from paper ledgers to digital operations, while digitizing taekwondo tournament operations from competitor enrollment to live judge scoring and blockchain 'T-BADGE' e-Certificate issuance. (https://www.t-nect.com/)",
@@ -295,7 +295,7 @@ export const portfolioDataEn: PortfolioData = {
           type: "wireframe",
           title: "T-BADGE: Blockchain Digital Award (e-Certificate) Figma Component Architecture",
           description: "Responsive Figma component system for officially issued digital certificates: Front (Tournament No, Rank, Athlete Name, Dojang, Division), Back (Official Score, Award Citation), and Social Media View (Attached Photos/Videos, 1-Click Social Sharing, PDF Download)",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-1_tnect-art-1",
           tag: "T-BADGE Component System",
           keyInsight: "Engineered permanent blockchain validity alongside viral parent sharing loops (KakaoTalk, Facebook, X) and official PDF certificate rendering."
         },
@@ -306,7 +306,7 @@ export const portfolioDataEn: PortfolioData = {
           description: "Replaced a clumsy 4-step screen sequence with a single 10-key numeric keypad and instant 1-second confirmation, reducing entry congestion significantly.",
           beforeCaption: "AS-IS: 3 screen transitions with confirmation dialogs (15s per student, entry queues)",
           afterCaption: "TO-BE: 4-digit PIN auto-detects attendance with instant parent app alerts (3s per student)",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-1_tnect-art-2",
           tag: "AS-IS vs TO-BE",
           keyInsight: "Omitted explicit 'Submit' buttons in favor of 4-digit auto-detection to handle 30+ students arriving simultaneously."
         }
@@ -334,7 +334,7 @@ export const portfolioDataEn: PortfolioData = {
         project: "T-NECT",
         company: "Assemblix Co., Ltd. ((주)어셈브릭스)",
         duration: "2025. 03 — Present",
-        role: "Lead Service Planner & UI/UX Designer",
+        role: "Service Planner & UI/UX Designer",
         platform: "Web & Mobile / T-NECT Master · Mate · Attendance App · Tournament Manager",
         team: "1 Planner, 1 Designer, 4 Developers"
       },
@@ -346,13 +346,13 @@ export const portfolioDataEn: PortfolioData = {
       ],
       approach: [
         "Architected role-specific platforms: 'T-NECT Master' (directors), 'T-NECT Mate' (parents/students), 'Attendance Kiosk App', and 'Tournament Manager'",
-        "Engineered real-time mobile scoring inputs for judges and live digital leaderboards",
+        "Engineered real-time mobile scoring inputs for judges and live digital scoreboards",
         "Built the 'T-BADGE' blockchain e-Certificate system in Figma with seamless SNS sharing interactions"
       ],
       planning: {
         serviceStructure: "Integrated T-NECT Master, T-NECT Mate, Attendance Kiosk, and Tournament Operations into an interconnected data pipeline.",
         userFlow: "Daily: PIN entry → instant parent alert → month-end 1-click tuition payment / Tournament: Online entry → live referee scoring → T-BADGE e-Certificate issued and shared to SNS",
-        informationArchitecture: "Dojang Admin / Attendance / Billing / Tournament Registration / Live Leaderboard / T-BADGE Wallet",
+        informationArchitecture: "Dojang Admin / Attendance / Billing / Tournament Registration / Live Scoreboard / T-BADGE Wallet",
         details: [
           "Automated sibling discount calculation logic for multi-child families",
           "Real-time scoring tabulation matrix tailored to sparring and poomsae categories",
@@ -405,7 +405,7 @@ export const portfolioDataEn: PortfolioData = {
       subtitle: "Formalizing freight license transactions through live tonnage pricing and secure corporate escrow checkout",
       category: ["P2P Platform", "Freight License Exchange", "Escrow Policies", "Pricing Data UI", "UI/UX Planning"],
       period: "2025. 03 — Present",
-      thumbnailUrl: "",
+      thumbnailUrl: "firestore://media/thumb_proj-2",
       metric: "0 Fraud Incidents",
       metricLabel: "Corporate Escrow Security",
       summary: "A peer-to-peer digital marketplace revolutionizing commercial freight truck license transactions (light trucks, private freight, logistics brokerage licenses) through real-time tonnage market pricing and corporate account escrow settlement, eliminating offline broker markups and fraud.",
@@ -415,7 +415,7 @@ export const portfolioDataEn: PortfolioData = {
           type: "wireframe",
           title: "Real-Time Freight License Pricing Dashboard (EVs to Logistics Brokerage)",
           description: "An intuitive market data interface displaying real-time transaction trends and price charts broken down by license tier (Light Delivery, Independent Freight, Freight Brokerage)",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-2_toptop-art-1",
           tag: "Market Pricing UI"
         },
         {
@@ -425,7 +425,7 @@ export const portfolioDataEn: PortfolioData = {
           description: "A chronological 5-step milestone timeline locking escrow deposits until official municipal transfer authorization is validated, eliminating fraud.",
           beforeCaption: "AS-IS: High broker fees, deposit theft, and frequent disputes over administrative non-compliance",
           afterCaption: "TO-BE: Corporate escrow holding → municipal document filing → official transfer validation → payout release",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-2_toptop-art-2",
           tag: "AS-IS vs TO-BE"
         }
       ],
@@ -452,7 +452,7 @@ export const portfolioDataEn: PortfolioData = {
         project: "TOPTOP",
         company: "Assemblix Co., Ltd. ((주)어셈브릭스)",
         duration: "2025. 03 — Present",
-        role: "Lead Service & UI/UX Planner",
+        role: "Service & UI/UX Planner",
         platform: "Mobile Web & App (Android / iOS) / Admin Backoffice",
         team: "1 Planner, 1 Designer, 3 Developers"
       },
@@ -522,7 +522,7 @@ export const portfolioDataEn: PortfolioData = {
       subtitle: "Planning webtoon reading rewards (HYCO), AI creator nodes, and 5.47M utility NFT campaigns",
       category: ["AI Platform", "Blockchain Webtoon", "Node Architecture", "Utility NFTs", "UI/UX Planning"],
       period: "2024. 05 — 2025. 03",
-      thumbnailUrl: "",
+      thumbnailUrl: "firestore://media/thumb_proj-3",
       metric: "5.47M+ Minted",
       metricLabel: "Utility NFT Sellout & Node Setup",
       summary: "At Archria Studio, planned webtoon reward app 'HYPERCOMIC' (earning HYCO tokens by reading) and comic creator AI platform 'PrompTale', architecting AI training pipelines, distributed computing NODE services, and utility NFT campaigns that sold 5,476,972 units.",
@@ -532,7 +532,7 @@ export const portfolioDataEn: PortfolioData = {
           type: "wireframe",
           title: "PrompTale: Artist AI Style Training & Distributed Node Management UI",
           description: "Workflow interface allowing comic creators to upload artwork assets to train proprietary AI models, powered by distributed computing NODEs for accelerated rendering",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-3_promptale-art-1",
           tag: "AI & Node System Architecture",
           keyInsight: "Demystified complex AI parameters into an intuitive step-by-step canvas UI tailored specifically for non-technical comic artists."
         },
@@ -543,7 +543,7 @@ export const portfolioDataEn: PortfolioData = {
           description: "Transitioning users from passive webtoon readers to active token earners, with utility NFTs granting free comic chapters and AI image generation compute discounts",
           beforeCaption: "AS-IS: Standard paywall subscription without reader token rewards",
           afterCaption: "TO-BE: Read-to-Earn HYCO tokens + Utility NFT holding unlocks free PrompTale AI generations",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-3_promptale-art-2",
           tag: "AS-IS vs TO-BE"
         }
       ],
@@ -647,7 +647,7 @@ export const portfolioDataEn: PortfolioData = {
       subtitle: "3-minute sellout of in-game character utility NFTs and onboarding 40,000+ global pre-registrants",
       category: ["Metaverse", "Virtual Real Estate", "nfTTcity", "Onboarding Funnels", "Multilingual UX"],
       period: "2021. 09 — 2023. 05",
-      thumbnailUrl: "",
+      thumbnailUrl: "firestore://media/thumb_proj-4",
       metric: "3-Min Sellout",
       metricLabel: "40,000+ Global Pre-Registrants",
       summary: "Planned the 'nfTTcity' project at EL Group (EL Park), designing character avatars with exclusive in-game utilities that sold out in 3 minutes and onboarded 40,000+ pre-registered users. Also planned web portal features and multilingual localization for 'Metaverse2' (earth2.io model) at The Future Company.",
@@ -657,7 +657,7 @@ export const portfolioDataEn: PortfolioData = {
           type: "wireframe",
           title: "Metaverse 2 (Rule the World) Virtual Real Estate Portal & Key Visual",
           description: "Global launch key visual and multilingual (EN/JA/KR) web portal UX architecture for Metaverse 2, a 1:1 scale virtual earth trading land tiles and constructing customized 3D cities.",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-4_metaverse2-art-1",
           tag: "Metaverse 2 Platform Planning",
           keyInsight: "Structured 3D planetary landmarks and intuitive tile-purchasing user flows allowing global users to immediately grasp virtual land ownership."
         }
@@ -720,7 +720,7 @@ export const portfolioDataEn: PortfolioData = {
         ]
       },
       myRole: {
-        primary: "nfTTcity utility design, launch portal planning, and international communications leadership",
+        primary: "nfTTcity utility design, launch portal planning, and international communications coordination",
         responsibilities: [
           "Authored website Information Architecture (IA) and detailed screen specifications",
           "Defined avatar utility perks and designed onboarding funnels for 40,000+ registrants",

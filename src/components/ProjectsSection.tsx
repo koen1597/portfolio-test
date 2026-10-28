@@ -1,5 +1,5 @@
 import React from 'react';
-import { usePortfolio } from '../context/PortfolioContext';
+import { usePortfolio, cleanLeadText } from '../context/PortfolioContext';
 import { ArrowRight, Layers, ExternalLink as ExternalLinkIcon } from 'lucide-react';
 import { SectionTransition, FadeIn, StaggerContainer, StaggerItem } from './SectionTransition';
 
@@ -38,12 +38,6 @@ export const ProjectsSection: React.FC = () => {
             <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
               {t('기획 케이스 스터디 & 산출물', 'Case Studies & Deliverables')}
             </h2>
-            <p className="text-base text-slate-300 max-w-2xl font-normal leading-relaxed">
-              {t(
-                '문제 정의부터 정보구조(IA), 개발 및 운영 협업, 그리고 시행착오 극복 과정까지 실무 기획의 사고 과정을 상세히 공유합니다.',
-                'Sharing the end-to-end planning thought process from problem definition and information architecture to cross-functional alignment and retrospective problem solving.'
-              )}
-            </p>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-mono text-blue-300 bg-blue-950/80 px-3 py-1.5 rounded-lg border border-blue-800/60 w-fit">
@@ -125,7 +119,7 @@ export const ProjectsSection: React.FC = () => {
                   <div className="bg-slate-950/80 rounded-lg p-3 border border-slate-800 grid grid-cols-2 gap-2 text-xs">
                     <div>
                       <span className="text-slate-500 block text-[10px] font-mono uppercase">{t('기획 역할', 'Role')}</span>
-                      <span className="text-slate-200 font-medium truncate block">{project.overview.role.split('(')[0]}</span>
+                      <span className="text-slate-200 font-medium truncate block">{cleanLeadText(project.overview.role.split('(')[0])}</span>
                     </div>
                     <div>
                       <span className="text-slate-500 block text-[10px] font-mono uppercase">{t('타겟 플랫폼', 'Platform')}</span>

@@ -5,14 +5,14 @@ export const portfolioDataKo: PortfolioData = {
     name: "나카노 코엔 (Koen Nakano)",
     roleTitle: "서비스 기획자 · UI/UX 기획자",
     heroQuote: "비즈니스 모델과 운영 프로세스를 꿰뚫는 실행형 기획자",
-    heroSubquote: "비즈니스 분석을 기반으로 웹·앱 서비스 기획, 백오피스 설계, 프로토타이핑 및 글로벌 운영을 실행합니다.",
+    heroSubquote: "",
     experienceYears: "서비스 기획자",
     phone: "010-7930-1597",
     email: "koen.nakano@gmail.com",
     location: "서울 관악구 봉천동 (Seoul / Tokyo)",
     mbti: "ENTJ-A",
     visaStatus: "F-2 (거주 비자) · 국내 취업 활동 제한 없음 (기업 비자 스폰서십 불필요)",
-    photoUrl: "",
+    photoUrl: "firestore://media/profile_photo",
     coreBadges: [
       "서비스 기획 (Service Planning)",
       "UI/UX 기획 & 화면설계",
@@ -119,7 +119,7 @@ export const portfolioDataKo: PortfolioData = {
       stage: "OPERATE",
       title: "운영 (Operations & VOC Feedback)",
       subtitle: "운영 현장 관리 & VOC 피드백 루프",
-      description: "글로벌 서비스 운영팀 리드 경험을 바탕으로 런칭 후 유저 문의 분석, 백오피스 병목 개선, 프로세스 표준화를 이끕니다.",
+      description: "글로벌 서비스 운영 경험을 바탕으로 런칭 후 유저 문의 분석, 백오피스 병목 개선, 프로세스 표준화를 이끕니다.",
       skills: ["VOC 분석", "운영 백오피스 기획", "글로벌 CS 관리", "이슈 해결 가이드"]
     },
     {
@@ -135,7 +135,7 @@ export const portfolioDataKo: PortfolioData = {
       id: "exp-1",
       period: "2025. 03 — 재직 중",
       company: "(주)어셈브릭스 (Assemblix)",
-      role: "사업전략기획팀 과장 (Lead Service & UI/UX Planner)",
+      role: "사업전략기획팀 과장 (Service & UI/UX Planner)",
       summary: "태권도 통합 플랫폼 '티넥트(T-NECT)' 및 화물 넘버 직거래 플랫폼 '탑탑(TOPTOP)' 서비스 기획, 어드민/백오피스 설계, UI/UX 기획 및 HTML/CSS 퍼블리싱 총괄",
       responsibilities: [
         "태권도 도장 관리 및 대회 운영 통합 플랫폼 '티넥트(T-NECT)' 기획: 관장용(마스터), 학부모/수련생용(메이트), 출석 전용 키오스크 앱, 대회 관리자 웹 및 블록체인 기반 'T-BADGE' 디지털 상장 e-Certificate 설계",
@@ -243,7 +243,7 @@ export const portfolioDataKo: PortfolioData = {
       period: "2017. 10 — 2020. 11 (3년 2개월)",
       company: "iHerb®",
       role: "해외 운영팀 사원 팀장",
-      summary: "글로벌 이커머스 iHerb 해외 운영팀 리드, 고객 문의 분석 및 CS 품질·인사 관리",
+      summary: "글로벌 이커머스 iHerb 해외 운영팀, 고객 문의 분석 및 CS 품질·인사 관리",
       responsibilities: [
         "해외 고객 응대 및 문의 유형 정량 분석(VOC Analysis)",
         "신규 입사자 CS 교육 기획, 상담 품질 관리, 팀원 면접 및 채용 지원",
@@ -285,7 +285,7 @@ export const portfolioDataKo: PortfolioData = {
       subtitle: "도장 행정 SaaS부터 실시간 대회 운영 및 블록체인 디지털 상장(T-BADGE)까지 아우르는 올인원 솔루션",
       category: ["SaaS 플랫폼", "UI/UX 기획", "대회 관리 시스템", "T-BADGE 상장", "HTML/CSS 퍼블리싱"],
       period: "2025. 03 — 현재",
-      thumbnailUrl: "",
+      thumbnailUrl: "firestore://media/thumb_proj-1",
       metric: "업무 시간 60% 절감",
       metricLabel: "원장 행정 소요 시간 절감",
       summary: "아날로그 장부와 수기 영수증에 의존하던 태권도 도장의 출결, 정기 수납, 학부모 알림을 디지털화하고, 태권도 대회의 수련생 참가 등록부터 실시간 점수 집계, 블록체인 기반 'T-BADGE' 디지털 상장(e-Certificate) 수여까지 전 과정을 구축한 통합 플랫폼입니다. (https://www.t-nect.com/)",
@@ -295,7 +295,7 @@ export const portfolioDataKo: PortfolioData = {
           type: "wireframe",
           title: "T-BADGE 블록체인 디지털 상장(e-Certificate) 피그마 컴포넌트화",
           description: "대회 수상자에게 공식 수여되는 디지털 상장의 앞면(대회No, 등수, 선수명, 도장명, 종목/부문), 뒷면(평가 점수, 공식 수여문), 소셜 뷰(영상/이미지 첨부, SNS 공유, PDF 다운로드)를 유동적으로 설계한 Figma 컴포넌트 시스템",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-1_tnect-art-1",
           tag: "T-BADGE 컴포넌트 설계",
           keyInsight: "수상 내역이 영구 보존되는 블록체인 배지와 함께, 학부모가 카카오톡·SNS로 즉시 자랑할 수 있는 감성적 인터랙션 및 공식 PDF 발급 동선 설계"
         },
@@ -306,7 +306,7 @@ export const portfolioDataKo: PortfolioData = {
           description: "기존 4단계 화면 전환 플로우를 단일 10키 숫자패드 및 1초 즉시 확인 화면으로 개편하여 하교 시간대 원생 혼잡도를 대폭 감소시켰습니다.",
           beforeCaption: "AS-IS: 화면 전환 3회, 사범님 확인 팝업 대기 (소요 시간 15초, 줄서기 병목)",
           afterCaption: "TO-BE: 번호 4자리 입력 즉시 출석 확정 및 학부모 앱 알림 자동 발송 (소요 시간 3초)",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-1_tnect-art-2",
           tag: "AS-IS vs TO-BE",
           keyInsight: "하교 시간 원생 동시 입장 시 병목을 없애기 위해 '확인' 버튼을 생략한 4자리 자동 감지 인터랙션 설계"
         }
@@ -334,7 +334,7 @@ export const portfolioDataKo: PortfolioData = {
         project: "티넥트 (T-NECT)",
         company: "(주)어셈브릭스 (Assemblix)",
         duration: "2025. 03 — 현재",
-        role: "Lead Service Planner & UI/UX Designer",
+        role: "Service Planner & UI/UX Designer",
         platform: "Web & Mobile / 티넥트 마스터 · 메이트 · 출석앱 · 대회 관리자",
         team: "기획 1명, 디자이너 1명, 개발팀 4명"
       },
@@ -346,7 +346,7 @@ export const portfolioDataKo: PortfolioData = {
       ],
       approach: [
         "역할별 전용 서비스 분리: 관장용 '티넥트 마스터', 학부모/수련생용 '티넥트 메이트', '출석 전용 키오스크 앱', '대회 관리자 웹' 구축",
-        "태권도 대회 실시간 점수 등록 및 모바일 리더보드 화면 설계",
+        "태권도 대회 실시간 점수 등록 및 모바일 실시간 순위/스코어보드 화면 설계",
         "블록체인 기반의 영구 보존형 디지털 상장 'T-BADGE' 피그마 컴포넌트화 및 SNS 공유 UX 구현"
       ],
       planning: {
@@ -405,7 +405,7 @@ export const portfolioDataKo: PortfolioData = {
       subtitle: "음성적 화물 운송 자격·영업용 번호판 거래를 양성화한 톤급별 시세 조회 및 에스크로 직거래 솔루션",
       category: ["P2P 플랫폼", "화물 넘버 거래", "에스크로 정책", "시세 데이터 UI", "UI/UX 기획"],
       period: "2025. 03 — 현재",
-      thumbnailUrl: "",
+      thumbnailUrl: "firestore://media/thumb_proj-2",
       metric: "사기 발생률 0건",
       metricLabel: "법인계좌 안전 에스크로 거래",
       summary: "오프라인 딜러나 중개 브로커에 의존하여 높은 수수료와 사기 위험에 노출되던 화물 영업용 번호판(개인용달, 개별화물, 주선면허 등) 직거래를 전기차부터 톤급별 실시간 시세 조회와 법인계좌 에스크로 안전 결제로 혁신한 플랫폼입니다.",
@@ -415,7 +415,7 @@ export const portfolioDataKo: PortfolioData = {
           type: "wireframe",
           title: "전기차부터 주선면허까지 톤급별 실시간 시세 조회 UI",
           description: "개인용달(일반), 개별화물, 주선면허 등 카테고리별 최근 실거래가 추이와 월별 시세를 그래프와 카드로 한눈에 비교할 수 있는 시세 데이터 정보 구조",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-2_toptop-art-1",
           tag: "시세 대시보드 UI"
         },
         {
@@ -425,7 +425,7 @@ export const portfolioDataKo: PortfolioData = {
           description: "계약금 예치부터 관할 관청 서류 접수, 양도양수 인가 확인 시 대금 지급까지를 단계별 타임라인으로 설계하여 거래 분쟁을 원천 차단했습니다.",
           beforeCaption: "AS-IS: 브로커를 통한 불투명한 수수료, 계약금 먹튀 및 서류 미인가 분쟁 빈번",
           afterCaption: "TO-BE: 법인계좌 에스크로 예치 → 공증 서류 접수 → 관청 인가 확인 시 안전 정산 (사기 0건)",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-2_toptop-art-2",
           tag: "AS-IS vs TO-BE"
         }
       ],
@@ -452,7 +452,7 @@ export const portfolioDataKo: PortfolioData = {
         project: "탑탑 (TOPTOP)",
         company: "(주)어셈브릭스 (Assemblix)",
         duration: "2025. 03 — 현재",
-        role: "Lead Service & UI/UX Planner",
+        role: "Service & UI/UX Planner",
         platform: "Mobile Web & App (Android / iOS) / Admin Backoffice",
         team: "기획 1명, 디자이너 1명, 개발팀 3명"
       },
@@ -522,7 +522,7 @@ export const portfolioDataKo: PortfolioData = {
       subtitle: "웹툰 열람 보상(HYCO)과 AI 노드(Node) 설계, 547만 개 유틸리티 NFT 민팅을 이끈 서비스 기획",
       category: ["AI 플랫폼", "블록체인 웹툰", "노드 서비스 설계", "유틸리티 NFT", "UI/UX 기획"],
       period: "2024. 05 — 2025. 03",
-      thumbnailUrl: "",
+      thumbnailUrl: "firestore://media/thumb_proj-3",
       metric: "547만+ 민팅 완판",
       metricLabel: "유틸리티 NFT 판매 및 노드 구축",
       summary: "(주)아크리아스튜디오에서 웹툰 열람 시 토큰을 보상하는 웹툰 앱 'HYPERCOMIC'과 만화 작가들의 그림체를 AI로 학습시켜 창작을 돕는 'PrompTale'의 AI 학습 파이프라인 및 분산 노드(NODE) 서비스를 기획했습니다. 서비스 이용 혜택과 결합된 유틸리티 NFT 547만 개 민팅/완판을 견인했습니다.",
@@ -532,7 +532,7 @@ export const portfolioDataKo: PortfolioData = {
           type: "wireframe",
           title: "PrompTale 작가 AI 스타일 학습 & 분산 노드(Node) 관리 UI",
           description: "만화 작가가 본인의 그림체 에셋을 업로드하여 전용 AI 모델을 학습시키고, 분산 노드(NODE) 파워를 통해 렌더링을 가속하는 워크플로우 화면 설계",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-3_promptale-art-1",
           tag: "AI & 노드 시스템 설계",
           keyInsight: "전문 용어를 몰라도 작가가 직관적으로 자신의 드로잉을 학습시키고 결과물을 생성할 수 있는 직관적인 스텝 바이 스텝 UI 구현"
         },
@@ -543,7 +543,7 @@ export const portfolioDataKo: PortfolioData = {
           description: "단순 열람을 넘어 웹툰을 보면 HYCO 토큰을 지급하고, 유틸리티 NFT 보유 시 무료 열람 및 AI 데이터 할인을 즉각 적용하는 혜택 구조",
           beforeCaption: "AS-IS: 단순 웹툰 구독 모델 및 토큰 없는 일방향 콘텐츠 소비",
           afterCaption: "TO-BE: 열람 시 HYCO 리워드 적립 + 유틸리티 NFT 보유 시 PrompTale AI 무료 생성 혜택 연동",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-3_promptale-art-2",
           tag: "AS-IS vs TO-BE"
         }
       ],
@@ -647,7 +647,7 @@ export const portfolioDataKo: PortfolioData = {
       subtitle: "3분 만에 NFT 완판을 기록한 메타버스 연계 유틸리티 기획 및 4만 글로벌 유저 온보딩",
       category: ["메타버스", "가상 부동산", "nfTTcity", "온보딩 퍼널", "다국어 UX"],
       period: "2021. 09 — 2023. 05",
-      thumbnailUrl: "",
+      thumbnailUrl: "firestore://media/thumb_proj-4",
       metric: "3분 만에 완판",
       metricLabel: "40,000+ 글로벌 사전 등록",
       summary: "이엘그룹(이엘파크)에서 메타버스 내 실제 캐릭터 아바타로 활용되는 독점 혜택의 'nfTTcity' 프로젝트를 기획하여 3분 만에 NFT 완판 및 4만 명 이상의 글로벌 사전 등록을 이끌었으며, 더퓨쳐컴퍼니에서 가상 부동산 플랫폼 'Metaverse2(메타버스2)'의 웹사이트 기획과 다국어 로컬라이제이션을 수행했습니다.",
@@ -657,7 +657,7 @@ export const portfolioDataKo: PortfolioData = {
           type: "wireframe",
           title: "Metaverse 2 (Rule the World) 가상 부동산 웹 플랫폼 & 키비주얼",
           description: "지구를 1:1 스케일로 구현하여 가상 토지 타일을 거래하고 도시를 건설·운영하는 Metaverse 2의 글로벌 론칭 키비주얼 및 영/일/한 3개 국어 포털 UX 기획",
-          imageUrl: "",
+          imageUrl: "firestore://media/art_proj-4_metaverse2-art-1",
           tag: "Metaverse 2 플랫폼 기획",
           keyInsight: "해외 유저와 국내 유저가 직관적으로 가상 부동산 세계관을 이해할 수 있도록 3D 지구본과 도시 랜드마크를 결합한 정보 구조 수립"
         }
@@ -720,7 +720,7 @@ export const portfolioDataKo: PortfolioData = {
         ]
       },
       myRole: {
-        primary: "nfTTcity 유틸리티 기획, 론칭 웹사이트 기획 및 글로벌 커뮤니케이션 리드",
+        primary: "nfTTcity 유틸리티 기획, 론칭 웹사이트 기획 및 글로벌 커뮤니케이션 담당",
         responsibilities: [
           "메타버스 플랫폼 및 론칭 웹사이트 정보구조(IA)와 화면설계서 작성",
           "캐릭터 유틸리티 혜택 정의 및 4만 유저 온보딩 퍼널 설계",

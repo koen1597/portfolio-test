@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { usePortfolio } from '../context/PortfolioContext';
+import { usePortfolio, cleanLeadText } from '../context/PortfolioContext';
 import { X, Printer } from 'lucide-react';
 
 export const ResumeModal: React.FC = () => {
@@ -187,7 +187,7 @@ export const ResumeModal: React.FC = () => {
                     {profile.name}
                   </h1>
                   <p className="text-base font-semibold text-zinc-700 mt-0.5">
-                    {profile.roleTitle}
+                    {cleanLeadText(profile.roleTitle)}
                   </p>
                   <p className="text-xs text-zinc-500 font-mono mt-0.5">
                     {profile.location || 'Seoul · Tokyo'} · {profile.mbti || 'ENTJ-A'}
@@ -211,7 +211,7 @@ export const ResumeModal: React.FC = () => {
             </div>
 
             <p className="text-sm text-zinc-700 leading-relaxed max-w-3xl pt-2">
-              "{profile.heroQuote}" — {profile.heroSubquote}
+              "{profile.heroQuote}"{profile.heroSubquote ? ` — ${profile.heroSubquote}` : ''}
             </p>
           </div>
 
@@ -267,7 +267,7 @@ export const ResumeModal: React.FC = () => {
                 <div key={exp.id} className="space-y-2 text-xs">
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between">
                     <div className="font-bold text-zinc-950 text-sm">
-                      {exp.role} <span className="font-normal text-zinc-500">· {exp.company}</span>
+                      {cleanLeadText(exp.role)} <span className="font-normal text-zinc-500">· {exp.company}</span>
                     </div>
                     <span className="font-mono text-zinc-400">{exp.period}</span>
                   </div>

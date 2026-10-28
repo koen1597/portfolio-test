@@ -62,12 +62,24 @@ interface PortfolioContextType {
 const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
 
 const STORAGE_LANG_KEY = 'koen_portfolio_language_v2';
-const STORAGE_DATA_KO_KEY = 'koen_portfolio_cms_data_ko_v15';
-const STORAGE_DATA_EN_KEY = 'koen_portfolio_cms_data_en_v15';
+const STORAGE_DATA_KO_KEY = 'koen_portfolio_cms_data_ko_v16';
+const STORAGE_DATA_EN_KEY = 'koen_portfolio_cms_data_en_v16';
 const STORAGE_PHOTO_KEY = 'koen_portfolio_custom_photo';
 const PASSWORD_KEY = 'koen_portfolio_admin_password_v2';
 // Fallback encoded check so no plaintext password exists in source code
 const INITIAL_HASH = 'MTExMQ==';
+
+// Global sanitizer to thoroughly purge any 'Lead' or '리드' from roles, summaries, or descriptions
+export const cleanLeadText = (str: string | undefined): string => {
+  if (!str) return '';
+  return str
+    .replace(/\bLead\s+/gi, '')
+    .replace(/\s+\bLead\b/gi, '')
+    .replace(/\bLead\b/gi, '')
+    .replace(/리드/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+};
 
 // Helper to sanitize language proficiency descriptions and purge deleted languages
 const cleanPortfolioLanguages = (languages: { lang: string; level: string }[] | undefined, isKo: boolean) => {
@@ -131,9 +143,14 @@ const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData =
     ? fallback.profile.experienceYears
     : (data.profile.experienceYears || fallback.profile.experienceYears);
 
-  const heroSub = (data.profile.heroSubquote && (data.profile.heroSubquote.includes('11년') || data.profile.heroSubquote.includes('11+')))
-    ? fallback.profile.heroSubquote
-    : (data.profile.heroSubquote || fallback.profile.heroSubquote);
+  const heroSub = (data.profile.heroSubquote && (
+    data.profile.heroSubquote.includes('11년') ||
+    data.profile.heroSubquote.includes('11+') ||
+    data.profile.heroSubquote.includes('비즈니스 분석을 기반으로') ||
+    data.profile.heroSubquote.includes('Connecting business goals')
+  ))
+    ? ''
+    : (data.profile.heroSubquote || '');
 
   // Enforce latest projects and strictly purge obsolete NAMBA or outdated case studies
   const cleanedProjects = fallback.projects.map(fallbackProj => {
@@ -157,11 +174,22 @@ const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData =
     return {
       ...fallbackProj,
       ...existing,
-      thumbnailUrl: isBadThumb ? '' : (existing.thumbnailUrl || ''),
+      overview: {
+        ...fallbackProj.overview,
+        ...(existing.overview || {}),
+        role: cleanLeadText(existing.overview?.role || fallbackProj.overview.role)
+      },
+      myRole: existing.myRole ? {
+        ...existing.myRole,
+        primary: cleanLeadText(existing.myRole.primary)
+      } : fallbackProj.myRole,
+      thumbnailUrl: isBadThumb ? '' : (existing.thumbnailUrl || fallbackProj.thumbnailUrl || `firestore://media/thumb_${fallbackProj.id}`),
       artifacts: (existing.artifacts && existing.artifacts.length > 0)
-        ? existing.artifacts.map(a => ({
+        ? existing.artifacts.map((a, j) => ({
             ...a,
-            imageUrl: isBadArtifact(a.imageUrl) ? '' : (a.imageUrl || '')
+            imageUrl: isBadArtifact(a.imageUrl)
+              ? ''
+              : (a.imageUrl || fallbackProj.artifacts?.[j]?.imageUrl || `firestore://media/art_${fallbackProj.id}_${a.id || j}`)
           }))
         : fallbackProj.artifacts,
       retrospective: existing.retrospective || fallbackProj.retrospective,
@@ -172,7 +200,13 @@ const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData =
   // Also preserve any newly added custom projects
   const additionalProjects = (data.projects || []).filter(
     p => !fallback.projects.some(fp => fp.id === p.id)
-  );
+  ).map(p => ({
+    ...p,
+    overview: {
+      ...p.overview,
+      role: cleanLeadText(p.overview?.role)
+    }
+  }));
   const allCleanedProjects = [...cleanedProjects, ...additionalProjects];
 
   // Experiences check: Ensure ALL experiences from fallback exist and are merged
@@ -182,17 +216,23 @@ const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData =
     return {
       ...fallbackExp,
       ...existing,
+      role: cleanLeadText(existing.role || fallbackExp.role),
+      summary: cleanLeadText(existing.summary || fallbackExp.summary),
       responsibilities: (existing.responsibilities && existing.responsibilities.length > 0)
-        ? existing.responsibilities
+        ? existing.responsibilities.map(r => cleanLeadText(r))
         : fallbackExp.responsibilities,
       tags: (existing.tags && existing.tags.length > 0)
-        ? existing.tags
+        ? existing.tags.map(t => cleanLeadText(t))
         : fallbackExp.tags
     };
   });
   const additionalExperiences = (data.experiences || []).filter(
     e => !fallback.experiences.some(fe => fe.id === e.id)
-  );
+  ).map(e => ({
+    ...e,
+    role: cleanLeadText(e.role),
+    summary: cleanLeadText(e.summary)
+  }));
   const allCleanedExperiences = [...cleanedExperiences, ...additionalExperiences].filter(e => {
     const s = JSON.stringify(e);
     return !s.includes('남바') && !s.includes('NAMBA') && !s.includes('골드 번호판');
@@ -208,12 +248,13 @@ const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData =
   const isBadPhoto = (url?: string) => !url || url === '/profile.png' || url === '/profile.jpg';
   const resolvedPhoto = !isBadPhoto(data.profile.photoUrl)
     ? data.profile.photoUrl
-    : (!isBadPhoto(customPhoto) ? customPhoto : '');
+    : (!isBadPhoto(customPhoto) ? customPhoto : (fallback.profile.photoUrl || 'firestore://media/profile_photo'));
 
   return {
     ...data,
     profile: {
       ...data.profile,
+      roleTitle: cleanLeadText(data.profile.roleTitle || fallback.profile.roleTitle),
       backgroundOrigin: origin,
       experienceYears: expYears,
       heroSubquote: heroSub,
@@ -260,7 +301,11 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         'koen_portfolio_cms_data_ko_v12',
         'koen_portfolio_cms_data_en_v12',
         'koen_portfolio_cms_data_ko_v13',
-        'koen_portfolio_cms_data_en_v13'
+        'koen_portfolio_cms_data_en_v13',
+        'koen_portfolio_cms_data_ko_v14',
+        'koen_portfolio_cms_data_en_v14',
+        'koen_portfolio_cms_data_ko_v15',
+        'koen_portfolio_cms_data_en_v15'
       ];
       legacyKeys.forEach(k => localStorage.removeItem(k));
     } catch {
@@ -381,7 +426,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           }
           const rawStr = JSON.stringify(cloudData);
           const needsExpSync = !cloudData.experiences || cloudData.experiences.length < portfolioDataKo.experiences.length;
-          if (rawStr.includes('남바') || rawStr.includes('NAMBA') || needsExpSync) {
+          if (rawStr.includes('Lead') || rawStr.includes('리드') || rawStr.includes('남바') || rawStr.includes('NAMBA') || needsExpSync) {
             setDoc(doc(db, 'portfolio', 'ko'), {
               ...cleaned,
               language: 'ko',
@@ -409,7 +454,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           }
           const rawStr = JSON.stringify(cloudData);
           const needsExpSync = !cloudData.experiences || cloudData.experiences.length < portfolioDataEn.experiences.length;
-          if (rawStr.includes('NAMBA') || rawStr.includes('남바') || needsExpSync) {
+          if (rawStr.includes('Lead') || rawStr.includes('리드') || rawStr.includes('NAMBA') || rawStr.includes('남바') || needsExpSync) {
             setDoc(doc(db, 'portfolio', 'en'), {
               ...cleaned,
               language: 'en',

@@ -168,7 +168,7 @@ export const AdminModal: React.FC = () => {
         project: '신규 프로젝트',
         company: '기업명 / 서비스명',
         duration: '6개월',
-        role: 'Lead Service Planner',
+        role: 'Service Planner',
         platform: 'Web / App',
         team: '기획 1, 디자인 1, 개발 2'
       },
