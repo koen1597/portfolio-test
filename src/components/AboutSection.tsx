@@ -9,11 +9,11 @@ export const AboutSection: React.FC = () => {
   const { profile, competencies } = data;
 
   return (
-    <SectionTransition id="about" className="py-24 relative overflow-hidden bg-gradient-to-b from-[#070914] via-[#0D1325] to-[#070A15] text-slate-100 border-b border-slate-800/80">
+    <SectionTransition id="about" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-gradient-to-b from-[#070914] via-[#0D1325] to-[#070A15] text-slate-100 border-b border-slate-800/80">
       {/* Ambient background glows */}
       <div className="absolute top-0 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-20">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-10 sm:space-y-12">
         
         {/* Section Header */}
         <FadeIn className="space-y-3">
@@ -27,15 +27,23 @@ export const AboutSection: React.FC = () => {
 
         {/* Narrative & Background Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Main Story Narrative */}
-          <FadeIn direction="right" delay={0.1} className="lg:col-span-7 space-y-6 text-base text-slate-300 leading-relaxed font-normal">
-            <p className="text-lg text-white font-medium leading-relaxed">
+          {/* Main Story Narrative Card */}
+          <FadeIn direction="right" delay={0.1} className="lg:col-span-7 bg-slate-900/90 rounded-2xl border border-slate-800 p-6 sm:p-7 shadow-xl space-y-4 text-slate-300 leading-relaxed font-normal backdrop-blur-md">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
+                {t('기획 철학 & 실무 협업', 'Planning & Collaboration')}
+              </span>
+              <span className="text-[11px] font-mono text-blue-300 bg-blue-950/80 px-2.5 py-0.5 rounded border border-blue-800/70">
+                {t('실무형 소통', 'Practical Alignment')}
+              </span>
+            </div>
+            <p className="text-base sm:text-lg text-white font-medium leading-relaxed">
               {profile.aboutIntro}
             </p>
-            <p>
+            <p className="text-sm text-slate-300 leading-relaxed">
               {profile.aboutPhilosophy}
             </p>
-            <p className="text-slate-400">
+            <p className="text-sm text-slate-400 leading-relaxed">
               {profile.aboutCollaboration}
             </p>
           </FadeIn>

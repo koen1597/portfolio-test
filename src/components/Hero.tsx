@@ -19,7 +19,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="pt-28 pb-20 md:pt-36 md:pb-28 relative overflow-hidden bg-gradient-to-b from-[#050811] via-[#090D1A] to-[#0A0E1F] text-slate-100 border-b border-slate-800/80">
+    <section id="home" className="pt-24 pb-12 sm:pt-28 md:pt-32 md:pb-14 relative overflow-hidden bg-gradient-to-b from-[#050811] via-[#090D1A] to-[#0A0E1F] text-slate-100 border-b border-slate-800/80">
       {/* Ambient background lighting */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/15 rounded-full blur-[140px] pointer-events-none -z-10" />
       <div className="absolute bottom-10 left-10 w-[450px] h-[450px] bg-indigo-600/15 rounded-full blur-[130px] pointer-events-none -z-10" />
@@ -34,9 +34,9 @@ export const Hero: React.FC = () => {
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-12">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-8 sm:space-y-10">
         {/* Top Grid: Main Statement + Identity Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
           {/* Main Typography Column */}
           <motion.div 
@@ -176,18 +176,6 @@ export const Hero: React.FC = () => {
                   <div className="text-slate-200 font-medium leading-relaxed">
                     {profile.backgroundOrigin}
                   </div>
-                </div>
-              </div>
-
-              {/* Quick stats row */}
-              <div className="grid grid-cols-2 gap-2 pt-1 border-t border-slate-800/80 text-xs">
-                <div className="p-2.5 rounded-lg bg-blue-950/40 border border-blue-800/40">
-                  <div className="text-blue-400 font-mono text-[10px]">{t('전문 포지션', 'Position')}</div>
-                  <div className="text-sm font-bold text-white mt-0.5">{profile.experienceYears}</div>
-                </div>
-                <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
-                  <div className="text-slate-400 font-mono text-[10px]">{t('업무 영역', 'Coverage')}</div>
-                  <div className="text-sm font-semibold text-slate-200 mt-0.5">{t('전주기 (E2E)', 'End-to-End')}</div>
                 </div>
               </div>
             </div>

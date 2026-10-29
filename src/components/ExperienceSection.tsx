@@ -226,11 +226,11 @@ export const ExperienceSection: React.FC = () => {
   };
 
   return (
-    <SectionTransition id="experience" className="py-24 relative overflow-hidden bg-gradient-to-b from-[#070A15] via-[#0B1123] to-[#090D1C] text-slate-100 border-b border-slate-800/80">
+    <SectionTransition id="experience" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-gradient-to-b from-[#070A15] via-[#0B1123] to-[#090D1C] text-slate-100 border-b border-slate-800/80">
       {/* Ambient background glows */}
       <div className="absolute top-10 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-16">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-10 sm:space-y-12">
         
         {/* 1. Section Header: Career Timeline & Milestones (Placed immediately after Case Studies) */}
         <FadeIn className="space-y-4">
@@ -367,7 +367,7 @@ export const ExperienceSection: React.FC = () => {
         )}
 
         {/* 2. Service Lifecycle Pipeline: Placed AFTER Career Timeline */}
-        <div className="pt-16 border-t border-slate-800/80 space-y-6">
+        <div className="pt-10 sm:pt-12 border-t border-slate-800/80 space-y-6">
           <FadeIn className="space-y-2">
             <div className="text-xs font-mono tracking-widest text-blue-400 uppercase">
               {t('02-B / 전주기 기획 파이프라인', '02-B / LIFECYCLE PIPELINE')}

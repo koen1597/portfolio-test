@@ -22,12 +22,12 @@ export const ProjectsSection: React.FC = () => {
   };
 
   return (
-    <SectionTransition id="projects" className="py-24 relative overflow-hidden bg-gradient-to-b from-[#070A15] via-[#090E21] to-[#070914] text-slate-100 border-b border-slate-800/80">
+    <SectionTransition id="projects" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-gradient-to-b from-[#070A15] via-[#090E21] to-[#070914] text-slate-100 border-b border-slate-800/80">
       {/* Ambient background glows */}
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 right-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-16">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-10 sm:space-y-12">
         
         {/* Header */}
         <FadeIn className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">

@@ -29,11 +29,11 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <SectionTransition id="contact" className="py-24 relative overflow-hidden bg-gradient-to-b from-[#070A16] via-[#090E20] to-[#04060C] text-slate-100">
+    <SectionTransition id="contact" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-gradient-to-b from-[#070A16] via-[#090E20] to-[#04060C] text-slate-100">
       {/* Ambient background glows */}
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-16">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-10 sm:space-y-12">
         
         {/* Header */}
         <FadeIn className="space-y-3">
