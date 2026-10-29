@@ -257,11 +257,11 @@ export const AdminModal: React.FC = () => {
               <h2 className="text-sm font-semibold text-zinc-950 font-mono tracking-tight">
                 ADMIN
               </h2>
-              <p className="text-[11px] text-zinc-500 font-mono">
-                {isAdminAuthenticated
-                  ? '관리자 인증됨 · 변경 사항 실시간 저장'
-                  : '관리자 접근 비밀번호를 입력해주세요'}
-              </p>
+              {isAdminAuthenticated && (
+                <p className="text-[11px] text-zinc-500 font-mono">
+                  관리자 인증됨 · 변경 사항 실시간 저장
+                </p>
+              )}
             </div>
           </div>
 
@@ -348,7 +348,7 @@ export const AdminModal: React.FC = () => {
                 type="submit"
                 className="w-full text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 py-2.5 rounded-lg shadow-xs transition-colors"
               >
-                인증하기
+                인증
               </button>
             </form>
           </div>
