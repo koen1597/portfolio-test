@@ -6,8 +6,8 @@
   }
 
   html {
-    background-color: #080C15;
-    color-scheme: dark;
+    background-color: #F8FAFC;
+    color-scheme: light;
     margin: 0;
     padding: 0;
   }
@@ -17,7 +17,8 @@
   }
 
   body {
-    background-color: #080C15;
+    background-color: #F8FAFC;
+    color: #0F172A;
     margin: 0;
     padding: 0;
     letter-spacing: -0.015em;
@@ -28,7 +29,7 @@
     overflow-x: hidden;
   }
 
-  /* Subtle, modern grainy film noise texture overlay without composite boundary artifacts */
+  /* Subtle texture */
   body::before {
     content: "";
     position: fixed;
@@ -38,7 +39,7 @@
     bottom: -20px;
     pointer-events: none;
     z-index: 10;
-    opacity: 0.022;
+    opacity: 0.015;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     background-repeat: repeat;
   }
@@ -107,8 +108,8 @@
 
   /* CASE 2: When printing the main website (Ctrl + P on normal page) -> Print all sections! */
   body:not(.resume-open) {
-    background: #080C15 !important;
-    color: #f1f5f9 !important;
+    background: #ffffff !important;
+    color: #0F172A !important;
     overflow: visible !important;
   }
 

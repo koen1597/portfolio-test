@@ -768,5 +768,51 @@ export const portfolioDataEn: PortfolioData = {
       subtitle: "Data & Growth",
       description: "Analyzing key funnel conversion and retention metrics to minimize drop-offs and drive data-grounded feature iterations."
     }
+  ],
+  heroBanners: [
+    {
+      id: "banner-1",
+      badge: "FEATURED CASE STUDY",
+      title: "T-NECT — Global Match Platform",
+      subtitle: "Full-Cycle Competition Architecture & Backoffice Planning",
+      description: "Untangling tournament registration, judge scoring, prize settlement, and administrative dashboards end-to-end.",
+      imageUrl: "firestore://media/thumb_proj-1",
+      tags: ["Service Planning", "Screen Specs", "Backoffice IA", "Troubleshooting"],
+      projectId: "proj-1",
+      ctaText: "Explore Case Study"
+    },
+    {
+      id: "banner-2",
+      badge: "GLOBAL PLATFORM",
+      title: "TOPTOP — Short-Form Audition & Global Voting",
+      subtitle: "High-Concurrency Traffic Architecture & Anti-Abuse Prevention",
+      description: "Video transcoding pipeline and live voting anomaly detection system for global broadcast scale.",
+      imageUrl: "firestore://media/thumb_proj-2",
+      tags: ["High Traffic UX", "Anti-Abuse Logic", "Global Voting System"],
+      projectId: "proj-2",
+      ctaText: "Explore Case Study"
+    },
+    {
+      id: "banner-3",
+      badge: "AI PRODUCT",
+      title: "HYPERCOMIC & PrompTale — Generative AI Storyboard",
+      subtitle: "Prompt-driven Visual Generation & Creator Studio Tooling",
+      description: "Translating intricate AI model parameters into an intuitive, accessible visual creation workspace for creators.",
+      imageUrl: "firestore://media/thumb_proj-3",
+      tags: ["Generative AI PM", "Creator Editor", "Prompt UX"],
+      projectId: "proj-3",
+      ctaText: "Explore Case Study"
+    },
+    {
+      id: "banner-4",
+      badge: "METAVERSE & ECONOMY",
+      title: "nfTTcity & Metaverse2 — Virtual Land Economy",
+      subtitle: "Virtual Asset Exchange & Map-based Land Ownership",
+      description: "Tile-based property trading, asset ownership validation, and automated transaction fee settlement algorithms.",
+      imageUrl: "firestore://media/thumb_proj-4",
+      tags: ["Economy Design", "Map Trading UX", "Fee Algorithms"],
+      projectId: "proj-4",
+      ctaText: "Explore Case Study"
+    }
   ]
 };

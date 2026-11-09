@@ -147,6 +147,11 @@ export async function preloadAllReferencedMedia(
       }
     }
   }
+  if (Array.isArray(data.heroBanners)) {
+    for (const b of data.heroBanners) {
+      check(b.imageUrl);
+    }
+  }
 
   const loaded: Record<string, string> = {};
 

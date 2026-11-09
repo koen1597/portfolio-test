@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-import { PortfolioData, ProjectCaseStudy, ProfileData, Language } from '../types';
+import { PortfolioData, ProjectCaseStudy, ProfileData, Language, HeroBannerItem } from '../types';
 import { portfolioDataKo, portfolioDataEn } from '../data/initialData';
-import { db } from '../lib/firebase';
+import { db, sanitizeForFirestore } from '../lib/firebase';
 import { doc, onSnapshot, setDoc, getDocFromServer } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from '../lib/firestoreError';
-import { compressImage } from '../lib/imageCompressor';
 import {
   extractAndUploadAllMedia,
   preloadAllReferencedMedia,
@@ -33,6 +32,7 @@ interface PortfolioContextType {
   saveProject: (project: ProjectCaseStudy) => Promise<boolean>;
   addNewProject: (project: ProjectCaseStudy) => Promise<boolean>;
   removeProject: (id: string) => Promise<boolean>;
+  saveHeroBanners: (banners: HeroBannerItem[]) => Promise<boolean>;
 
   // Cloud Sync Status
   isSyncing: boolean;
@@ -265,7 +265,10 @@ const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData =
     projects: allCleanedProjects,
     competencies: fallback.competencies,
     lifecycle: fallback.lifecycle,
-    howIWork: fallback.howIWork
+    howIWork: fallback.howIWork,
+    heroBanners: (data.heroBanners && data.heroBanners.length > 0)
+      ? data.heroBanners
+      : (fallback.heroBanners || [])
   };
 };
 
@@ -427,11 +430,11 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           const rawStr = JSON.stringify(cloudData);
           const needsExpSync = !cloudData.experiences || cloudData.experiences.length < portfolioDataKo.experiences.length;
           if (rawStr.includes('Lead') || rawStr.includes('리드') || rawStr.includes('남바') || rawStr.includes('NAMBA') || needsExpSync) {
-            setDoc(doc(db, 'portfolio', 'ko'), {
+            setDoc(doc(db, 'portfolio', 'ko'), sanitizeForFirestore({
               ...cleaned,
               language: 'ko',
               updatedAt: new Date().toISOString()
-            }).catch(() => {});
+            })).catch(() => {});
           }
           setLastSyncedAt(new Date());
         }
@@ -455,11 +458,11 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           const rawStr = JSON.stringify(cloudData);
           const needsExpSync = !cloudData.experiences || cloudData.experiences.length < portfolioDataEn.experiences.length;
           if (rawStr.includes('Lead') || rawStr.includes('리드') || rawStr.includes('NAMBA') || rawStr.includes('남바') || needsExpSync) {
-            setDoc(doc(db, 'portfolio', 'en'), {
+            setDoc(doc(db, 'portfolio', 'en'), sanitizeForFirestore({
               ...cleaned,
               language: 'en',
               updatedAt: new Date().toISOString()
-            }).catch(() => {});
+            })).catch(() => {});
           }
           setLastSyncedAt(new Date());
         }
@@ -488,16 +491,16 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const sanitizedEn = await extractAndUploadAllMedia(dataToSaveEn);
 
       await Promise.all([
-        setDoc(koDocRef, {
+        setDoc(koDocRef, sanitizeForFirestore({
           ...sanitizedKo,
           language: 'ko',
           updatedAt: new Date().toISOString()
-        }),
-        setDoc(enDocRef, {
+        })),
+        setDoc(enDocRef, sanitizeForFirestore({
           ...sanitizedEn,
           language: 'en',
           updatedAt: new Date().toISOString()
-        })
+        }))
       ]);
 
       setLastSyncedAt(new Date());
@@ -520,13 +523,6 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     // Ensure photoUrl is compressed to <60KB if base64 data to guarantee Firestore 1MB quota
     let newPhoto = profile.photoUrl !== undefined ? profile.photoUrl : (dataKo.profile.photoUrl || '');
     if (newPhoto === '/profile.png' || newPhoto === '/profile.jpg') newPhoto = '';
-    if (newPhoto && newPhoto.startsWith('data:image')) {
-      try {
-        newPhoto = await compressImage(newPhoto, 500, 0.75);
-      } catch {
-        // fallback
-      }
-    }
 
     const newKo: PortfolioData = {
       ...dataKo,
@@ -568,16 +564,16 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const enDocRef = doc(db, 'portfolio', 'en');
 
       await Promise.all([
-        setDoc(koDocRef, {
+        setDoc(koDocRef, sanitizeForFirestore({
           ...sanitizedKo,
           language: 'ko',
           updatedAt: new Date().toISOString()
-        }),
-        setDoc(enDocRef, {
+        })),
+        setDoc(enDocRef, sanitizeForFirestore({
           ...sanitizedEn,
           language: 'en',
           updatedAt: new Date().toISOString()
-        })
+        }))
       ]);
 
       setLastSyncedAt(new Date());
@@ -663,16 +659,16 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const enDocRef = doc(db, 'portfolio', 'en');
 
       await Promise.all([
-        setDoc(koDocRef, {
+        setDoc(koDocRef, sanitizeForFirestore({
           ...sanitizedKo,
           language: 'ko',
           updatedAt: new Date().toISOString()
-        }),
-        setDoc(enDocRef, {
+        })),
+        setDoc(enDocRef, sanitizeForFirestore({
           ...sanitizedEn,
           language: 'en',
           updatedAt: new Date().toISOString()
-        })
+        }))
       ]);
 
       setLastSyncedAt(new Date());
@@ -712,8 +708,8 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       }
 
       await Promise.all([
-        setDoc(doc(db, 'portfolio', 'ko'), { ...sanitizedKo, language: 'ko', updatedAt: new Date().toISOString() }),
-        setDoc(doc(db, 'portfolio', 'en'), { ...sanitizedEn, language: 'en', updatedAt: new Date().toISOString() })
+        setDoc(doc(db, 'portfolio', 'ko'), sanitizeForFirestore({ ...sanitizedKo, language: 'ko', updatedAt: new Date().toISOString() })),
+        setDoc(doc(db, 'portfolio', 'en'), sanitizeForFirestore({ ...sanitizedEn, language: 'en', updatedAt: new Date().toISOString() }))
       ]);
       setLastSyncedAt(new Date());
       setIsSyncing(false);
@@ -748,8 +744,8 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     try {
       await Promise.all([
-        setDoc(doc(db, 'portfolio', 'ko'), { ...newKo, language: 'ko', updatedAt: new Date().toISOString() }),
-        setDoc(doc(db, 'portfolio', 'en'), { ...newEn, language: 'en', updatedAt: new Date().toISOString() })
+        setDoc(doc(db, 'portfolio', 'ko'), sanitizeForFirestore({ ...newKo, language: 'ko', updatedAt: new Date().toISOString() })),
+        setDoc(doc(db, 'portfolio', 'en'), sanitizeForFirestore({ ...newEn, language: 'en', updatedAt: new Date().toISOString() }))
       ]);
       setLastSyncedAt(new Date());
       setIsSyncing(false);
@@ -859,9 +855,63 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           ...a,
           imageUrl: resolve(a.imageUrl)
         }))
+      })),
+      heroBanners: (activeRaw.heroBanners || []).map(b => ({
+        ...b,
+        imageUrl: resolve(b.imageUrl)
       }))
     };
   }, [activeRaw, synchronizedPhoto, mediaCache]);
+
+  const saveHeroBanners = useCallback(async (banners: HeroBannerItem[]): Promise<boolean> => {
+    setIsSyncing(true);
+    // Sanitize banners so no banner has undefined properties
+    const cleanedBanners = banners.map(b => ({
+      id: b.id,
+      title: b.title || '',
+      subtitle: b.subtitle || '',
+      description: b.description || '',
+      imageUrl: b.imageUrl || '',
+      ...(b.badge ? { badge: b.badge } : {}),
+      ...(b.projectId ? { projectId: b.projectId } : {}),
+      ...(b.externalUrl ? { externalUrl: b.externalUrl } : {}),
+      ...(b.ctaText ? { ctaText: b.ctaText } : {}),
+      tags: Array.isArray(b.tags) ? b.tags.filter(Boolean) : []
+    }));
+
+    const newKo: PortfolioData = { ...dataKo, heroBanners: cleanedBanners };
+    const newEn: PortfolioData = { ...dataEn, heroBanners: cleanedBanners };
+    setDataKo(newKo);
+    setDataEn(newEn);
+    try {
+      localStorage.setItem(STORAGE_DATA_KO_KEY, JSON.stringify(newKo));
+      localStorage.setItem(STORAGE_DATA_EN_KEY, JSON.stringify(newEn));
+
+      const payloadKo = sanitizeForFirestore({
+        ...newKo,
+        language: 'ko',
+        updatedAt: new Date().toISOString()
+      });
+      const payloadEn = sanitizeForFirestore({
+        ...newEn,
+        language: 'en',
+        updatedAt: new Date().toISOString()
+      });
+
+      await Promise.all([
+        setDoc(doc(db, 'portfolio', 'ko'), payloadKo),
+        setDoc(doc(db, 'portfolio', 'en'), payloadEn)
+      ]);
+      setLastSyncedAt(new Date());
+      setIsSyncing(false);
+      return true;
+    } catch (err: any) {
+      console.error('saveHeroBanners Firestore write failed:', err);
+      handleFirestoreError(err, OperationType.WRITE, 'portfolio');
+      setIsSyncing(false);
+      throw err;
+    }
+  }, [dataKo, dataEn]);
 
   const updateData = (newData: PortfolioData) => {
     if (language === 'ko') {
@@ -884,8 +934,8 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
     try {
       await Promise.all([
-        setDoc(doc(db, 'portfolio', 'ko'), { ...freshKo, language: 'ko', updatedAt: new Date().toISOString() }),
-        setDoc(doc(db, 'portfolio', 'en'), { ...freshEn, language: 'en', updatedAt: new Date().toISOString() })
+        setDoc(doc(db, 'portfolio', 'ko'), sanitizeForFirestore({ ...freshKo, language: 'ko', updatedAt: new Date().toISOString() })),
+        setDoc(doc(db, 'portfolio', 'en'), sanitizeForFirestore({ ...freshEn, language: 'en', updatedAt: new Date().toISOString() }))
       ]);
       setLastSyncedAt(new Date());
     } catch (err) {
@@ -1039,6 +1089,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         saveProject,
         addNewProject,
         removeProject,
+        saveHeroBanners,
         isSyncing,
         lastSyncedAt,
         publishToCloud,

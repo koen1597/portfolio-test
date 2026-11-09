@@ -29,18 +29,18 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <SectionTransition id="contact" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-gradient-to-b from-[#070A16] via-[#090E20] to-[#04060C] text-slate-100">
+    <SectionTransition id="contact" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] text-slate-900">
       {/* Ambient background glows */}
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-blue-500/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-10 sm:space-y-12">
         
         {/* Header */}
         <FadeIn className="space-y-3">
-          <div className="text-xs font-mono tracking-widest text-blue-400 uppercase">
+          <div className="text-xs font-mono tracking-widest text-blue-600 font-semibold uppercase">
             {t('05 / 연락처', '05 / CONTACT')}
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
             {t('복잡한 문제를 명확한 서비스로 만듭니다.', "Let's build something meaningful together.")}
           </h2>
         </FadeIn>
@@ -51,23 +51,23 @@ export const ContactSection: React.FC = () => {
           <FadeIn delay={0.1} className="lg:col-span-6 space-y-4">
             
             {/* Contact Info Card */}
-            <div className="bg-slate-900/90 rounded-2xl border border-slate-800 p-6 shadow-xl space-y-4 hover:border-slate-700 transition-all backdrop-blur-md">
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-md space-y-4 hover:border-slate-300 transition-all">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
+                <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-semibold">
                   {t('직접 연락처 & 이메일', 'Direct Contacts')}
                 </span>
-                <span className="text-xs font-mono text-slate-400">
+                <span className="text-xs font-mono text-slate-500">
                   {profile.location || 'Seoul, Korea'}
                 </span>
               </div>
 
               {/* Email */}
-              <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-800">
+              <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-100">
                 <div>
                   <div className="text-[10px] font-mono uppercase text-slate-400">Email</div>
                   <a
                     href={`mailto:${profile.email}`}
-                    className="text-sm sm:text-base font-bold text-white hover:text-blue-400 font-mono break-all transition-colors"
+                    className="text-sm sm:text-base font-bold text-slate-900 hover:text-blue-600 font-mono break-all transition-colors"
                   >
                     {profile.email}
                   </a>
@@ -75,17 +75,17 @@ export const ContactSection: React.FC = () => {
                 <button
                   id="copy-email-btn"
                   onClick={copyEmail}
-                  className="inline-flex items-center gap-1.5 text-xs font-medium bg-blue-950/80 hover:bg-blue-900 text-blue-300 px-3 py-1.5 rounded-lg border border-blue-800/80 shrink-0 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg border border-blue-200 shrink-0 transition-colors"
                   title="Copy email"
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400 font-semibold">{t('복사됨!', 'Copied!')}</span>
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-emerald-700 font-semibold">{t('복사됨!', 'Copied!')}</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-blue-400" />
+                      <Copy className="w-3.5 h-3.5 text-blue-600" />
                       <span>{t('복사', 'Copy')}</span>
                     </>
                   )}
@@ -98,35 +98,35 @@ export const ContactSection: React.FC = () => {
                   <div className="text-[10px] font-mono uppercase text-slate-400">Phone</div>
                   <a
                     href={`tel:${profile.phone || '010-7930-1597'}`}
-                    className="text-sm sm:text-base font-bold text-white hover:text-blue-400 font-mono transition-colors"
+                    className="text-sm sm:text-base font-bold text-slate-900 hover:text-blue-600 font-mono transition-colors"
                   >
                     {profile.phone || '010-7930-1597'}
                   </a>
                 </div>
-                <span className="text-xs text-blue-300 font-semibold font-mono bg-blue-950/80 border border-blue-800/60 px-2.5 py-0.5 rounded">
+                <span className="text-xs text-blue-700 font-semibold font-mono bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded">
                   {t('통화 / 문자 가능', 'Call / SMS')}
                 </span>
               </div>
 
-              <p className="text-xs text-slate-400 pt-1 leading-relaxed">
+              <p className="text-xs text-slate-500 pt-1 leading-relaxed">
                 {t('평일 업무 시간 및 주말에도 확인 후 신속하게 회신드립니다.', 'Responds promptly upon receiving inquiries.')}
               </p>
             </div>
 
             {/* Resume & Documents Card */}
-            <div className="bg-slate-900/90 rounded-2xl border border-slate-800 p-6 shadow-xl space-y-4 hover:border-slate-700 transition-all backdrop-blur-md">
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-md space-y-4 hover:border-slate-300 transition-all">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
+                <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-semibold">
                   {t('이력서 & 상세 프로필', 'Documents & Profile')}
                 </span>
-                <span className="text-xs font-mono text-slate-400">Korean / English</span>
+                <span className="text-xs font-mono text-slate-500">Korean / English</span>
               </div>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <button
                   id="contact-resume-btn"
                   onClick={openResume}
-                  className="flex-1 inline-flex items-center justify-center gap-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 py-2.5 px-4 rounded-xl transition-all shadow-md shadow-blue-600/25"
+                  className="flex-1 inline-flex items-center justify-center gap-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 py-2.5 px-4 rounded-xl transition-all shadow-md shadow-blue-600/25"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>{t('상세 이력서 열기', 'Open Interactive Resume')}</span>
@@ -137,10 +137,10 @@ export const ContactSection: React.FC = () => {
                     openResume();
                     setTimeout(() => window.print(), 350);
                   }}
-                  className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-950 hover:bg-slate-800 py-2.5 px-4 rounded-xl border border-slate-800 transition-all"
+                  className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 py-2.5 px-4 rounded-xl border border-slate-200 transition-all"
                 >
                   <span>{t('인쇄 / PDF 저장', 'Print / PDF')}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
                 </button>
               </div>
             </div>
@@ -151,18 +151,18 @@ export const ContactSection: React.FC = () => {
           <FadeIn delay={0.2} className="lg:col-span-6">
             <form
               onSubmit={handleSend}
-              className="bg-slate-900/90 rounded-2xl border border-slate-800 p-6 sm:p-7 shadow-xl space-y-4 backdrop-blur-md"
+              className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-md space-y-4"
             >
-              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                <h3 className="text-sm font-bold text-white">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                <h3 className="text-sm font-bold text-slate-900">
                   {t('빠른 메시지 전달', 'Quick Inquiry')}
                 </h3>
                 <span className="text-[11px] font-mono text-slate-400">Direct Form</span>
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-mono uppercase text-slate-400">
-                  {t('성함 / 소속', 'Name / Company')} <span className="text-rose-400">*</span>
+                <label className="text-xs font-mono uppercase text-slate-500 font-semibold">
+                  {t('성함 / 소속', 'Name / Company')} <span className="text-rose-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -170,12 +170,12 @@ export const ContactSection: React.FC = () => {
                   placeholder={t('예: 홍길동 (스타트업 대표 / 채용 담당자)', 'e.g. Alex Kim (Product Manager / Hiring Team)')}
                   value={senderName}
                   onChange={e => setSenderName(e.target.value)}
-                  className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white focus:outline-hidden focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-slate-600"
+                  className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 focus:outline-hidden focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-slate-400"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-mono uppercase text-slate-400">
+                <label className="text-xs font-mono uppercase text-slate-500 font-semibold">
                   {t('보내시는 분 이메일', 'Your Email')}
                 </label>
                 <input
@@ -183,13 +183,13 @@ export const ContactSection: React.FC = () => {
                   placeholder="name@example.com"
                   value={senderEmail}
                   onChange={e => setSenderEmail(e.target.value)}
-                  className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white focus:outline-hidden focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-slate-600"
+                  className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 focus:outline-hidden focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-slate-400"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-mono uppercase text-slate-400">
-                  {t('메시지 내용', 'Message')} <span className="text-rose-400">*</span>
+                <label className="text-xs font-mono uppercase text-slate-500 font-semibold">
+                  {t('메시지 내용', 'Message')} <span className="text-rose-500">*</span>
                 </label>
                 <textarea
                   required
@@ -200,20 +200,20 @@ export const ContactSection: React.FC = () => {
                   )}
                   value={message}
                   onChange={e => setMessage(e.target.value)}
-                  className="w-full text-xs sm:text-sm p-3.5 rounded-lg border border-slate-800 bg-slate-950 text-white focus:outline-hidden focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-slate-600 resize-none"
+                  className="w-full text-xs sm:text-sm p-3.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 focus:outline-hidden focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-slate-400 resize-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 py-3 rounded-xl transition-all shadow-md shadow-blue-600/25"
+                className="w-full inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 py-3 rounded-xl transition-all shadow-md shadow-blue-600/25"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>{t('메시지 보내기 (기본 이메일 앱 연동)', 'Send Inquiry (Launches Mail App)')}</span>
               </button>
 
               {formSent && (
-                <div className="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-800/80 text-xs text-emerald-300 text-center font-mono">
+                <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 text-center font-mono">
                   {t('이메일 클라이언트가 열렸습니다. 전송 버튼을 눌러주세요!', 'Mail client opened. Please click send!')}
                 </div>
               )}
@@ -223,7 +223,7 @@ export const ContactSection: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <FadeIn delay={0.25} className="pt-16 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <FadeIn delay={0.25} className="pt-16 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
             © {new Date().getFullYear()} {profile.name}. All rights reserved.
           </div>

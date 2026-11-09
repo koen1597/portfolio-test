@@ -768,5 +768,51 @@ export const portfolioDataKo: PortfolioData = {
       subtitle: "Data & Growth",
       description: "핵심 지표(AARRR, 퍼널 전환율) 분석을 통해 온보딩 이탈을 줄이고, 서비스의 지속 가능한 성장을 위한 지표 기반 기획을 반복합니다."
     }
+  ],
+  heroBanners: [
+    {
+      id: "banner-1",
+      badge: "FEATURED CASE STUDY",
+      title: "티넥트 (T-NECT) — 기획 & 매칭 플랫폼",
+      subtitle: "대회 운영 전주기 구조화 및 관리자 백오피스 설계",
+      description: "참가자 등록부터 심사위원 평가, 상금 정산 및 대시보드 통계까지 대회 운영의 병목을 해소한 E2E 기획",
+      imageUrl: "firestore://media/thumb_proj-1",
+      tags: ["서비스 기획", "화면 설계서", "백오피스 IA", "실무 트러블슈팅"],
+      projectId: "proj-1",
+      ctaText: "케이스 스터디 상세 보기"
+    },
+    {
+      id: "banner-2",
+      badge: "GLOBAL PLATFORM",
+      title: "탑탑 (TOPTOP) — 숏폼 오디션 & 글로벌 투표",
+      subtitle: "대규모 동시접속 트래픽 대응 및 부정 투표 어뷰징 방지 설계",
+      description: "동영상 업로드 인코딩 파이프라인과 이상 투표 실시간 모니터링 시스템을 구축한 글로벌 플랫폼",
+      imageUrl: "firestore://media/thumb_proj-2",
+      tags: ["대규모 트래픽 UX", "어뷰징 방지 로직", "글로벌 투표 시스템"],
+      projectId: "proj-2",
+      ctaText: "케이스 스터디 상세 보기"
+    },
+    {
+      id: "banner-3",
+      badge: "AI PRODUCT",
+      title: "HYPERCOMIC & PrompTale — AI 웹툰 창작 도구",
+      subtitle: "프롬프트 기반 스토리보드 생성 및 크리에이터 에디터 기획",
+      description: "복잡한 생성형 AI 파라미터를 일반 창작자가 직관적으로 다룰 수 있도록 단순화한 사용자 경험 설계",
+      imageUrl: "firestore://media/thumb_proj-3",
+      tags: ["생성형 AI 기획", "크리에이터 에디터", "프롬프트 UX"],
+      projectId: "proj-3",
+      ctaText: "케이스 스터디 상세 보기"
+    },
+    {
+      id: "banner-4",
+      badge: "METAVERSE & ECONOMY",
+      title: "nfTTcity & Metaverse2 — 가상 부동산 경제 시스템",
+      subtitle: "가상 자산 거래소 및 토지 소유권 인터랙션 설계",
+      description: "지도 기반 부동산 타일 매매와 자산 소유권 검증 및 거래 수수료 정산 알고리즘을 체계화한 기획",
+      imageUrl: "firestore://media/thumb_proj-4",
+      tags: ["경제 시스템 설계", "타일 매매 UX", "수수료 알고리즘"],
+      projectId: "proj-4",
+      ctaText: "케이스 스터디 상세 보기"
+    }
   ]
 };

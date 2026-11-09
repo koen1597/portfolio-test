@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { ProjectCaseStudy, ProfileData, WorkArtifact, ProjectRetrospective, ProjectExternalLink } from '../types';
-import { Lock, KeyRound, Save, RotateCcw, X, Plus, Trash2, Check, Edit3, ShieldAlert, LogOut, FileText, AlertTriangle, Layers, ExternalLink, Link2, Image as ImageIcon, Globe, UploadCloud, RefreshCw, Upload } from 'lucide-react';
-import { compressImage, compressFile } from '../lib/imageCompressor';
+import { ProjectCaseStudy, ProfileData, WorkArtifact, ProjectRetrospective, ProjectExternalLink, HeroBannerItem } from '../types';
+import { Lock, KeyRound, Save, RotateCcw, X, Plus, Trash2, Check, Edit3, ShieldAlert, LogOut, FileText, AlertTriangle, Layers, ExternalLink, Link2, Image as ImageIcon, Globe, UploadCloud, RefreshCw, Upload, Sparkles } from 'lucide-react';
+import { uploadImageFile } from '../lib/storage';
 
 export const AdminModal: React.FC = () => {
   const {
@@ -14,6 +14,7 @@ export const AdminModal: React.FC = () => {
     saveProject,
     addNewProject,
     removeProject,
+    saveHeroBanners,
     isSyncing,
     lastSyncedAt,
     isAdminAuthenticated,
@@ -26,7 +27,7 @@ export const AdminModal: React.FC = () => {
 
   const [inputPassword, setInputPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [activeTab, setActiveTab] = useState<'profile' | 'projects' | 'security'>('profile');
+  const [activeTab, setActiveTab] = useState<'profile' | 'projects' | 'banners' | 'security'>('profile');
   
   // Password change state
   const [newPassword, setNewPassword] = useState('');
@@ -40,6 +41,15 @@ export const AdminModal: React.FC = () => {
   const [isEditingProject, setIsEditingProject] = useState<boolean>(true);
   const currentProject = data.projects.find(p => p.id === selectedProjectId) || data.projects[0];
   const [editingProjectData, setEditingProjectData] = useState<ProjectCaseStudy | null>(currentProject || null);
+
+  // Editable Banners state
+  const [editableBanners, setEditableBanners] = useState<HeroBannerItem[]>(data.heroBanners || []);
+
+  useEffect(() => {
+    if (data.heroBanners) {
+      setEditableBanners(data.heroBanners);
+    }
+  }, [data.heroBanners]);
 
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
@@ -105,10 +115,7 @@ export const AdminModal: React.FC = () => {
 
   const handleSaveProfile = async () => {
     try {
-      let finalProfile = { ...editableProfile };
-      if (finalProfile.photoUrl && finalProfile.photoUrl.startsWith('data:image')) {
-        finalProfile.photoUrl = await compressImage(finalProfile.photoUrl, 400, 0.7);
-      }
+      const finalProfile = { ...editableProfile };
       const success = await saveProfile(finalProfile);
       if (success) {
         showToast('저장 완료! Netlify 라이브 사이트 및 방문자 화면에 실시간 반영되었습니다.');
@@ -124,26 +131,11 @@ export const AdminModal: React.FC = () => {
   const handleSaveProject = async () => {
     if (editingProjectData) {
       try {
-        let finalProj = { ...editingProjectData };
-        if (finalProj.thumbnailUrl && finalProj.thumbnailUrl.startsWith('data:image')) {
-          finalProj.thumbnailUrl = await compressImage(finalProj.thumbnailUrl, 720, 0.68);
-        }
-        if (finalProj.artifacts && finalProj.artifacts.length > 0) {
-          finalProj.artifacts = await Promise.all(
-            finalProj.artifacts.map(async (art) => {
-              if (art.imageUrl && art.imageUrl.startsWith('data:image')) {
-                const compressed = await compressImage(art.imageUrl, 720, 0.68);
-                return { ...art, imageUrl: compressed };
-              }
-              return art;
-            })
-          );
-        }
-        const success = await saveProject(finalProj);
+        const success = await saveProject(editingProjectData);
         if (success) {
-          showToast(`'${finalProj.title}' 저장 완료! Netlify 라이브 사이트에 즉시 실시간 반영되었습니다.`);
+          showToast(`'${editingProjectData.title}' 저장 완료! Netlify 라이브 사이트에 즉시 실시간 반영되었습니다.`);
         } else {
-          showToast('저장 중 Firestore 문서 용량 한도 또는 네트워크 지연이 발생했습니다. 이미지는 자동 최적화되어 로컬에 저장되었습니다.', 'error');
+          showToast('저장 중 네트워크 지연이 발생했습니다. 다시 시도해주세요.', 'error');
         }
       } catch (err: any) {
         console.error('handleSaveProject error:', err);
@@ -379,6 +371,16 @@ export const AdminModal: React.FC = () => {
                 프로젝트 관리 ({data.projects.length}개)
               </button>
               <button
+                onClick={() => setActiveTab('banners')}
+                className={`py-3 border-b-2 transition-colors whitespace-nowrap ${
+                  activeTab === 'banners'
+                    ? 'border-zinc-950 text-zinc-950 font-semibold'
+                    : 'border-transparent text-zinc-500 hover:text-zinc-800'
+                }`}
+              >
+                배너 캐러셀 ({editableBanners.length}개)
+              </button>
+              <button
                 onClick={() => setActiveTab('security')}
                 className={`py-3 border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === 'security'
@@ -417,7 +419,7 @@ export const AdminModal: React.FC = () => {
 
                   {/* Photo & Upload Field */}
                   <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50/50 flex flex-col sm:flex-row items-center gap-5">
-                    <div className="w-20 h-20 rounded-xl overflow-hidden bg-slate-900 border border-zinc-300 flex items-center justify-center shrink-0 relative shadow-inner">
+                    <div className="w-20 h-20 rounded-xl overflow-hidden bg-slate-100 border border-zinc-300 flex items-center justify-center shrink-0 relative shadow-inner">
                       {editableProfile.photoUrl ? (
                         <img
                           src={editableProfile.photoUrl}
@@ -425,9 +427,9 @@ export const AdminModal: React.FC = () => {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-blue-700 via-indigo-800 to-slate-900 text-white flex flex-col items-center justify-center font-bold tracking-wider select-none">
+                        <div className="w-full h-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex flex-col items-center justify-center font-bold tracking-wider select-none">
                           <span className="text-xl font-mono">KN</span>
-                          <span className="text-[9px] text-blue-200/80 font-normal">등록 대기</span>
+                          <span className="text-[9px] text-blue-100 font-normal">등록 대기</span>
                         </div>
                       )}
                     </div>
@@ -446,18 +448,16 @@ export const AdminModal: React.FC = () => {
                                 const file = e.target.files?.[0];
                                 if (file) {
                                   try {
-                                    showToast('이미지 최적화 중입니다...');
-                                    const compressed = await compressFile(file, 480, 0.65);
-                                    setEditableProfile({
-                                      ...editableProfile,
-                                      photoUrl: compressed
-                                    });
-                                    try {
-                                      localStorage.setItem('koen_portfolio_custom_photo', compressed);
-                                    } catch {}
-                                    showToast('사진이 첨부되었습니다! 상단 [저장 및 라이브 배포]를 눌러주세요.');
-                                  } catch (err) {
-                                    console.error('File compression failed', err);
+                                    showToast('Firebase Storage에 원본 고화질 업로드 중...');
+                                    const downloadURL = await uploadImageFile(file, 'profile');
+                                    setEditableProfile(prev => ({
+                                      ...prev,
+                                      photoUrl: downloadURL
+                                    }));
+                                    showToast('고화질 사진 첨부 완료! 상단 [저장 및 라이브 배포]를 눌러주세요.');
+                                  } catch (err: any) {
+                                    console.error('File upload failed', err);
+                                    showToast(`업로드 실패: ${err?.message || ''}`, 'error');
                                   }
                                 }
                               }}
@@ -758,15 +758,16 @@ export const AdminModal: React.FC = () => {
                                       const file = e.target.files?.[0];
                                       if (file) {
                                         try {
-                                          showToast('이미지 최적화 중입니다...');
-                                          const compressed = await compressFile(file, 640, 0.65);
-                                          setEditingProjectData({
-                                            ...editingProjectData,
-                                            thumbnailUrl: compressed
-                                          });
-                                          showToast('이미지 파일이 첨부되었습니다! 하단 [저장 및 라이브 배포] 버튼을 누르면 즉시 반영됩니다.');
-                                        } catch (err) {
-                                          console.error('File compression failed', err);
+                                          showToast('Firebase Storage에 원본 고화질 썸네일 업로드 중...');
+                                          const downloadURL = await uploadImageFile(file, `projects/${editingProjectData.id}`);
+                                          setEditingProjectData(prev => prev ? ({
+                                            ...prev,
+                                            thumbnailUrl: downloadURL
+                                          }) : null);
+                                          showToast('고화질 썸네일 업로드 완료! 하단 [저장 및 라이브 배포] 버튼을 눌러주세요.');
+                                        } catch (err: any) {
+                                          console.error('File upload failed', err);
+                                          showToast(`업로드 실패: ${err?.message || ''}`, 'error');
                                         }
                                       }
                                     }}
@@ -1006,14 +1007,15 @@ export const AdminModal: React.FC = () => {
                                           const file = e.target.files?.[0];
                                           if (file) {
                                             try {
-                                              showToast('산출물 이미지 최적화 중입니다...');
-                                              const compressed = await compressFile(file, 640, 0.65);
+                                              showToast('Firebase Storage에 원본 고화질 산출물 업로드 중...');
+                                              const downloadURL = await uploadImageFile(file, `projects/${editingProjectData.id}/artifacts`);
                                               const updated = [...(editingProjectData.artifacts || [])];
-                                              updated[aIdx] = { ...updated[aIdx], imageUrl: compressed };
-                                              setEditingProjectData({ ...editingProjectData, artifacts: updated });
-                                              showToast('산출물 이미지가 첨부되었습니다! 하단 [저장 및 라이브 배포] 버튼을 누르면 즉시 반영됩니다.');
-                                            } catch (err) {
-                                              console.error('File compression failed', err);
+                                              updated[aIdx] = { ...updated[aIdx], imageUrl: downloadURL };
+                                              setEditingProjectData(prev => prev ? ({ ...prev, artifacts: updated }) : null);
+                                              showToast('고화질 산출물 업로드 완료! 하단 [저장 및 라이브 배포] 버튼을 눌러주세요.');
+                                            } catch (err: any) {
+                                              console.error('File upload failed', err);
+                                              showToast(`업로드 실패: ${err?.message || ''}`, 'error');
                                             }
                                           }
                                         }}
@@ -1222,6 +1224,276 @@ export const AdminModal: React.FC = () => {
 
                     </div>
                   )}
+                </div>
+              )}
+
+              {/* TAB: Hero Banner Carousel Management */}
+              {activeTab === 'banners' && (
+                <div className="space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-200">
+                    <div>
+                      <h3 className="text-sm font-semibold text-zinc-900 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-blue-600" />
+                        <span>히어로 배너 캐러셀 슬라이드 관리</span>
+                      </h3>
+                      <p className="text-xs text-zinc-500 mt-0.5">
+                        홈 첫 화면 프로젝트 상단에 노출되는 대형 배너입니다. 원본 고화질 이미지를 Firebase Storage에 업로드하여 무손실로 제공합니다.
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newBanner: HeroBannerItem = {
+                            id: `banner-${Date.now()}`,
+                            badge: 'NEW CASE STUDY',
+                            title: '새 프로젝트 배너 제목',
+                            subtitle: '프로젝트 핵심 슬로건 및 개요',
+                            description: '이 프로젝트에서 해결한 문제와 기획적 성과를 서술해주세요.',
+                            imageUrl: '',
+                            tags: ['서비스 기획', 'UI/UX'],
+                            ctaText: '케이스 스터디 상세 보기'
+                          };
+                          setEditableBanners(prev => [...prev, newBanner]);
+                        }}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-colors"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>새 슬라이드 추가</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          try {
+                            await saveHeroBanners(editableBanners);
+                            showToast('배너 캐러셀이 저장되었습니다! 실시간 배포 완료.');
+                          } catch (err: any) {
+                            console.error('saveHeroBanners error in AdminModal:', err);
+                            showToast(`배너 저장 실패: ${err?.message || '알 수 없는 오류'}`, 'error');
+                          }
+                        }}
+                        className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-xs transition-colors"
+                      >
+                        <Save className="w-3.5 h-3.5" />
+                        <span>배너 저장 및 배포</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Banners List */}
+                  <div className="space-y-6">
+                    {editableBanners.map((banner, bIdx) => (
+                      <div
+                        key={banner.id || bIdx}
+                        className="bg-white rounded-xl border border-zinc-200 p-5 sm:p-6 space-y-4 shadow-xs"
+                      >
+                        <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-mono font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200">
+                              SLIDE {String(bIdx + 1).padStart(2, '0')}
+                            </span>
+                            <span className="text-xs font-semibold text-zinc-900 truncate max-w-xs sm:max-w-md">
+                              {banner.title || '새 배너'}
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (confirm('이 배너 슬라이드를 삭제하시겠습니까?')) {
+                                setEditableBanners(prev => prev.filter((_, i) => i !== bIdx));
+                              }
+                            }}
+                            className="text-xs text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-colors"
+                            title="슬라이드 삭제"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+
+                        {/* Image Uploader & Preview */}
+                        <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-start">
+                          <div className="sm:col-span-4 space-y-2">
+                            <span className="text-xs font-mono text-zinc-500 block uppercase">
+                              배너 이미지 미리보기
+                            </span>
+                            <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-zinc-950 border border-zinc-200 shadow-inner flex items-center justify-center">
+                              {banner.imageUrl ? (
+                                <img
+                                  src={banner.imageUrl}
+                                  alt={banner.title}
+                                  className="w-full h-full object-cover object-top"
+                                />
+                              ) : (
+                                <div className="text-zinc-400 text-xs flex flex-col items-center">
+                                  <ImageIcon className="w-6 h-6 mb-1 opacity-50" />
+                                  <span>이미지 없음</span>
+                                </div>
+                              )}
+                            </div>
+                            <label className="cursor-pointer w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors">
+                              <Upload className="w-3.5 h-3.5" />
+                              <span>내 PC에서 고화질 사진 업로드</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    try {
+                                      showToast('Firebase Storage에 원본 고화질 배너 업로드 중...');
+                                      const downloadURL = await uploadImageFile(file, 'banners');
+                                      const updated = [...editableBanners];
+                                      updated[bIdx] = { ...updated[bIdx], imageUrl: downloadURL };
+                                      setEditableBanners(updated);
+                                      showToast('고화질 배너 이미지 업로드 완료! 상단 [배너 저장 및 배포]를 눌러주세요.');
+                                    } catch (err: any) {
+                                      console.error('Banner upload failed:', err);
+                                      showToast(`업로드 실패: ${err?.message || ''}`, 'error');
+                                    }
+                                  }
+                                }}
+                              />
+                            </label>
+                          </div>
+
+                          <div className="sm:col-span-8 space-y-3 text-xs">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              <div className="space-y-1">
+                                <label className="font-mono text-zinc-500 uppercase">상단 뱃지 텍스트</label>
+                                <input
+                                  type="text"
+                                  value={banner.badge || ''}
+                                  onChange={e => {
+                                    const updated = [...editableBanners];
+                                    updated[bIdx] = { ...updated[bIdx], badge: e.target.value };
+                                    setEditableBanners(updated);
+                                  }}
+                                  placeholder="예: FEATURED CASE STUDY"
+                                  className="w-full px-2.5 py-1.5 rounded border border-zinc-300 bg-white"
+                                />
+                              </div>
+                              <div className="space-y-1">
+                                <label className="font-mono text-zinc-500 uppercase">연결할 프로젝트 (팝업 열기)</label>
+                                <select
+                                  value={banner.projectId || ''}
+                                  onChange={e => {
+                                    const updated = [...editableBanners];
+                                    updated[bIdx] = { ...updated[bIdx], projectId: e.target.value };
+                                    setEditableBanners(updated);
+                                  }}
+                                  className="w-full px-2.5 py-1.5 rounded border border-zinc-300 bg-white"
+                                >
+                                  <option value="">연결 안 함 (텍스트만 표시)</option>
+                                  {data.projects.map(p => (
+                                    <option key={p.id} value={p.id}>
+                                      {p.number}. {p.title}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+
+                            <div className="space-y-1">
+                              <label className="font-mono text-zinc-500 uppercase">메인 타이틀</label>
+                              <input
+                                type="text"
+                                value={banner.title}
+                                onChange={e => {
+                                  const updated = [...editableBanners];
+                                  updated[bIdx] = { ...updated[bIdx], title: e.target.value };
+                                  setEditableBanners(updated);
+                                }}
+                                className="w-full px-2.5 py-1.5 rounded border border-zinc-300 bg-white font-medium"
+                              />
+                            </div>
+
+                            <div className="space-y-1">
+                              <label className="font-mono text-zinc-500 uppercase">서브 타이틀</label>
+                              <input
+                                type="text"
+                                value={banner.subtitle}
+                                onChange={e => {
+                                  const updated = [...editableBanners];
+                                  updated[bIdx] = { ...updated[bIdx], subtitle: e.target.value };
+                                  setEditableBanners(updated);
+                                }}
+                                className="w-full px-2.5 py-1.5 rounded border border-zinc-300 bg-white"
+                              />
+                            </div>
+
+                            <div className="space-y-1">
+                              <label className="font-mono text-zinc-500 uppercase">상세 설명</label>
+                              <textarea
+                                rows={2}
+                                value={banner.description}
+                                onChange={e => {
+                                  const updated = [...editableBanners];
+                                  updated[bIdx] = { ...updated[bIdx], description: e.target.value };
+                                  setEditableBanners(updated);
+                                }}
+                                className="w-full px-2.5 py-1.5 rounded border border-zinc-300 bg-white leading-relaxed"
+                              />
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              <div className="space-y-1">
+                                <label className="font-mono text-zinc-500 uppercase">태그 (쉼표로 구분)</label>
+                                <input
+                                  type="text"
+                                  value={(banner.tags || []).join(', ')}
+                                  onChange={e => {
+                                    const updated = [...editableBanners];
+                                    updated[bIdx] = {
+                                      ...updated[bIdx],
+                                      tags: e.target.value.split(',').map(s => s.trim()).filter(Boolean)
+                                    };
+                                    setEditableBanners(updated);
+                                  }}
+                                  placeholder="서비스 기획, 화면 설계서, 백오피스 IA"
+                                  className="w-full px-2.5 py-1.5 rounded border border-zinc-300 bg-white"
+                                />
+                              </div>
+                              <div className="space-y-1">
+                                <label className="font-mono text-zinc-500 uppercase">버튼 텍스트</label>
+                                <input
+                                  type="text"
+                                  value={banner.ctaText || ''}
+                                  onChange={e => {
+                                    const updated = [...editableBanners];
+                                    updated[bIdx] = { ...updated[bIdx], ctaText: e.target.value };
+                                    setEditableBanners(updated);
+                                  }}
+                                  placeholder="케이스 스터디 상세 보기"
+                                  className="w-full px-2.5 py-1.5 rounded border border-zinc-300 bg-white"
+                                />
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex justify-end pt-2">
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        try {
+                          await saveHeroBanners(editableBanners);
+                          showToast('배너 캐러셀이 저장되었습니다! 실시간 배포 완료.');
+                        } catch (err: any) {
+                          console.error('saveHeroBanners error in AdminModal:', err);
+                          showToast(`배너 저장 실패: ${err?.message || '알 수 없는 오류'}`, 'error');
+                        }
+                      }}
+                      className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-md transition-colors"
+                    >
+                      <Save className="w-3.5 h-3.5" />
+                      <span>배너 캐러셀 전체 저장 및 라이브 배포</span>
+                    </button>
+                  </div>
                 </div>
               )}
 

@@ -155,6 +155,19 @@ export interface HowIWorkStep {
   description: string;
 }
 
+export interface HeroBannerItem {
+  id: string;
+  badge?: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  imageUrl: string;
+  tags?: string[];
+  projectId?: string;
+  externalUrl?: string;
+  ctaText?: string;
+}
+
 export interface PortfolioData {
   profile: ProfileData;
   competencies: CompetencyItem[];
@@ -162,6 +175,7 @@ export interface PortfolioData {
   experiences: ExperienceItem[];
   projects: ProjectCaseStudy[];
   howIWork: HowIWorkStep[];
+  heroBanners?: HeroBannerItem[];
 }
 
 export type Language = 'ko' | 'en';

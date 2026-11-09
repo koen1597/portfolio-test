@@ -96,7 +96,7 @@ export const ProjectDetailModal: React.FC = () => {
           {/* Main Title Hero within Modal */}
           <div className="space-y-4 pb-8 border-b border-zinc-200">
             {/* Visual Cover Header Slot */}
-            <div className="w-full h-48 sm:h-64 rounded-xl overflow-hidden bg-slate-950 border border-zinc-200/90 shadow-xs relative flex items-center justify-center">
+            <div className="w-full h-48 sm:h-64 rounded-xl overflow-hidden bg-slate-100 border border-zinc-200 shadow-xs relative flex items-center justify-center">
               {project.thumbnailUrl ? (
                 <img
                   src={project.thumbnailUrl}
@@ -104,14 +104,14 @@ export const ProjectDetailModal: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950/40 flex flex-col items-center justify-center p-6 text-center border-dashed border border-slate-800 text-white">
-                  <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center mb-2 shadow-inner">
-                    <Layers className="w-6 h-6 text-blue-400" />
+                <div className="w-full h-full bg-gradient-to-br from-slate-100 via-blue-50/40 to-slate-200/50 flex flex-col items-center justify-center p-6 text-center border-dashed border border-slate-300 text-slate-800">
+                  <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center mb-2 shadow-xs">
+                    <Layers className="w-6 h-6 text-blue-600" />
                   </div>
-                  <span className="text-sm font-semibold tracking-tight text-slate-200">
+                  <span className="text-sm font-semibold tracking-tight text-slate-800">
                     {project.title}
                   </span>
-                  <span className="text-xs font-mono text-slate-400 mt-1">
+                  <span className="text-xs font-mono text-slate-500 mt-1">
                     {t('프로젝트 대표 산출물 이미지 영역', 'Project Cover Image Slot')}
                   </span>
                 </div>
