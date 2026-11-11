@@ -12,13 +12,14 @@ export const portfolioDataKo: PortfolioData = {
     location: "서울 관악구 봉천동 (Seoul / Tokyo)",
     mbti: "ENTJ-A",
     visaStatus: "F-2 (거주 비자) · 국내 취업 활동 제한 없음 (기업 비자 스폰서십 불필요)",
-    photoUrl: "firestore://media/profile_photo",
     coreBadges: [
       "서비스 기획 (Service Planning)",
-      "UI/UX 기획 & 화면설계",
+      "UI/UX 기획 & 화면설계 (PRD/SB)",
       "어드민 / 백오피스 기획",
-      "퍼블리싱 프로토타입 (HTML/CSS)",
-      "서비스 운영 & VOC 관리",
+      "AI 서비스 & 기능 정의",
+      "결제 및 정산 시스템 설계",
+      "데이터 흐름 & 거버넌스 관리",
+      "데이터 지표 분석 (GA / VOC)",
       "글로벌 비즈니스 (KR / JA / EN)"
     ],
     aboutIntro: "일본 출생 및 다문화권에서 성장하며 유연한 환경 적응력을 길렀습니다. Google YouTube, iHerb 등 글로벌 기업에서의 고객 지원 및 운영 경험을 토대로, 비즈니스 실행력을 갖춘 서비스 기획 및 UI/UX 설계에 역량을 집중하고 있습니다.",

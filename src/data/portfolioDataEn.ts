@@ -12,14 +12,15 @@ export const portfolioDataEn: PortfolioData = {
     location: "Seoul (Seoul · Tokyo Bilingual)",
     mbti: "ENTJ-A",
     visaStatus: "F-2 Resident Visa · Fully eligible to work in Korea (No sponsorship required)",
-    photoUrl: "firestore://media/profile_photo",
     coreBadges: [
       "Service Planning (PRD & IA)",
-      "UI/UX Planning & Wireframes",
+      "UI/UX Planning & Storyboard",
       "Admin & Backoffice Design",
-      "HTML/CSS Prototyping",
-      "VOC & Service Operations",
-      "Trilingual (KR / JA / EN)"
+      "AI Product & Feature Specs",
+      "Payment & Settlement Systems",
+      "Data Governance & Flow Design",
+      "Product Analytics (GA / VOC)",
+      "Global Business (KR / JA / EN)"
     ],
     aboutIntro: "Born in Japan and raised in multicultural environments, I cultivate cross-border perspectives. Having led CX, marketing, and operations at global firms like Google YouTube and iHerb, I channel this cross-functional foundation into executable Service Planning & UI/UX design.",
     aboutPhilosophy: "Great planning goes beyond visual screens. When business models, operational backoffice workflows, and engineering constraints (HTML/CSS markup and API communications) are defined early, digital services run resiliently. I champion tech-savvy planning that bridges gaps directly.",

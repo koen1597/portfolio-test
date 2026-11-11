@@ -259,7 +259,10 @@ const cleanPortfolioData = (data: PortfolioData, isKo: boolean): PortfolioData =
       experienceYears: expYears,
       heroSubquote: heroSub,
       photoUrl: resolvedPhoto,
-      languages: cleanPortfolioLanguages(data.profile.languages, isKo)
+      languages: cleanPortfolioLanguages(data.profile.languages, isKo),
+      coreBadges: (Array.isArray(data.profile.coreBadges) && data.profile.coreBadges.length > 0 && !data.profile.coreBadges.includes("퍼블리싱 프로토타입 (HTML/CSS)"))
+        ? data.profile.coreBadges
+        : fallback.profile.coreBadges
     },
     experiences: allCleanedExperiences,
     projects: allCleanedProjects,

@@ -79,10 +79,14 @@ export const Hero: React.FC = () => {
                 {profile.coreBadges.map((badge, idx) => {
                   const isPrimary =
                     badge.includes('서비스 기획') ||
-                    badge.includes('UI/UX 기획') ||
                     badge.includes('UI/UX') ||
+                    badge.includes('어드민') ||
+                    badge.includes('AI 서비스') ||
+                    badge.includes('결제') ||
                     badge.includes('Service Planning') ||
-                    badge.includes('Wireframing');
+                    badge.includes('Admin') ||
+                    badge.includes('AI Product') ||
+                    badge.includes('Payment');
 
                   return (
                     <span
