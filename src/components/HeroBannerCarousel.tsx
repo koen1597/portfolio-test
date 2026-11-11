@@ -127,10 +127,10 @@ export const HeroBannerCarousel: React.FC = () => {
   return (
     <SectionTransition
       id="projects"
-      className="pt-8 pb-14 sm:pt-10 sm:pb-16 relative overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] text-slate-900 border-b border-slate-200/90"
+      className="pt-8 pb-14 sm:pt-10 sm:pb-16 relative overflow-hidden bg-slate-50/70 text-slate-900 border-b border-slate-200/80"
     >
       {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/3 w-[500px] h-[300px] bg-blue-100/60 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/3 w-[500px] h-[300px] bg-blue-50/60 rounded-full blur-[140px] pointer-events-none -z-10" />
 
       <div className="max-w-6xl mx-auto px-6 sm:px-8">
         
@@ -141,7 +141,7 @@ export const HeroBannerCarousel: React.FC = () => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          className="relative bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden backdrop-blur-md"
+          className="relative bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
         >
           {/* Subtle tech grid inside banner */}
           <div 
@@ -160,15 +160,15 @@ export const HeroBannerCarousel: React.FC = () => {
               initial="enter"
               animate="center"
               exit="exit"
-              className="p-6 sm:p-10 lg:p-12 min-h-[360px] sm:min-h-[400px] flex flex-col justify-between"
+              className="p-4 sm:p-8 lg:p-12 min-h-[340px] sm:min-h-[400px] flex flex-col justify-between"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
                 
                 {/* Left: Text & Key Takeaway */}
-                <div className="lg:col-span-7 space-y-4">
+                <div className="lg:col-span-7 space-y-3.5 sm:space-y-4">
                   {/* Badge & Category */}
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200 shadow-2xs">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono font-semibold text-slate-800 bg-slate-100 px-2.5 sm:px-3 py-1 rounded-full border border-slate-200/90 shadow-2xs">
                       <Sparkles className="w-3.5 h-3.5 text-blue-600" />
                       <span>{activeBanner.badge || 'FEATURED CASE STUDY'}</span>
                     </span>
@@ -179,12 +179,12 @@ export const HeroBannerCarousel: React.FC = () => {
                   </div>
 
                   {/* Title & Subtitle */}
-                  <div className="space-y-1.5">
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-snug">
+                  <div className="space-y-1 sm:space-y-1.5">
+                    <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-snug">
                       {activeBanner.title}
                     </h3>
                     {activeBanner.subtitle?.trim() && (
-                      <p className="text-sm sm:text-base text-blue-600 font-semibold leading-relaxed">
+                      <p className="text-xs sm:text-sm md:text-base text-blue-600 font-semibold leading-relaxed">
                         {activeBanner.subtitle}
                       </p>
                     )}
@@ -192,20 +192,20 @@ export const HeroBannerCarousel: React.FC = () => {
 
                   {/* Description */}
                   {activeBanner.description?.trim() && (
-                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal max-w-2xl">
+                    <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-normal max-w-2xl">
                       {activeBanner.description}
                     </p>
                   )}
 
                   {/* Tags */}
                   {activeBanner.tags && activeBanner.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 pt-1">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-0.5 sm:pt-1">
                       {activeBanner.tags.map((tag, tIdx) => (
                         <span
                           key={tIdx}
-                          className="inline-flex items-center gap-1 text-xs font-mono font-medium text-slate-700 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200"
+                          className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-mono font-medium text-slate-700 bg-slate-100 hover:bg-slate-200/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md border border-slate-200/80 transition-all duration-200 hover:-translate-y-0.5"
                         >
-                          <Layers className="w-3 h-3 text-blue-600" />
+                          <Layers className="w-3 h-3 text-slate-500" />
                           <span>{tag}</span>
                         </span>
                       ))}
@@ -213,11 +213,11 @@ export const HeroBannerCarousel: React.FC = () => {
                   )}
                 </div>
 
-                {/* Right: High-Res Image Preview Card */}
+                {/* Right: High-Res Image Preview Card with Micro-Interactions */}
                 <div className="lg:col-span-5 flex justify-center">
                   <div 
                     onClick={handleCtaClick}
-                    className="group relative w-full max-w-md aspect-video sm:aspect-4/3 rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-xl cursor-pointer ring-1 ring-blue-500/20 hover:ring-blue-500/60 transition-all hover:scale-[1.01]"
+                    className="group relative w-full max-w-md aspect-video sm:aspect-4/3 rounded-xl sm:rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-md cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:border-blue-300 ring-1 ring-slate-200/50 hover:ring-blue-400/50"
                   >
                     {activeBanner.imageUrl ? (
                       <img
@@ -248,7 +248,7 @@ export const HeroBannerCarousel: React.FC = () => {
           </AnimatePresence>
 
           {/* Carousel Footer Bar: Pagination & Controls */}
-          <div className="px-6 sm:px-10 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs">
+          <div className="px-4 sm:px-10 py-3 sm:py-3.5 bg-slate-50 border-t border-slate-200/80 flex items-center justify-between text-xs">
             
             {/* Dots */}
             <div className="flex items-center gap-2">
@@ -256,9 +256,9 @@ export const HeroBannerCarousel: React.FC = () => {
                 <button
                   key={b.id || idx}
                   onClick={() => goToSlide(idx)}
-                  className={`transition-all duration-300 rounded-full h-2 cursor-pointer ${
+                  className={`transition-all duration-300 rounded-full h-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${
                     idx === currentIndex
-                      ? 'w-7 bg-blue-600 shadow-xs shadow-blue-500/40'
+                      ? 'w-7 bg-blue-600 shadow-xs ring-2 ring-blue-100'
                       : 'w-2 bg-slate-300 hover:bg-slate-400'
                   }`}
                   title={`Slide ${idx + 1}`}
@@ -272,7 +272,7 @@ export const HeroBannerCarousel: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsPlaying(prev => !prev)}
-                className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200 transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200 transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
                 title={isPlaying ? 'Pause Auto-play' : 'Play Auto-play'}
                 aria-label={isPlaying ? 'Pause' : 'Play'}
               >
@@ -282,7 +282,7 @@ export const HeroBannerCarousel: React.FC = () => {
               <button
                 type="button"
                 onClick={prevSlide}
-                className="p-1.5 rounded-lg text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 shadow-2xs transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 shadow-2xs transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
                 title="Previous Slide"
                 aria-label="Previous slide"
               >
@@ -292,7 +292,7 @@ export const HeroBannerCarousel: React.FC = () => {
               <button
                 type="button"
                 onClick={nextSlide}
-                className="p-1.5 rounded-lg text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 shadow-2xs transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 shadow-2xs transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
                 title="Next Slide"
                 aria-label="Next slide"
               >

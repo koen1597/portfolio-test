@@ -29,15 +29,15 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <SectionTransition id="contact" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] text-slate-900">
+    <SectionTransition id="contact" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-slate-50/70 text-slate-900 border-t border-slate-200/80">
       {/* Ambient background glows */}
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-blue-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-blue-50/60 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-10 sm:space-y-12">
         
         {/* Header */}
         <FadeIn className="space-y-3">
-          <div className="text-xs font-mono tracking-widest text-blue-600 font-semibold uppercase">
+          <div className="text-xs font-mono tracking-widest text-blue-700 font-semibold uppercase">
             {t('05 / 연락처', '05 / CONTACT')}
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
@@ -51,7 +51,7 @@ export const ContactSection: React.FC = () => {
           <FadeIn delay={0.1} className="lg:col-span-6 space-y-4">
             
             {/* Contact Info Card */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-md space-y-4 hover:border-slate-300 transition-all">
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-semibold">
                   {t('직접 연락처 & 이메일', 'Direct Contacts')}
@@ -114,7 +114,7 @@ export const ContactSection: React.FC = () => {
             </div>
 
             {/* Resume & Documents Card */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-md space-y-4 hover:border-slate-300 transition-all">
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-semibold">
                   {t('이력서 & 상세 프로필', 'Documents & Profile')}
@@ -126,7 +126,7 @@ export const ContactSection: React.FC = () => {
                 <button
                   id="contact-resume-btn"
                   onClick={openResume}
-                  className="flex-1 inline-flex items-center justify-center gap-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 py-2.5 px-4 rounded-xl transition-all shadow-md shadow-blue-600/25"
+                  className="flex-1 inline-flex items-center justify-center gap-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 active:scale-95 py-2.5 px-4 rounded-xl transition-all duration-200 shadow-md shadow-blue-600/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>{t('상세 이력서 열기', 'Open Interactive Resume')}</span>
@@ -137,7 +137,7 @@ export const ContactSection: React.FC = () => {
                     openResume();
                     setTimeout(() => window.print(), 350);
                   }}
-                  className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 py-2.5 px-4 rounded-xl border border-slate-200 transition-all"
+                  className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 active:scale-95 bg-slate-100 hover:bg-slate-200 py-2.5 px-4 rounded-xl border border-slate-200 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
                 >
                   <span>{t('인쇄 / PDF 저장', 'Print / PDF')}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
@@ -151,7 +151,7 @@ export const ContactSection: React.FC = () => {
           <FadeIn delay={0.2} className="lg:col-span-6">
             <form
               onSubmit={handleSend}
-              className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-md space-y-4"
+              className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 space-y-4"
             >
               <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                 <h3 className="text-sm font-bold text-slate-900">

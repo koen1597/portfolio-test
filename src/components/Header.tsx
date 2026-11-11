@@ -26,13 +26,13 @@ export const Header: React.FC = () => {
   return (
     <header
       id="main-header"
-      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-300 py-3.5 sm:py-4 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-300 py-3 sm:py-4 ${
         isScrolled
           ? 'bg-white/95 border-b border-slate-200/90 shadow-xs backdrop-blur-md'
           : 'bg-[#F8FAFC]/85 border-b border-transparent backdrop-blur-xs'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between">
         {/* Brand */}
         <button
           id="header-brand-btn"
@@ -86,7 +86,7 @@ export const Header: React.FC = () => {
           </button>
         </nav>
 
-        {/* Actions: Language Toggle + Resume + CMS */}
+        {/* Actions: Language Toggle + Resume + CMS (Desktop only) */}
         <div className="hidden md:flex items-center gap-3">
           {/* Language Toggle Button (KR / ENG) */}
           <div
@@ -166,46 +166,12 @@ export const Header: React.FC = () => {
           )}
         </div>
 
-        {/* Mobile controls */}
-        <div className="flex md:hidden items-center gap-2">
-          {/* Mobile Language Pill */}
-          <div className="inline-flex items-center p-0.5 bg-slate-100 rounded-md border border-slate-200 text-xs font-mono">
-            <button
-              onClick={() => setLanguage('ko')}
-              className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-colors cursor-pointer ${
-                language === 'ko' ? 'bg-blue-600 text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              KR
-            </button>
-            <button
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-colors cursor-pointer ${
-                language === 'en' ? 'bg-blue-600 text-white shadow-2xs' : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              ENG
-            </button>
-          </div>
-
-          {/* Mobile ADMIN Button */}
-          <button
-            id="mobile-admin-btn"
-            onClick={openAdminModal}
-            className={`px-2 py-1 rounded-md text-xs font-mono font-medium flex items-center gap-1 border transition-colors cursor-pointer ${
-              isAdminAuthenticated
-                ? 'text-amber-800 bg-amber-50 border-amber-200'
-                : 'text-slate-700 bg-white border-slate-200'
-            }`}
-            title="ADMIN"
-          >
-            <Lock className="w-3 h-3 text-slate-500" />
-            <span>ADMIN</span>
-          </button>
+        {/* Lightweight Mobile Header Controls (< md: Hamburger Menu Only) */}
+        <div className="flex md:hidden items-center">
           <button
             id="mobile-menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-1.5 rounded-md text-slate-700 hover:bg-slate-100 border border-slate-200 cursor-pointer"
+            className="p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 cursor-pointer transition-colors"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -215,59 +181,91 @@ export const Header: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3 shadow-lg">
-          <div className="flex flex-col space-y-2 text-sm font-medium text-slate-700">
+        <div className="md:hidden bg-white border-b border-slate-200 px-5 py-4 space-y-4 shadow-lg animate-in slide-in-from-top-2 duration-200">
+          {/* Navigation Links */}
+          <div className="flex flex-col space-y-2.5 text-sm font-medium text-slate-700">
             <button
               onClick={() => scrollTo('projects')}
-              className="text-left py-1.5 hover:text-blue-600"
+              className="text-left py-1.5 hover:text-blue-600 cursor-pointer"
             >
               {t('프로젝트', 'Projects')}
             </button>
             <button
               onClick={() => scrollTo('experience')}
-              className="text-left py-1.5 hover:text-blue-600"
+              className="text-left py-1.5 hover:text-blue-600 cursor-pointer"
             >
               {t('경력', 'Experience')}
             </button>
             <button
               onClick={() => scrollTo('about')}
-              className="text-left py-1.5 hover:text-blue-600"
+              className="text-left py-1.5 hover:text-blue-600 cursor-pointer"
             >
               {t('소개', 'About')}
             </button>
             <button
               onClick={() => scrollTo('how-i-work')}
-              className="text-left py-1.5 hover:text-blue-600"
+              className="text-left py-1.5 hover:text-blue-600 cursor-pointer"
             >
               {t('업무 방식', 'How I Work')}
             </button>
             <button
               onClick={() => scrollTo('contact')}
-              className="text-left py-1.5 hover:text-blue-600"
+              className="text-left py-1.5 hover:text-blue-600 cursor-pointer"
             >
               {t('연락처', 'Contact')}
             </button>
           </div>
-          <div className="pt-3 border-t border-slate-200 flex items-center gap-2">
+
+          {/* Drawer Actions: Language Switcher */}
+          <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span className="text-xs font-mono text-slate-500 font-medium">
+              {t('언어 설정 / Language', 'Language')}
+            </span>
+            <div
+              className="inline-flex items-center p-0.5 bg-slate-100 rounded-lg border border-slate-200 text-xs font-mono"
+              role="group"
+            >
+              <button
+                onClick={() => setLanguage('ko')}
+                className={`px-3 py-1 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
+                  language === 'ko' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                KR
+              </button>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-3 py-1 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
+                  language === 'en' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                ENG
+              </button>
+            </div>
+          </div>
+
+          {/* Drawer Actions: Resume & Admin */}
+          <div className="pt-2 flex items-center gap-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 openResume();
               }}
-              className="flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-semibold py-2 rounded-md bg-slate-50 border border-slate-200 text-slate-800"
+              className="flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-semibold py-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 transition-colors cursor-pointer"
             >
               <FileText className="w-3.5 h-3.5 text-blue-600" />
               <span>{t('이력서 보기', 'View Resume')}</span>
             </button>
+
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 openAdminModal();
               }}
-              className={`flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-mono font-medium py-2 rounded-md border ${
+              className={`flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-mono font-medium py-2.5 rounded-lg border transition-colors cursor-pointer ${
                 isAdminAuthenticated
-                  ? 'bg-amber-50 border-amber-200 text-amber-800'
-                  : 'bg-slate-50 border-slate-200 text-slate-700'
+                  ? 'bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-800'
+                  : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700'
               }`}
             >
               <Lock className="w-3.5 h-3.5" />

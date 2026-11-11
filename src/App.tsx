@@ -12,6 +12,7 @@ import { AboutSection } from './components/AboutSection';
 import { ExperienceSection } from './components/ExperienceSection';
 import { HowIWorkSection } from './components/HowIWorkSection';
 import { ContactSection } from './components/ContactSection';
+import { ScrollSpy } from './components/ScrollSpy';
 import { ProjectDetailModal } from './components/ProjectDetailModal';
 import { AdminModal } from './components/AdminModal';
 import { ResumeModal } from './components/ResumeModal';
@@ -22,6 +23,9 @@ export default function App() {
       <div className="min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-blue-600 selection:text-white font-sans antialiased">
         {/* Navigation Bar */}
         <Header />
+
+        {/* Right Sticky Scroll Spy Indicator */}
+        <ScrollSpy />
 
         {/* Main Content Sections */}
         <main>

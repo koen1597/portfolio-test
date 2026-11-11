@@ -9,9 +9,9 @@ export const AboutSection: React.FC = () => {
   const { profile, competencies } = data;
 
   return (
-    <SectionTransition id="about" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] text-slate-900 border-b border-slate-200/90">
+    <SectionTransition id="about" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-slate-50/70 text-slate-900 border-b border-slate-200/80">
       {/* Ambient background glows */}
-      <div className="absolute top-0 right-10 w-96 h-96 bg-blue-100/60 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-0 right-10 w-96 h-96 bg-blue-50/60 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-10 sm:space-y-12">
         
@@ -28,12 +28,12 @@ export const AboutSection: React.FC = () => {
         {/* Narrative & Background Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Main Story Narrative Card */}
-          <FadeIn direction="right" delay={0.1} className="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-md space-y-4 text-slate-700 leading-relaxed font-normal">
+          <FadeIn direction="right" delay={0.1} className="lg:col-span-7 bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 space-y-4 text-slate-700 leading-relaxed font-normal">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-semibold">
                 {t('기획 철학 & 실무 협업', 'Planning & Collaboration')}
               </span>
-              <span className="text-[11px] font-mono text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200 font-medium">
+              <span className="text-[11px] font-mono text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded border border-slate-200 font-medium">
                 {t('실무형 소통', 'Practical Alignment')}
               </span>
             </div>
@@ -50,7 +50,7 @@ export const AboutSection: React.FC = () => {
 
           {/* Background Card (Korean / Japanese & Trilingual) */}
           <FadeIn direction="left" delay={0.2} className="lg:col-span-5 space-y-4">
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-md space-y-5">
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 space-y-5">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-2">
                   <Globe className="w-4 h-4 text-blue-600" />
@@ -133,7 +133,7 @@ export const AboutSection: React.FC = () => {
         </div>
 
         {/* The Core Storytelling Flow Diagram */}
-        <FadeIn delay={0.15} className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-md space-y-6">
+        <FadeIn delay={0.15} className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
             <div>
               <span className="text-xs font-mono uppercase tracking-widest text-blue-700 font-semibold">
@@ -143,7 +143,7 @@ export const AboutSection: React.FC = () => {
                 {t('"넓게 경험했지만, 중심은 기획이다"', '"Broad Experience, Centered on Planning"')}
               </h3>
             </div>
-            <span className="text-xs font-semibold text-blue-700 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full w-fit">
+            <span className="text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1 rounded-full w-fit">
               {t('서비스 전주기 관점', 'Product Lifecycle Perspective')}
             </span>
           </div>
@@ -239,18 +239,18 @@ export const AboutSection: React.FC = () => {
               return (
                 <StaggerItem
                   key={comp.id}
-                  className={`rounded-2xl border p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ${
+                  className={`rounded-2xl border p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl ${
                     isCore
-                      ? 'bg-white border-blue-400 shadow-lg shadow-blue-500/5 hover:border-blue-500'
+                      ? 'bg-white border-blue-300/80 shadow-sm hover:border-blue-500'
                       : isStrength
-                      ? 'bg-white border-emerald-400 shadow-lg shadow-emerald-500/5 hover:border-emerald-500'
-                      : 'bg-white border-slate-200 shadow-md hover:border-slate-300'
+                      ? 'bg-white border-emerald-300/80 shadow-sm hover:border-emerald-500'
+                      : 'bg-white border-slate-200/90 shadow-sm hover:border-slate-300'
                   }`}
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className={`text-xs font-mono font-bold ${
-                        isCore ? 'text-blue-600' : isStrength ? 'text-emerald-600' : 'text-amber-600'
+                        isCore ? 'text-blue-600' : isStrength ? 'text-emerald-600' : 'text-slate-600'
                       }`}>
                         {comp.number}
                       </span>
@@ -260,7 +260,7 @@ export const AboutSection: React.FC = () => {
                             ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
                             : isStrength
                             ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                            : 'bg-amber-50 text-amber-800 border-amber-200'
+                            : 'bg-slate-100 text-slate-800 border-slate-200'
                         }`}
                       >
                         {comp.badge}
@@ -281,13 +281,7 @@ export const AboutSection: React.FC = () => {
                       {comp.tags.map((tag, tIdx) => (
                         <span
                           key={tIdx}
-                          className={`text-[11px] font-medium px-2.5 py-1 rounded-md border font-mono ${
-                            isCore
-                              ? 'text-blue-700 bg-blue-50 border-blue-200'
-                              : isStrength
-                              ? 'text-emerald-800 bg-emerald-50 border-emerald-200'
-                              : 'text-amber-800 bg-amber-50 border-amber-200'
-                          }`}
+                          className="text-[11px] font-medium px-2.5 py-1 rounded-md border font-mono text-slate-700 bg-slate-100 hover:bg-slate-200/80 border-slate-200/80 transition-all duration-200 hover:-translate-y-0.5"
                         >
                           {tag}
                         </span>

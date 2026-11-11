@@ -8,15 +8,15 @@ export const HowIWorkSection: React.FC = () => {
   const { howIWork } = data;
 
   return (
-    <SectionTransition id="how-i-work" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] text-slate-900 border-b border-slate-200/90">
+    <SectionTransition id="how-i-work" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-white text-slate-900 border-b border-slate-200/80">
       {/* Ambient background glows */}
-      <div className="absolute top-1/2 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 right-10 w-96 h-96 bg-blue-50/50 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-10 sm:space-y-12">
         
         {/* Section Header */}
         <FadeIn className="space-y-3">
-          <div className="text-xs font-mono tracking-widest text-blue-600 font-semibold uppercase">
+          <div className="text-xs font-mono tracking-widest text-blue-700 font-semibold uppercase">
             {t('04 / 업무 방식', '04 / HOW I WORK')}
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight">
@@ -29,7 +29,7 @@ export const HowIWorkSection: React.FC = () => {
           {howIWork.map((step, idx) => (
             <StaggerItem key={step.step} className="h-full">
               <div
-                className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-md hover:border-blue-400 hover:shadow-xl transition-all h-full"
+                className="bg-white rounded-2xl border border-slate-200/90 p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 ease-out h-full"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">

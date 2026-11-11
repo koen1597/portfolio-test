@@ -112,10 +112,10 @@ export const ExperienceSection: React.FC = () => {
 
     return (
       <div
-        className={`relative rounded-2xl transition-all duration-300 overflow-hidden ${
+        className={`relative rounded-2xl transition-all duration-300 ease-out overflow-hidden ${
           isCurrent
-            ? 'p-6 sm:p-8 bg-white border-2 border-blue-500 shadow-xl hover:shadow-2xl'
-            : 'p-6 sm:p-7 bg-white border border-slate-200 shadow-md hover:border-slate-300 hover:shadow-lg'
+            ? 'p-6 sm:p-8 bg-white border-2 border-blue-600 shadow-md hover:-translate-y-1.5 hover:shadow-xl'
+            : 'p-6 sm:p-7 bg-white border border-slate-200/90 shadow-sm hover:border-slate-300 hover:-translate-y-1.5 hover:shadow-xl'
         }`}
       >
         {/* Top Header Row */}
@@ -212,7 +212,7 @@ export const ExperienceSection: React.FC = () => {
           {exp.tags.map((tItem, tIdx) => (
             <span
               key={tIdx}
-              className="text-[11px] font-mono text-slate-600 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200 hover:border-slate-300 transition-colors"
+              className="text-[11px] font-mono text-slate-700 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1 rounded-md border border-slate-200/80 transition-all duration-200 hover:-translate-y-0.5"
             >
               {tItem}
             </span>
@@ -223,9 +223,9 @@ export const ExperienceSection: React.FC = () => {
   };
 
   return (
-    <SectionTransition id="experience" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] text-slate-900 border-b border-slate-200/90">
+    <SectionTransition id="experience" className="pt-12 pb-16 sm:pt-14 sm:pb-20 md:pt-16 md:pb-20 relative overflow-hidden bg-white text-slate-900 border-b border-slate-200/80">
       {/* Ambient background glows */}
-      <div className="absolute top-10 left-10 w-96 h-96 bg-blue-100/60 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-10 left-10 w-96 h-96 bg-blue-50/60 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 sm:px-8 space-y-10 sm:space-y-12">
         
